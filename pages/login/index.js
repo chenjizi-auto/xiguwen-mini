@@ -1,0 +1,105 @@
+const util = require('../../api/network.js');
+const api = require('../../api/api.js');
+// const user = require('../../services/user.js');
+//获取应用实例
+const app = getApp()
+
+Page({
+  data: {
+    showloading:false
+  },
+  onLoad: function (options) {
+
+  },
+  onShow: function () {
+    // let userInfo = wx.getStorageSync('userInfo');
+    // if (userInfo != '') {
+    //   wx.navigateBack();
+    // };
+  },
+  // getUserInfo: function (e) {
+  //     app.globalData.userInfo = e.detail.userInfo
+  //     user.loginByWeixin().then(res => {
+  //         app.globalData.userInfo = res.data.userInfo;
+  //         app.globalData.token = res.data.token;
+  //         let is_new = res.data.is_new;//服务器返回的数据；
+  //         if (is_new == 0) {
+  //             util.showErrorToast('您已经是老用户啦！');
+  //             wx.navigateBack();
+  //         }
+  //         else if (is_new == 1) {
+  //             wx.navigateBack();
+  //         }
+
+  //     }).catch((err) => { });
+  // },
+
+   getUserProfile: function () {
+    // wx.navigateTo({
+    //     url: '/pages/app-auth/index',
+    // });
+    
+    let that = this;
+    let code = '';
+    wx.login({
+      success: (res) => {
+        code = res.code;
+      },
+    });
+
+    
+    // 获取用户信息
+    wx.getUserProfile({
+      lang: 'zh_CN',
+      desc: '用户登录',
+      success: (res) => {
+        console.log(JSON.stringify(res))
+        let loginParams = {
+          sex: res.userInfo.gender,
+          type: 3,
+          thirdSystemId: res.signature,
+          head: res.userInfo.avatarUrl,
+          name: res.userInfo.nickName,
+          signature: res.signature
+        };
+        that.postLogin(loginParams);
+      },
+      // 失败回调
+      fail: () => {
+        // 弹出错误
+        App.showError('已拒绝小程序获取信息');
+      }
+    });
+  },
+  postLogin(info) {
+
+    util.loginThrid(info).then(res=>{
+      console.log(res)
+
+      if(res.code == 0){
+          
+      }else if(res.code == 908){//未绑定手机
+        wx.setStorageSync('userInfo', res.data.user)
+        wx.setStorageSync('token', res.data.token.token)
+      }
+    })
+    // util.loginThrid(, 'POST').then(function (res) {
+    //   if (res.errno === 0) {
+    //     wx.setStorageSync('userInfo', res.data.userInfo);
+    //     wx.setStorageSync('token', res.data.token);
+    //     app.globalData.userInfo = res.data.userInfo;
+    //     app.globalData.token = res.data.token;
+    //     let is_new = res.data.is_new; //服务器返回的数据；
+    //     if (is_new == 0) {
+    //       util.showErrorToast('您已经是老用户啦！');
+    //       wx.navigateBack();
+    //     } else if (is_new == 1) {
+    //       wx.navigateBack();
+    //     }
+    //   }
+    // });
+  },
+  goBack: function () {
+    wx.navigateBack();
+  }
+})

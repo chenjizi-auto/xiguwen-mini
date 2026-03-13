@@ -1,0 +1,185 @@
+<van-sticky>
+  <view class="search-container">
+    <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
+      <view class="search-title" src="../../images/default.png" style="height:{{navHeight-navTop-5}}px;line-height:{{navHeight-navTop-5}}px;width:{{132/52*(navHeight-navTop-5)}}px;">
+        {{city}}
+      </view>
+      <input placeholder-class="search-placeholder" style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="请输入搜索内容" disabled value="{{name}}" bindinput="bindinput" bindtap="goSearch"></input>
+    </view>
+  </view>
+</van-sticky>
+
+<van-tabs bind:change="tabClick">
+    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+</van-tabs>
+
+<view class="swiper-container">
+  <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <image mode="aspectFill" bindtap="tapBanner" data-url="{{item.src}}" src="{{item.wapimg}}" />
+    </swiper-item>
+  </swiper>
+  <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="goodsDynamic">
+    <swiper class="swiper2" autoplay circular vertical>
+      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
+        <swiper-item>
+          <view class="goodsDynamic-item">
+            <image mode="aspectFill" src="{{item.avatarUrl}}"></image>
+            <text>{{item.nick}} 购买了 {{item.goodsName}}</text>
+          </view>
+        </swiper-item>
+      </navigator>
+    </swiper>
+  </view>
+</view>
+
+<view class="swiper-container2">
+  <swiper class="swiper3" indicator-dots="true" indicator-active-color="#fff">
+    <swiper-item>
+      <view class="category-container2">
+        <view class="category-box2">
+          <view class="category-list2" wx:for="{{categories_p1}}" wx:key="id">
+            <view class="category-column2" bindtap="tabClick" data-id="{{item.occupationid}}">
+              <image mode="aspectFill" class="category-imgbox2" src="{{item.wapimg}}"></image>
+              <view class="category-title">{{item.proname}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="category-container">
+        <view class="category-box2">
+          <view class="category-list2" wx:for="{{categories_p2}}" wx:key="id">
+            <view class="category-column2" bindtap="tabClick" data-id="{{item.occupationid}}">
+              <image mode="aspectFill" class="category-imgbox2" src="{{item.wapimg}}"></image>
+              <view class="category-title">{{item.proname}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="hunli-anli-container2">
+  <van-grid column-num='2'>
+    <van-grid-item use-slot>
+      <image style="width: 100%; height: 110px;" src="../../images/wedding/getcase_img.png" />
+    </van-grid-item>
+    <van-grid-item use-slot>
+      <image style="width: 100%; height: 110px;" src="../../images/wedding/iwantwedding.png" />
+    </van-grid-item>
+  </van-grid>
+</view>
+
+<van-sidebar>
+  <van-sidebar-item title="常用工具" custom-class='sidebar-common' />
+</van-sidebar>
+<van-grid column-num='5'>
+  <van-grid-item icon="/images/wedding/icon_xuqiu.png" text="发布需求" />
+  <van-grid-item icon="/images/wedding/wodedangqi_icon.png" text="发布档期" />
+  <van-grid-item icon="/images/wedding/icon_qingjian.png" text="电子请柬" />
+  <van-grid-item icon="/images/wedding/look_dangan.png" text="查看档期" />
+  <van-grid-item icon="/images/wedding/chakanxuqiu_icon.png" text="查看需求" />
+</van-grid>
+<van-sidebar>
+  <van-sidebar-item title="热门活动" custom-class='sidebar-common' />
+</van-sidebar>
+
+<!-- <van-grid  column-num="4"  gutter="{{10}}">
+  <van-grid-item use-slot wx:for="{{ 3 }}" wx:for-item="index">
+    <text class="text_huodong">123</text>
+    <image
+      style="width: 90px; height: 90px;"
+      src="https://img.yzcdn.cn/vant/apple-{{ index + 1 }}.jpg"/>
+  </van-grid-item>
+</van-grid> -->
+
+<block wx:if="{{rementuandui && rementuandui.length > 0}}">
+  <scroll-view scroll-x="true">
+    <view class="aaaaaaa">
+      <view class="miaosha-container">
+        <view class="miaosha-goods-list" wx:for="{{rementuandui}}" wx:key="adid" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
+          <image src="{{item.wapimg}}" class="image" mode="aspectFill" lazy-load="true" />
+          <view class="r">
+            <view class="goods-title">{{item.title}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</block>
+
+<block wx:if="{{remenhuodong}}">
+  <van-divider custom-class="table-text" contentPosition="center">热门活动</van-divider>
+  <view class="hunli-anli-container2">
+    <van-grid column-num='2'>
+      <van-grid-item use-slot>
+        <image style="width: 100%; height: 200rpx;" mode="aspectFill" src="{{remenhuodong.rmhd1.wapimg}}" />
+      </van-grid-item>
+      <van-grid-item use-slot>
+        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd2.wapimg}}" />
+      </van-grid-item>
+    </van-grid>
+    <van-grid column-num='3'>
+      <van-grid-item use-slot>
+        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd3.wapimg}}" />
+      </van-grid-item>
+      <van-grid-item use-slot>
+        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd4.wapimg}} " />
+      </van-grid-item>
+      <van-grid-item use-slot>
+        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd5.wapimg}} " />
+      </van-grid-item>
+    </van-grid>
+  </view>
+</block>
+
+<block wx:if="{{youlike}}">
+  <van-divider custom-class="table-text" contentPosition="center">商家展示</van-divider>
+  <view class="shop-short-container2">
+    <view class="bbbbbb">
+      <view class="shop_item_container">
+        <view class="shop-item-list" wx:for="{{youlike}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typpe="{{item.typpe}}" data-shopid="{{item.shopid}}">
+          <view class="shop-host-item" wx:if="{{item.typee === '4'}}">
+            <view class="shop_item_head">
+              <van-image  round width="3rem" height="3rem" fit="cover" src="{{item.head}}" />
+              <view class="shop_label_container">
+                <view class="shop_name">{{item.nickname}}</view>
+                <view class="shop_type">{{item.occupationid}}</view>
+              </view>
+              <view class="shop_focus_btn">
+                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              </view>
+            </view>
+            <image src="{{item.shopimg}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+            <view class="shop-item-title">{{item.shopname}}</view>
+            <view class="shop-item-price">{{item.price}}</view>
+            <view class="shop_bottom_line"></view>
+          </view>
+          <view class="shop-host-item" wx:if="{{item.typee === '3'}}">
+            <view class="shop_item_head">
+              <van-image round width="3rem" height="3rem" src="{{item.head}}" />
+              <view class="shop_label_container">
+                <view class="shop_name">{{item.nickname}}</view>
+                <view class="shop_type">{{item.occupationid}}</view>
+              </view>
+              <view class="shop_focus_btn">
+                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              </view>
+            </view>
+            <view class="shop-video-container">
+              <!-- <video src="{{item.video_url}}" autoplay="false" loop="true" style='width:730rpx;height:300rpx;'></video> -->
+              <image style="width: 50rpx; height: 50rpx; position: absolute; z-index: 100;left: 350rpx;top: 175rpx;" src="../../images/video_play.png" />
+              <image src="{{item.cover}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+            </view>
+          
+            <view class="shop-item-title">{{item.title}}</view>
+            <view class="shop_bottom_line"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

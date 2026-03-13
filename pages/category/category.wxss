@@ -1,0 +1,103 @@
+page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.divider{
+  width: 100%;
+  background-color: gray;
+}
+
+.shop-short-container2 {
+  width: 750rpx;
+  position: relative;
+  z-index: 1;
+}
+.shop-item-list
+
+
+.shop-host-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 16rpx;
+}
+
+.shop_item_head{
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.shop_label_container{
+  width: 300rpx;
+  margin-left: 10rpx;
+}
+
+.shop_name{
+  max-lines: 1;
+}
+
+.shop_cover{
+  width: 730rpx;
+  margin-left: 10rpx;
+}
+
+.shop_bottom_line{
+ width: 750rpx;
+ height: 20rpx;
+ background-color: rgb(241, 236, 236);
+}
+.shop_focus_btn{
+    display: flex;
+    flex-direction: column;
+   align-items: flex-end;
+   width: 300rpx;
+   margin-left: auto;
+}
+.shop-video-container{
+  position: relative;
+  width: 730rpx;
+  margin-top: 5rpx;
+  margin-left: 10rpx;
+}
+.shop-item-title{
+  margin-left: 10rpx;
+  margin-top: 20rpx;
+  color: black;
+} 
+.shop-item-price{
+  margin-left: 10rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  color: red;
+}
+
+.miaosha-goods-list
+
+
+
+
+
+/*秒杀*/
+.shop_item_container {
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sidebar-common{
+  height: 8rpx;
+  text-align: center;
+}
+
+.text_huodong{
+  width: 100%;
+  background-color:gray;
+  text-align: center;
+  color: white;
+}

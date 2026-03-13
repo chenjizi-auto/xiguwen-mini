@@ -1,0 +1,55 @@
+<van-tabs bind:change="tabClick" swipeable>
+    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+</van-tabs>
+<van-divider custom-class="table-text" ></van-divider>
+<van-tabs bind:change="tabHunClick" swipeable>
+    <van-tab wx:for="{{tabsHun}}" wx:key="index" title="{{item}}"></van-tab>
+</van-tabs>
+<van-divider custom-class="table-text" ></van-divider>
+<block wx:if="{{youlike}}">
+  <view class="shop-short-container2">
+    <view class="bbbbbb">
+      <view class="shop_item_container">
+        <view class="shop-item-list" wx:for="{{youlike}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typpe="{{item.typpe}}" data-shopid="{{item.shopid}}">
+          <view class="shop-host-item" wx:if="{{item.typee === '4'}}">
+            <view class="shop_item_head">
+              <van-image  round width="3rem" height="3rem" fit="cover" src="{{item.head}}" />
+              <view class="shop_label_container">
+                <view class="shop_name">{{item.nickname}}</view>
+                <view class="shop_type">{{item.occupationid}}</view>
+              </view>
+              <view class="shop_focus_btn">
+                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              </view>
+            </view>
+            <image src="{{item.shopimg}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+            <view class="shop-item-title">{{item.shopname}}</view>
+            <view class="shop-item-price">{{item.price}}</view>
+            <view class="shop_bottom_line"></view>
+          </view>
+          <view class="shop-host-item" wx:if="{{item.typee === '3'}}">
+            <view class="shop_item_head">
+              <van-image round width="3rem" height="3rem" src="{{item.head}}" />
+              <view class="shop_label_container">
+                <view class="shop_name">{{item.nickname}}</view>
+                <view class="shop_type">{{item.occupationid}}</view>
+              </view>
+              <view class="shop_focus_btn">
+                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              </view>
+            </view>
+            <view class="shop-video-container">
+              <!-- <video src="{{item.video_url}}" autoplay="false" loop="true" style='width:730rpx;height:300rpx;'></video> -->
+              <image style="width: 50rpx; height: 50rpx; position: absolute; z-index: 100;left: 350rpx;top: 175rpx;" src="../../images/video_play.png" />
+              <image src="{{item.cover}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+            </view>
+          
+            <view class="shop-item-title">{{item.title}}</view>
+            <view class="shop_bottom_line"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
+

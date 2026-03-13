@@ -1,0 +1,33 @@
+{
+  "name": "wechat-app-mall",
+  "version": "8.4.0",
+  "description": "删除 <float-menu />",
+  "main": "app.js",
+  "dependencies": {
+    "@vant/weapp": "^1.10.4",
+    "apifm-wxapi": "^3.55.0",
+    "dayjs": "^1.11.6",
+    "miniprogram-network": "^5.3.0-alpha.0",
+    "mp-html": "^2.3.1",
+    "wxa-plugin-canvas": "^1.1.12",
+    "wxbarcode": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EastWorld/wechat-app-mall.git"
+  },
+  "keywords": [
+    "微店",
+    "小店",
+    "微商城"
+  ],
+  "author": "gooking",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EastWorld/wechat-app-mall/issues"
+  },
+  "homepage": "https://github.com/EastWorld/wechat-app-mall#readme"
+}

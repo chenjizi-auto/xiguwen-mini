@@ -1,0 +1,6 @@
+<!--pages/login/login.wxml-->
+<import src="/template/login/index.wxml" />
+<view class="container">
+  <!-- <van-button  type="danger" size="small" block round>即将开播</van-button> -->
+  <template is="apifmLogin" data="{{wxlogin: false}}" />
+</view>
