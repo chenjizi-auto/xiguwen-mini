@@ -4,6 +4,11 @@ const ApiRoot = 'https://www.xiguwen520.com';
 const ApiRootUrl = ApiRoot + '/appapi/'
 const INDEX = 'index'
 const HOME = 'home'
+const HOME_HOT = 'Homehot'
+const SYSTEM = 'System'
+const FOUND = 'Found'
+const MYHOME = 'Myhome'
+const ACTIVITY = 'activity'
 
 module.exports = {
   ApiRoot: ApiRoot,
@@ -13,6 +18,19 @@ module.exports = {
   IndexUrl: ApiRootUrl + HOME+'/index', //首页数据接口
   // 分类
   HomeCategory: ApiRootUrl + HOME+'/Classificationlist', //分类目录全部分类数据接口
+  // 社团
+  AssociationList: ApiRootUrl + HOME_HOT + '/association', //社团列表接口（同 Android：/appapi/Homehot/association）
+  // 案例
+  CaseList: ApiRootUrl + HOME_HOT + '/indexcaseapp', //案例列表（同 Android：/appapi/Homehot/indexcaseapp）
+  // 城市
+  CityList: ApiRootUrl + SYSTEM + '/sitelist', //城市列表（同 Android：/appapi/System/sitelist）
+  // 发现（婚庆圈/商城圈，同 Android：/appapi/Found/wedding /shops）
+  DiscoverWedding: ApiRootUrl + FOUND + '/wedding',
+  DiscoverShops: ApiRootUrl + FOUND + '/shops',
+  // 我的（同 Android：/appapi/Myhome/index）
+  MyHomeIndex: ApiRootUrl + MYHOME + '/index',
+  // 活动投票 URL（同 Android：/appapi/activity/index_list）
+  ActivityVoteUrl: ApiRootUrl + ACTIVITY + '/index_list',
   CatalogCurrent: ApiRootUrl + 'catalog/current', //分类目录当前分类数据接口
   GetCurrentList: ApiRootUrl + 'catalog/currentlist',
   // 购物车

@@ -1,55 +1,110 @@
-<van-tabs bind:change="tabClick" swipeable>
-    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
-</van-tabs>
-<van-divider custom-class="table-text" ></van-divider>
-<van-tabs bind:change="tabHunClick" swipeable>
-    <van-tab wx:for="{{tabsHun}}" wx:key="index" title="{{item}}"></van-tab>
-</van-tabs>
-<van-divider custom-class="table-text" ></van-divider>
-<block wx:if="{{youlike}}">
-  <view class="shop-short-container2">
-    <view class="bbbbbb">
-      <view class="shop_item_container">
-        <view class="shop-item-list" wx:for="{{youlike}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typpe="{{item.typpe}}" data-shopid="{{item.shopid}}">
-          <view class="shop-host-item" wx:if="{{item.typee === '4'}}">
-            <view class="shop_item_head">
-              <van-image  round width="3rem" height="3rem" fit="cover" src="{{item.head}}" />
-              <view class="shop_label_container">
-                <view class="shop_name">{{item.nickname}}</view>
-                <view class="shop_type">{{item.occupationid}}</view>
-              </view>
-              <view class="shop_focus_btn">
-                <van-button plain hairline type="primary" size="mini">关注</van-button>
-              </view>
-            </view>
-            <image src="{{item.shopimg}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
-            <view class="shop-item-title">{{item.shopname}}</view>
-            <view class="shop-item-price">{{item.price}}</view>
-            <view class="shop_bottom_line"></view>
-          </view>
-          <view class="shop-host-item" wx:if="{{item.typee === '3'}}">
-            <view class="shop_item_head">
-              <van-image round width="3rem" height="3rem" src="{{item.head}}" />
-              <view class="shop_label_container">
-                <view class="shop_name">{{item.nickname}}</view>
-                <view class="shop_type">{{item.occupationid}}</view>
-              </view>
-              <view class="shop_focus_btn">
-                <van-button plain hairline type="primary" size="mini">关注</van-button>
-              </view>
-            </view>
-            <view class="shop-video-container">
-              <!-- <video src="{{item.video_url}}" autoplay="false" loop="true" style='width:730rpx;height:300rpx;'></video> -->
-              <image style="width: 50rpx; height: 50rpx; position: absolute; z-index: 100;left: 350rpx;top: 175rpx;" src="../../images/video_play.png" />
-              <image src="{{item.cover}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
-            </view>
-          
-            <view class="shop-item-title">{{item.title}}</view>
-            <view class="shop_bottom_line"></view>
-          </view>
-        </view>
+<view class="find-page" style="padding-top:{{navHeight}}px">
+  <!-- custom navigationBar -->
+  <view class="find-nav" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
+    <view class="find-nav-inner" style="height:{{navHeight - navTop}}px">
+      <view class="find-tabs-wrap" style="width:{{navTabWidth ? navTabWidth : 280}}px">
+        <van-tabs active="{{circleActive}}" bind:change="onCircleChange" custom-class="find-tabs">
+          <van-tab title="婚庆圈"></van-tab>
+          <van-tab title="商城圈"></van-tab>
+        </van-tabs>
+      </view>
+      <view
+        class="find-add"
+        style="right:{{navRightGap ? (navRightGap + 8) : 16}}px;top:0px;height:{{navHeight - navTop}}px"
+        bindtap="onAddDiscover"
+      >
+        <van-icon name="plus" size="22" color="#666" />
       </view>
     </view>
   </view>
-</block>
 
+  <view class="find-filter">
+    <view wx:if="{{circleActive === 0}}" class="find-job" bindtap="openJobPopup">
+      <text class="find-job-text">{{jobTypeName}}</text>
+      <van-icon name="arrow-down" size="14" color="#666" />
+    </view>
+
+    <view class="find-order">
+      <view class="find-order-item {{orderActive === 0 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="0">最新</view>
+      <view class="find-order-item {{orderActive === 1 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="1">热门</view>
+      <view class="find-order-item {{orderActive === 2 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="2">关注</view>
+    </view>
+  </view>
+
+  <view class="discover-list">
+    <view class="discover-card" wx:for="{{discoverList}}" wx:for-index="idx" wx:key="id">
+      <view class="discover-head">
+        <image class="discover-avatar" src="{{item.head || load_img}}" mode="aspectFill" lazy-load="true" binderror="onAvatarError" data-idx="{{idx}}" />
+        <view class="discover-user">
+          <view class="discover-name van-ellipsis">{{item.nickname}}</view>
+          <view class="discover-sub van-ellipsis">
+            <text wx:if="{{item.occupation}}">{{item.occupation}}</text>
+            <text wx:if="{{item.theteam}}">{{item.theteam}}</text>
+          </view>
+        </view>
+        <view class="discover-time van-ellipsis">{{item.create_ti}}</view>
+      </view>
+
+      <view class="discover-content">
+        <mp-html content="{{item.content}}" loading-img="{{load_img}}" error-img="{{load_img_erro}}" />
+      </view>
+
+      <view class="discover-images discover-images--cols{{item._gridCols}}" wx:if="{{item.photoUrls && item.photoUrls.length > 0}}">
+        <view
+          class="discover-img-wrap"
+          wx:for="{{item.photoUrls}}"
+          wx:for-item="url"
+          wx:for-index="pidx"
+          wx:key="*this"
+          style="width:{{item._gridCols === 1 ? gridSize1 : (item._gridCols === 2 ? gridSize2 : gridSize3)}}px;height:{{item._gridCols === 1 ? gridSize1 : (item._gridCols === 2 ? gridSize2 : gridSize3)}}px;"
+        >
+          <image
+            class="discover-img"
+            src="{{url || load_img}}"
+            mode="aspectFill"
+            lazy-load="true"
+            binderror="onDiscoverImgError"
+            data-idx="{{idx}}"
+            data-pidx="{{pidx}}"
+          />
+        </view>
+      </view>
+
+      <view class="discover-meta">
+        <view class="discover-meta-item">
+          <van-icon name="eye-o" size="14" color="#999" />
+          <text class="discover-meta-text">{{item.pv}}</text>
+        </view>
+        <view class="discover-meta-item">
+          <van-icon name="comment-o" size="14" color="#999" />
+          <text class="discover-meta-text">{{item.commentnum}}</text>
+        </view>
+        <view class="discover-meta-item">
+          <van-icon name="good-job-o" size="14" color="#999" />
+          <text class="discover-meta-text">{{item.zan}}</text>
+        </view>
+      </view>
+    </view>
+
+    <van-empty wx:if="{{loaded && (!discoverList || discoverList.length === 0)}}" image="../../images/zw.png" description="暂无内容"></van-empty>
+    <view wx:if="{{loading}}" class="discover-loading">加载中...</view>
+    <view wx:if="{{noMore && discoverList && discoverList.length > 0}}" class="discover-nomore">没有更多了</view>
+  </view>
+
+  <van-popup show="{{jobPopupShow}}" position="bottom" round bind:close="closeJobPopup">
+    <view class="job-popup">
+      <view class="job-popup-title">选择职业</view>
+      <van-cell-group>
+        <van-cell
+          wx:for="{{jobTypes}}"
+          wx:key="occupationid"
+          title="{{item.proname}}"
+          clickable
+          bind:click="selectJobType"
+          data-id="{{item.occupationid}}"
+          data-name="{{item.proname}}"
+        />
+      </van-cell-group>
+    </view>
+  </van-popup>
+</view>

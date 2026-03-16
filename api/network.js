@@ -7,7 +7,8 @@ Network.REQUEST.Defaults.transformResponse = Network.transformRequestResponseOkD
 const api = require('/api.js');
 
 function commonParam(){
-  return {'token':wx.getStorageSync('token'),'userid':wx.getStorageSync('userInfo').userid}
+  const userInfo = wx.getStorageSync('userInfo') || {}
+  return {'token':wx.getStorageSync('token'),'userid':userInfo.userid}
 }
 
 export async function loginThrid(data){
@@ -34,4 +35,60 @@ export async function homeCategory(data){
   })
 }
 
+export async function associationList(data){
+  return new Promise((resolve, reject) => {
+        Network.post(api.AssociationList, Object.assign(data,commonParam())).then (res=>{
+            resolve(res);
+        })
+  })
+}
 
+export async function caseList(data){
+  return new Promise((resolve, reject) => {
+        Network.post(api.CaseList,Object.assign(data,commonParam())).then (res=>{
+            resolve(res);
+        })
+  })
+}
+
+export async function cityList(data){
+  return new Promise((resolve, reject) => {
+        Network.post(api.CityList, data || {}).then (res=>{
+            resolve(res);
+        })
+  })
+}
+
+export async function discoverWedding(data){
+  return new Promise((resolve, reject) => {
+        Network.post(api.DiscoverWedding, Object.assign(data,commonParam())).then (res=>{
+            resolve(res);
+        })
+  })
+}
+
+export async function discoverShops(data){
+  return new Promise((resolve, reject) => {
+        Network.post(api.DiscoverShops, Object.assign(data,commonParam())).then (res=>{
+            resolve(res);
+        })
+  })
+}
+
+export async function myHomeIndex(data){
+  return new Promise((resolve, reject) => {
+        const params = Object.assign(data || {}, commonParam())
+        Network.post(api.MyHomeIndex, params).then(res => {
+          resolve(res)
+        })
+  })
+}
+
+export async function activityVoteUrl(data){
+  return new Promise((resolve, reject) => {
+        const params = Object.assign(data || {}, commonParam())
+        Network.post(api.ActivityVoteUrl, params).then(res => {
+          resolve(res)
+        })
+  })
+}

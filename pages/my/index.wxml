@@ -1,118 +1,170 @@
-<view class="header-box">
-  <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
-  </button>
-  <view class="r">
-    <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
-    <view class="nick" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
-  </view>
-</view>
-<view class="asset">
-  <view class='item' bindtap='goAsset'>
-    <view class="amount">{{balance}}</view>
-    <view>余额</view>
-  </view>
-  <view class='item right' bindtap='goAsset'>
-    <view class="amount">{{freeze}}</view>
-    <view>冻结</view>
-  </view>
-  <view class='item right' bindtap='goScore'>
-    <view class="amount">{{score}}</view>
-    <view>积分</view>
-  </view>
-  <view class='item right' bindtap="gogrowth">
-    <view class="amount">{{growth}}</view>
-    <view>成长值</view>
-  </view>
-</view>
-<view class="space van-hairline--bottom"></view>
-<van-cell-group wx:if="{{ myCards }}" title="我的会员卡">
-  <van-cell wx:for="{{ myCards }}" wx:key="id" center title="{{ item.cardInfo.name }}" label="{{ item.dateEnd }} 到期" value-class="v-c" value="剩余: {{ item.amount }}" is-link url="/pages/card/logs?id={{ item.id }}" />
-</van-cell-group>
-<van-cell title="我的订单" value="更多" is-link url="/pages/order-list/index" />
-<van-grid clickable column-num="5">
-  <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0" />
-  <van-grid-item icon="logistics" text="待发货" badge="{{count_id_no_transfer}}" bindtap='goOrder' data-type="1" />
-  <van-grid-item icon="certificate" text="待收货" badge="{{count_id_no_confirm}}" bindtap='goOrder' data-type="2" />
-  <van-grid-item icon="flower-o" text="待评价" badge="{{count_id_no_reputation}}" bindtap='goOrder' data-type="3" />
-  <van-grid-item icon="after-sale" text="售后" bindtap='goOrder' data-type="99" />
-</van-grid>
-<van-cell wx:if="{{ cps_open == '1' }}" title="CPS订单" value="管理" is-link url="/packageCps/pages/order-list/cps" />
-<van-cell wx:if="{{ recycle_open == '1' }}" title="回收订单" value="管理" is-link url="/pages/recycle/orders" />
-<van-cell title="常用功能" />
-<van-grid clickable>
-  <van-grid-item wx:if="{{canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
-  <van-grid-item icon="paid" text="优惠买单" url="/pages/maidan/index" />
-  <van-grid-item icon="balance-list-o" text="资金明细" url="/pages/asset/index" />
-  <van-grid-item icon="bill-o" text="申请发票" url="/pages/invoice/apply" />
-  <van-grid-item icon="bill-o" text="开票记录" url="/pages/invoice/list" />
-  <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
-  <van-grid-item wx:if="{{ show_score_sign == 1 }}" icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
-</van-grid>
-<!-- 老样式 -->
-<view class="container">
-  <block wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}">
-    <view class="space"></view>
-    <view class="menu-item">
-      <view class="l">工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})</view>
-      <van-switch checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
+<scroll-view scroll-y class="mine-page">
+  <view class="mine-top">
+    <image class="mine-top-bg" src="/images/mine/icon_main_bg.png" mode="aspectFill" />
+    <view class="mine-top-arc"></view>
+    <view class="mine-setting" bindtap="goSetting">
+      <image class="mine-setting-icon" src="/images/mine/icon_setting2.png" mode="aspectFit" />
     </view>
-    <view class="line"></view>
-    <navigator url="/pages/peisong/orders">
-      <view class="menu-item">
-        <view class="l hongdian-box">配送订单<view wx:if="{{peisongOrderNumber}}" class="hongdian">{{peisongOrderNumber}}</view></view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </navigator>
-    <block wx:if="{{apiUserInfoMap.peisongMember.type == 2}}">
-      <view class="line"></view>
-      <navigator url="/pages/peisong/orders?status=1">
-        <view class="menu-item">
-          <view class="l hongdian-box">待分配订单<view wx:if="{{peisongOrderNumber2}}" class="hongdian">{{peisongOrderNumber2}}</view></view>
-          <image class="next" src="/images/icon/next.png"></image>
-        </view>
-      </navigator>
-    </block>
-    <block wx:else>
-      <view class="line"></view>
-      <navigator url="/pages/peisong/orders?status=-1">
-        <view class="menu-item">
-          <view class="l hongdian-box">待接单订单<view wx:if="{{peisongOrderNumber3}}" class="hongdian">{{peisongOrderNumber3}}</view></view>
-          <image class="next" src="/images/icon/next.png"></image>
-        </view>
-      </navigator>
-    </block>
-    <view class="space"></view>
-  </block>
-</view>
 
-<van-cell wx:if="{{ fx_type == 'hehuoren' }}" title="分销中心" is-link url="/packageFx/pages/hehuorenfenxiao/index" />
-<van-cell-group wx:elif="{{ show_3_seller == 1 }}" title="三级分销">
-  <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/packageFx/pages/apply/index" />
-  <van-cell wx:else title="分销中心" is-link url="/packageFx/pages/index/index" />
-  <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="我的团队" is-link url="/packageFx/pages/myusers/index" />
-  <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="推广订单" is-link url="/packageFx/pages/commisionLog/index" />
-</van-cell-group>
-<van-cell-group title="其他功能">
-  <van-cell wx:if="{{ show_quan_exchange_score == 1 }}" title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
-  <van-cell wx:if="{{ show_score_exchange_growth == 1 }}" title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
-  <van-cell title="帮助中心" is-link url="/pages/help/index" />
-  <van-cell title="个人信息" is-link url="/pages/my/info-menu" />
-  <van-cell title="系统设置" is-link url="/pages/my/setting" />
-</van-cell-group>
+    <view class="mine-avatar-card" bindtap="onProfileTap">
+      <image
+        class="mine-avatar"
+        src="{{user.head ? user.head : defaultAvatar}}"
+        mode="aspectFill"
+        binderror="onAvatarError"
+      />
+    </view>
+  </view>
 
-<van-dialog
-  use-slot
-  title="修改昵称"
-  show="{{ nickShow }}"
-  show-cancel-button
-  bind:confirm="_editNick"
->
-  <van-field
-    model:value="{{ nick }}"
-    type="nickname"
-    placeholder="请输入昵称"
-    size="large"
-    clearable
-  />
-</van-dialog>
+  <view class="mine-name" bindtap="onProfileTap">{{user.nickname ? user.nickname : '未登录'}}</view>
+  <view class="mine-team" wx:if="{{user.association}}">{{user.association}}</view>
+
+  <view class="mine-stats">
+    <view class="mine-stat-item" bindtap="onStatTap" data-type="fans">
+      <view class="mine-stat-num">{{user.fans != null ? user.fans : 0}}</view>
+      <view class="mine-stat-label">粉丝</view>
+    </view>
+    <view class="mine-stat-item" bindtap="onStatTap" data-type="follow">
+      <view class="mine-stat-num">{{user.follownumber != null ? user.follownumber : 0}}</view>
+      <view class="mine-stat-label">关注</view>
+    </view>
+    <view class="mine-stat-item" bindtap="onStatTap" data-type="money">
+      <view class="mine-stat-num mine-stat-num--red">{{user.money != null ? user.money : 0}}</view>
+      <view class="mine-stat-label">余额</view>
+    </view>
+    <view class="mine-stat-item" bindtap="onStatTap" data-type="voucher">
+      <view class="mine-stat-num mine-stat-num--red">{{user.vouchers != null ? user.vouchers : 0}}</view>
+      <view class="mine-stat-label">现金折扣券</view>
+    </view>
+  </view>
+
+  <!-- 婚庆接单 / 商城接单（按 userType 控制显示） -->
+  <view class="mine-section" wx:if="{{showWeddingShopJiedan}}">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">婚庆接单</text>
+    </view>
+    <van-grid column-num="5" border="{{false}}">
+      <van-grid-item wx:for="{{weddingJiedanItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onWeddingJiedanTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">婚庆订单</text>
+    </view>
+    <van-grid column-num="5" border="{{false}}">
+      <van-grid-item wx:for="{{weddingOrderItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onWeddingOrderTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">商城订单</text>
+    </view>
+    <van-grid column-num="5" border="{{false}}">
+      <van-grid-item wx:for="{{mallOrderItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onMallOrderTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+          <view class="mine-grid-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section" wx:if="{{showMallShopJiedan}}">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">商城接单</text>
+    </view>
+    <van-grid column-num="5" border="{{false}}">
+      <van-grid-item wx:for="{{mallJiedanItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onMallJiedanTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">其他常用工具</text>
+    </view>
+    <van-grid column-num="4" border="{{false}}">
+      <van-grid-item wx:for="{{otherToolsItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onOtherToolTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section" wx:if="{{showShopManage}}">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">店铺管理</text>
+    </view>
+    <van-grid column-num="4" border="{{false}}">
+      <van-grid-item wx:for="{{shopManageItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onShopManageTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-section">
+    <view class="mine-section-hd">
+      <text class="mine-section-title">常用工具</text>
+    </view>
+    <van-grid column-num="4" border="{{false}}">
+      <van-grid-item wx:for="{{userToolsItems}}" wx:key="id" use-slot>
+        <view class="mine-grid-item" bindtap="onUserToolTap" data-id="{{item.id}}">
+          <image class="mine-grid-icon" src="{{item.icon}}" mode="aspectFit" />
+          <text class="mine-grid-text">{{item.title}}</text>
+        </view>
+      </van-grid-item>
+    </van-grid>
+  </view>
+
+  <view class="mine-actions">
+    <van-cell-group inset>
+      <van-cell title="充值" is-link clickable bind:click="onActionTap" data-action="charge">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_mall_charge.png" mode="aspectFit" />
+      </van-cell>
+
+      <van-cell wx:if="{{showMallVip}}" title="商家VIP" is-link clickable bind:click="onActionTap" data-action="mallVip">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_mall_vip.png" mode="aspectFit" />
+      </van-cell>
+
+      <van-cell wx:if="{{showUserVip}}" title="用户VIP" is-link clickable bind:click="onActionTap" data-action="userVip">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_user_vip.png" mode="aspectFit" />
+      </van-cell>
+
+      <van-cell title="邀请婚嫁商家" is-link clickable bind:click="onActionTap" data-action="inviteShop">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/yaooqingshop_icon.png" mode="aspectFit" />
+      </van-cell>
+
+      <van-cell wx:if="{{showPostShop}}" title="申请成为商家" is-link clickable bind:click="onActionTap" data-action="postShop">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/shenqingbeshop_icon.png" mode="aspectFit" />
+      </van-cell>
+
+      <van-cell title="关于我们" is-link clickable bind:click="onActionTap" data-action="about">
+        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_about_us.png" mode="aspectFit" />
+      </van-cell>
+    </van-cell-group>
+  </view>
+
+  <view class="mine-safe-bottom"></view>
+</scroll-view>

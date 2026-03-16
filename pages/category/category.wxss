@@ -1,103 +1,210 @@
-page {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.divider{
-  width: 100%;
-  background-color: gray;
+.find-page {
+  min-height: 100vh;
+  background: #f7f8fa;
 }
 
-.shop-short-container2 {
-  width: 750rpx;
+.find-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #fff;
+}
+
+.find-nav-inner {
   position: relative;
-  z-index: 1;
 }
-.shop-item-list
 
+.find-tabs-wrap {
+  height: 100%;
+}
 
-.shop-host-item {
+.find-tabs {
+  height: 100%;
+}
+
+.find-add {
+  position: absolute;
+  width: 44px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  border-radius: 16rpx;
 }
 
-.shop_item_head{
-  margin-left: 10rpx;
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
+.find-filter {
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  padding: 14rpx 24rpx;
+}
+
+.find-job {
+  display: flex;
+  align-items: center;
+  padding-right: 20rpx;
+  max-width: 260rpx;
+}
+
+.find-job-text {
+  font-size: 14px;
+  color: #666;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 8rpx;
+}
+
+.find-order {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.find-order-item {
+  padding: 10rpx 18rpx;
+  font-size: 14px;
+  color: #666;
+  border-radius: 28rpx;
+  margin-left: 12rpx;
+  background: #f7f8fa;
+}
+
+.find-order-item--active {
+  color: #ff5384;
+  background: rgba(255, 83, 132, 0.12);
+  font-weight: 600;
+}
+
+.discover-list {
+  padding: 16rpx 24rpx 40rpx;
+}
+
+.discover-card {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.discover-head {
+  display: flex;
   align-items: center;
 }
-.shop_label_container{
-  width: 300rpx;
-  margin-left: 10rpx;
+
+.discover-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #f7f8fa;
+  flex-shrink: 0;
 }
 
-.shop_name{
-  max-lines: 1;
+.discover-user {
+  flex: 1;
+  margin-left: 16rpx;
 }
 
-.shop_cover{
-  width: 730rpx;
-  margin-left: 10rpx;
+.discover-name {
+  font-size: 14px;
+  color: #111;
+  font-weight: 600;
 }
 
-.shop_bottom_line{
- width: 750rpx;
- height: 20rpx;
- background-color: rgb(241, 236, 236);
-}
-.shop_focus_btn{
-    display: flex;
-    flex-direction: column;
-   align-items: flex-end;
-   width: 300rpx;
-   margin-left: auto;
-}
-.shop-video-container{
-  position: relative;
-  width: 730rpx;
-  margin-top: 5rpx;
-  margin-left: 10rpx;
-}
-.shop-item-title{
-  margin-left: 10rpx;
-  margin-top: 20rpx;
-  color: black;
-} 
-.shop-item-price{
-  margin-left: 10rpx;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  color: red;
+.discover-sub {
+  margin-top: 6rpx;
+  font-size: 12px;
+  color: #999;
 }
 
-.miaosha-goods-list
+.discover-sub text {
+  margin-right: 12rpx;
+}
 
+.discover-time {
+  max-width: 210rpx;
+  font-size: 12px;
+  color: #999;
+}
 
+.discover-content {
+  margin-top: 12rpx;
+  font-size: 14px;
+  color: #333;
+}
 
-
-
-/*秒杀*/
-.shop_item_container {
-  padding: 0;
+.discover-images {
+  margin-top: 12rpx;
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
-.sidebar-common{
-  height: 8rpx;
-  text-align: center;
+.discover-img-wrap {
+  position: relative;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  background: #f7f8fa;
 }
 
-.text_huodong{
+.discover-img {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  background-color:gray;
+  height: 100%;
+}
+
+.discover-images--cols1 .discover-img-wrap {
+  margin-right: 0;
+}
+
+.discover-images--cols2 .discover-img-wrap:nth-child(2n) {
+  margin-right: 0;
+}
+
+.discover-images--cols3 .discover-img-wrap:nth-child(3n) {
+  margin-right: 0;
+}
+
+.discover-meta {
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.discover-meta-item {
+  display: flex;
+  align-items: center;
+  margin-left: 22rpx;
+}
+
+.discover-meta-text {
+  margin-left: 8rpx;
+  font-size: 12px;
+  color: #999;
+}
+
+.discover-loading,
+.discover-nomore {
   text-align: center;
-  color: white;
+  color: #999;
+  font-size: 12px;
+  padding: 24rpx 0;
+}
+
+.job-popup {
+  padding-bottom: 24rpx;
+}
+
+.job-popup-title {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #111;
 }

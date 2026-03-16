@@ -2,18 +2,35 @@
 <import src="../template-cart/template-cart.wxml" />
 
 <view class="container">
-  <van-tabs wx:if="{{ shopping_cart_vop_open == 1 }}" custom-class="vtabs" shopCarType="{{ shopCarType }}" bind:change="onChange">
-    <van-tab title="自营商品">
-      <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
-  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
+  <van-tabs
+    wx:if="{{ shopping_cart_vop_open == 1 }}"
+    custom-class="vtabs"
+    active="{{ shopCarType }}"
+    bind:change="onChange"
+    line-width="0"
+    color="#ff5384"
+    title-active-color="#ff5384"
+    title-inactive-color="#333"
+  >
+    <van-tab title="自营商品" name="0">
+      <template
+        is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
+        data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
+      ></template>
     </van-tab>
-    <van-tab title="云货架">
-      <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
-  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
+    <van-tab title="云货架" name="1">
+      <template
+        is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
+        data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
+      ></template>
     </van-tab>
   </van-tabs>
-  <template wx:else is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
-  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
+
+  <template
+    wx:else
+    is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
+    data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
+  ></template>
 
   
 </view>

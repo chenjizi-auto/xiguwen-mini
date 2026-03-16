@@ -206,6 +206,21 @@
   left: 0;
   background-color: #FAFAFA;
   z-index: 999;
+  align-items: center;
+}
+.cart-bottom-left{
+  display: flex;
+  align-items: center;
+  padding-left: 24rpx;
+  height: 100%;
+}
+.cart-bottom-left checkbox{
+  transform: scale(0.9);
+}
+.cart-bottom-select{
+  margin-left: 10rpx;
+  font-size: 26rpx;
+  color: #333;
 }
 .jiesuan-box .to-pay-btn {
   text-align: center;
@@ -221,14 +236,18 @@
 .jiesuan-box .to-pay-btn.no-select {
   background-color: #ccc;
 }
+.jiesuan-box .to-pay-btn.del-mode{
+  background: #ff4d4f;
+}
 .jiesuan-box .left-price {
   display: flex;
-  width: 510rpx;
-  justify-content: space-between;
+  flex: 1;
+  justify-content: flex-start;
   line-height: 100rpx;
-  padding: 0 30rpx 0 32rpx;
+  padding: 0 16rpx 0 16rpx;
   font-size: 28rpx;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .jiesuan-box .total {
   color: #e64340;

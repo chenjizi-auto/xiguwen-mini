@@ -1,0 +1,56 @@
+<view class="page">
+  <van-search
+    value="{{searchVal}}"
+    placeholder="搜索城市"
+    show-action
+    bind:change="onSearchChange"
+    bind:cancel="onSearchCancel"
+  />
+
+  <view class="section-title">定位城市</view>
+  <view class="section-box">
+    <view class="loc-row">
+      <view class="loc-city" bindtap="useLocationCity">
+        <van-icon name="location-o" size="16" color="#ff5384" />
+        <text class="loc-text">{{locationCityName}}</text>
+      </view>
+      <van-button size="mini" plain type="primary" bind:click="reLocate">重新定位</van-button>
+    </view>
+    <view class="loc-tip" wx:if="{{locationTip}}">{{locationTip}}</view>
+  </view>
+
+  <view class="section-title">热门城市</view>
+  <view class="section-box section-box--hot">
+    <van-grid column-num="4" gutter="8" border="{{false}}">
+      <van-grid-item
+        wx:for="{{hotCities}}"
+        wx:key="id"
+        use-slot
+        custom-class="hot-item"
+        content-class="hot-item-content"
+        bind:click="onCityTap"
+        data-id="{{item.id}}"
+      >
+        <view class="hot-city-tile">{{item.name}}</view>
+      </van-grid-item>
+    </van-grid>
+    <van-empty wx:if="{{!hotCities || hotCities.length === 0}}" description="暂无热门城市" />
+  </view>
+
+  <view class="section-title">全部城市</view>
+  <view class="list-box">
+    <van-index-bar index-list="{{indexList}}">
+      <block wx:for="{{cityGroups}}" wx:key="key">
+        <van-index-anchor index="{{item.key}}" />
+        <van-cell
+          wx:for="{{item.items}}"
+          wx:for-item="city"
+          wx:key="id"
+          title="{{city.name}}"
+          bind:click="onCityTap"
+          data-id="{{city.id}}"
+        />
+      </block>
+    </van-index-bar>
+  </view>
+</view>

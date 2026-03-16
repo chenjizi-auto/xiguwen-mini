@@ -780,3 +780,279 @@ shop_focus_btn.container {
 .pingtuantag {
   margin-left: 16rpx;
 }
+
+.tab-empty {
+  width: 750rpx;
+  min-height: 1000rpx;
+  min-height: 60vh;
+  background-color: #fff;
+}
+
+/* 社团（参考 Android fragment_club_layout） */
+.club-page {
+  background-color: #fff;
+  min-height: 60vh;
+}
+
+.club-filter {
+  width: 750rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.club-filter-item {
+  flex: 1;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.club-filter-text {
+  max-width: 130rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+.club-list {
+  padding: 16rpx 24rpx 40rpx;
+}
+
+.club-item {
+  display: flex;
+  background-color: #fff;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.club-item-img {
+  width: 152rpx;
+  height: 152rpx;
+  border-radius: 10rpx;
+  background-color: #f7f8fa;
+  flex-shrink: 0;
+}
+
+.club-item-body {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.club-item-title {
+  font-size: 16px;
+  color: #111;
+  font-weight: 600;
+}
+
+.club-item-row {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.club-item-price {
+  color: #e64340;
+  font-size: 15px;
+}
+
+.club-item-members {
+  margin-left: 18rpx;
+  font-size: 12px;
+  color: #888;
+}
+
+.club-item-type {
+  margin-left: auto;
+  font-size: 12px;
+  color: #888;
+  max-width: 160rpx;
+}
+
+.club-item-row2 {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  color: #999;
+  font-size: 12px;
+}
+
+.club-item-address {
+  margin-left: 10rpx;
+  max-width: 480rpx;
+}
+
+.club-loading,
+.club-nomore {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  padding: 24rpx 0;
+}
+
+.club-popup {
+  padding-bottom: 24rpx;
+}
+
+.club-popup-title {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #111;
+}
+
+.club-popup-filter {
+  padding: 0 24rpx 24rpx;
+}
+
+.club-popup-actions {
+  margin-top: 24rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 案例（参考 Android fragment_example_layout / item_example_layout） */
+.case-page {
+  background-color: #fff;
+  min-height: 60vh;
+}
+
+.case-top {
+  width: 750rpx;
+  height: 162rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.case-top-item {
+  flex: 1;
+  height: 162rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-top-text {
+  margin-top: 10rpx;
+  font-size: 12px;
+  color: #666;
+}
+
+.case-top-text--active {
+  color: #ff5384;
+  font-weight: 600;
+}
+
+.case-list {
+  padding: 0 24rpx 40rpx;
+}
+
+.case-card {
+  margin-top: 16rpx;
+  background-color: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.04);
+  padding: 16rpx;
+}
+
+.case-card-head {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+}
+
+.case-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background-color: #f7f8fa;
+  flex-shrink: 0;
+}
+
+.case-name {
+  margin-left: 16rpx;
+  font-size: 14px;
+  color: #666;
+  flex: 1;
+}
+
+.case-care {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-cover {
+  margin-top: 16rpx;
+  width: 100%;
+  height: 360rpx;
+  border-radius: 18rpx;
+  background-color: #f7f8fa;
+}
+
+.case-title {
+  margin-top: 16rpx;
+  font-size: 16px;
+  color: #111;
+  font-weight: 600;
+}
+
+.case-price {
+  margin-top: 8rpx;
+  font-size: 16px;
+  color: #e64340;
+  font-weight: 600;
+}
+
+.case-desc {
+  margin-top: 12rpx;
+  font-size: 14px;
+  color: #888;
+  line-height: 40rpx;
+}
+
+.case-meta {
+  margin-top: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.case-meta-item {
+  display: flex;
+  align-items: center;
+  margin-right: 24rpx;
+}
+
+.case-meta-text {
+  margin-left: 8rpx;
+  font-size: 12px;
+  color: #999;
+}
+
+.case-loading,
+.case-nomore {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  padding: 24rpx 0;
+}

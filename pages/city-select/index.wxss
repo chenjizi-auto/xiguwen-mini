@@ -1,0 +1,74 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+}
+
+.section-title {
+  padding: 18rpx 24rpx;
+  font-size: 14px;
+  color: #666;
+}
+
+.section-box {
+  background: #fff;
+  margin: 0 24rpx;
+  border-radius: 18rpx;
+  padding: 16rpx;
+}
+
+.section-box--hot {
+  background: #f2f2f2;
+}
+
+.hot-item-content {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.hot-city-tile {
+  width: 100%;
+  height: 72rpx;
+  border-radius: 12rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+}
+
+.loc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.loc-city {
+  display: flex;
+  align-items: center;
+  max-width: 520rpx;
+}
+
+.loc-text {
+  margin-left: 10rpx;
+  font-size: 14px;
+  color: #111;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loc-tip {
+  margin-top: 10rpx;
+  font-size: 12px;
+  color: #999;
+}
+
+.list-box {
+  margin: 0 24rpx 40rpx;
+  background: #fff;
+  border-radius: 18rpx;
+  overflow: hidden;
+}

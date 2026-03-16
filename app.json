@@ -4,6 +4,7 @@
     "pages/test/wifi",
     "pages/shop/select",
     "pages/index/index",
+    "pages/city-select/index",
     "pages/notice/index",
     "pages/notice/show",
     "pages/category/category",
