@@ -1,8 +1,13 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
-const AUTH = require('../../utils/auth')
 
 const app = getApp()
+
+function formatBadgeCount(count) {
+  const value = Number(count) || 0
+  if (value <= 0) return ''
+  return value > 99 ? '99+' : `${value}`
+}
 
 function computeSelectable(items, shopCarType) {
   const list = Array.isArray(items) ? items : []
@@ -29,6 +34,39 @@ function computeSelectedMeta(items, shopCarType) {
   }
 }
 
+function getEmptyCartInfo() {
+  return {
+    items: [],
+    shopList: [],
+    price: 0,
+    score: 0
+  }
+}
+
+function normalizeCartData(res, shopCarType) {
+  if (!res || res.code !== 0 || !res.data) {
+    return getEmptyCartInfo()
+  }
+
+  const data = res.data || {}
+  const items = Array.isArray(data.items)
+    ? data.items.map(item => {
+        const next = Object.assign({}, item)
+        if (shopCarType === 0 && (!next.stores || next.status === 1)) {
+          next.selected = false
+        }
+        return next
+      })
+    : []
+
+  return {
+    items,
+    shopList: Array.isArray(data.shopList) ? data.shopList : [],
+    price: data.price || 0,
+    score: data.score || 0
+  }
+}
+
 Page({
   data: {
     shopCarType: 0, //0自营 1云货架
@@ -45,13 +83,20 @@ Page({
     selectedGoodsNum: 0,
     selectedCountText: '',
     selectedGoodsNumText: '',
+    isLogined: false,
+    shopping_cart_vop_open: 0,
+    selfCartCount: 0,
+    selfCartCountText: '',
+    vopCartCount: 0,
+    vopCartCountText: '',
+    navHeight: 88,
+    navTop: 44,
+    menuHeight: 32,
+    menuRight: 12,
+    navRightGap: 16,
+    editRight: 24,
 
-    shippingCarInfo: {
-      items: [],
-      shopList: [],
-      price: 0,
-      score: 0
-    }
+    shippingCarInfo: getEmptyCartInfo()
   },
 
   //获取元素自适应后的实际宽度
@@ -74,49 +119,101 @@ Page({
       delBtnWidth: delBtnWidth
     });
   },
-  onLoad: function () {
-    this.initEleWidth();
-    this.onShow();
+  setNavMetrics() {
+    const globalData = app.globalData || {}
+    const systemInfo = wx.getSystemInfoSync()
+    const menuButtonObject =
+      globalData.menuButtonObject || wx.getMenuButtonBoundingClientRect()
+    const fallbackNavTop = systemInfo.statusBarHeight || 20
+    const navTop = globalData.navTop || menuButtonObject.top || fallbackNavTop
+    const menuHeight = menuButtonObject.height || 32
+    const navHeight =
+      globalData.navHeight ||
+      (navTop + menuHeight + ((menuButtonObject.top || navTop) - navTop) * 2)
+    const windowWidth = systemInfo.windowWidth || 375
+    const menuRight = menuButtonObject.right
+      ? Math.max(windowWidth - menuButtonObject.right, 12)
+      : 12
+
     this.setData({
-      shopping_cart_vop_open: wx.getStorageSync('shopping_cart_vop_open')
+      navHeight,
+      navTop,
+      menuHeight,
+      menuRight,
+      navRightGap: menuRight,
+      editRight: menuRight + 12
     })
   },
+  onLoad: function () {
+    this.initEleWidth()
+    this.setNavMetrics()
+  },
   onShow: function () {
-    this.shippingCarInfo()
+    this.refreshPageData()
+  },
+  async refreshPageData() {
+    const shopping_cart_vop_open = Number(wx.getStorageSync('shopping_cart_vop_open')) || 0
+    const nextShopCarType =
+      shopping_cart_vop_open === 1 && Number(this.data.shopCarType) === 1 ? 1 : 0
+
+    await new Promise(resolve => {
+      this.setData({
+        shopping_cart_vop_open,
+        shopCarType: nextShopCarType,
+        isLogined: !!wx.getStorageSync('token')
+      }, resolve)
+    })
+
+    await this.shippingCarInfo()
   },
   async shippingCarInfo() {
     const token = wx.getStorageSync('token')
     if (!token) {
       this.setData({
-        shippingCarInfo: { items: [], shopList: [], price: 0, score: 0 },
-        ...computeSelectedMeta([], this.data.shopCarType)
+        isLogined: false,
+        selfCartCount: 0,
+        selfCartCountText: '',
+        vopCartCount: 0,
+        vopCartCountText: '',
+        shippingCarInfo: getEmptyCartInfo(),
+        ...computeSelectedMeta([], Number(this.data.shopCarType) || 0)
       })
       return
     }
-    if (this.data.shopCarType == 0) { //自营购物车
-      var res = await WXAPI.shippingCarInfo(token)
-    } else if (this.data.shopCarType == 1) { //云货架购物车
-      var res = await WXAPI.jdvopCartInfo(token)
-    }
-    if (res.code == 0) {
-      if (this.data.shopCarType == 0) //自营商品
-      {
-        res.data.items.forEach(ele => {
-          if (!ele.stores || ele.status == 1) {
-            ele.selected = false
-          }
-        })
+    const shopCarType = Number(this.data.shopCarType) || 0
+    const isVopOpen = Number(this.data.shopping_cart_vop_open) === 1
+    let selfRes = null
+    let vopRes = null
+
+    try {
+      if (isVopOpen) {
+        const result = await Promise.all([
+          WXAPI.shippingCarInfo(token),
+          WXAPI.jdvopCartInfo(token)
+        ])
+        selfRes = result[0]
+        vopRes = result[1]
+      } else {
+        selfRes = await WXAPI.shippingCarInfo(token)
       }
-      this.setData({
-        shippingCarInfo: res.data,
-        ...computeSelectedMeta(res.data.items, this.data.shopCarType)
-      })
-    } else {
-      this.setData({
-        shippingCarInfo: { items: [], shopList: [], price: 0, score: 0 },
-        ...computeSelectedMeta([], this.data.shopCarType)
-      })
+    } catch (e) {
+      selfRes = null
+      vopRes = null
     }
+
+    const selfData = normalizeCartData(selfRes, 0)
+    const vopData = normalizeCartData(vopRes, 1)
+    const currentData = shopCarType === 1 ? vopData : selfData
+
+    this.setData({
+      isLogined: true,
+      selfCartCount: selfData.items.length,
+      selfCartCountText: formatBadgeCount(selfData.items.length),
+      vopCartCount: vopData.items.length,
+      vopCartCountText: formatBadgeCount(vopData.items.length),
+      shippingCarInfo: currentData,
+      ...computeSelectedMeta(currentData.items, shopCarType)
+    })
   },
   toIndexPage: function () {
     wx.switchTab({
@@ -124,9 +221,28 @@ Page({
     });
   },
 
+  toLoginPage() {
+    wx.navigateTo({
+      url: '/pages/login/index'
+    })
+  },
+
   toggleEditMode() {
     this.setData({
       editMode: !this.data.editMode
+    })
+  },
+
+  selectCartTab(e) {
+    const shopCarType = Number(e.currentTarget.dataset.type) || 0
+    if (shopCarType === Number(this.data.shopCarType)) {
+      return
+    }
+    this.setData({
+      shopCarType,
+      editMode: false
+    }, () => {
+      this.shippingCarInfo()
     })
   },
 
@@ -335,7 +451,7 @@ Page({
   },
   onChange(event) {
     this.setData({
-      shopCarType: event.detail.name
+      shopCarType: Number(event.detail.name) || 0
     })
     this.shippingCarInfo()
   },

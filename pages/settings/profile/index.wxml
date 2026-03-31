@@ -1,0 +1,59 @@
+<view class="profile-page">
+  <view class="profile-card">
+    <view class="profile-item profile-item--avatar" bindtap="onChooseAvatar">
+      <view class="profile-item__label">头像</view>
+      <view class="profile-avatar-wrap">
+        <image class="profile-avatar" src="{{avatarUrl || '/images/default.png'}}" mode="aspectFill"></image>
+        <view class="profile-item__arrow"></view>
+      </view>
+    </view>
+    <view class="profile-divider"></view>
+    <view class="profile-item">
+      <view class="profile-item__label">昵称</view>
+      <input class="profile-item__input" value="{{nickname}}" placeholder="请输入昵称" bindinput="onNicknameInput" />
+    </view>
+    <view class="profile-divider"></view>
+    <picker range="{{sexOptions}}" value="{{sexIndex > -1 ? sexIndex : 0}}" bindchange="onSexChange">
+      <view class="profile-item">
+        <view class="profile-item__label">性别</view>
+        <view class="profile-item__value {{sex ? '' : 'profile-item__value--placeholder'}}">{{sex || '请选择性别'}}</view>
+      </view>
+    </picker>
+    <view class="profile-divider"></view>
+    <picker mode="date" value="{{birthdayDate || '1995-01-01'}}" start="1950-01-01" end="2099-12-31" bindchange="onBirthdayChange">
+      <view class="profile-item">
+        <view class="profile-item__label">生日</view>
+        <view class="profile-item__value {{birthdayDate ? '' : 'profile-item__value--placeholder'}}">{{birthdayDate || '请选择生日'}}</view>
+      </view>
+    </picker>
+    <view class="profile-divider"></view>
+    <view class="profile-item">
+      <view class="profile-item__label">年龄</view>
+      <view class="profile-item__value">{{age || '--'}}</view>
+    </view>
+    <view class="profile-divider"></view>
+    <view class="profile-item">
+      <view class="profile-item__label">身高</view>
+      <input class="profile-item__input" type="digit" value="{{height}}" placeholder="请输入身高(cm)" bindinput="onHeightInput" />
+    </view>
+    <view class="profile-divider"></view>
+    <view class="profile-item">
+      <view class="profile-item__label">体重</view>
+      <input class="profile-item__input" type="digit" value="{{weight}}" placeholder="请输入体重(kg)" bindinput="onWeightInput" />
+    </view>
+    <view class="profile-divider"></view>
+    <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+      <view class="profile-item">
+        <view class="profile-item__label">地区</view>
+        <view class="profile-item__value {{regionText ? '' : 'profile-item__value--placeholder'}}">{{regionText || '请选择所在地区'}}</view>
+      </view>
+    </picker>
+    <view class="profile-divider"></view>
+    <view class="profile-item profile-item--textarea">
+      <view class="profile-item__label">联系地址</view>
+      <textarea class="profile-item__textarea" value="{{address}}" maxlength="120" placeholder="请输入联系地址" bindinput="onAddressInput"></textarea>
+    </view>
+  </view>
+
+  <view class="profile-submit" bindtap="onSubmit">{{submitting ? '保存中...' : '保存'}}</view>
+</view>

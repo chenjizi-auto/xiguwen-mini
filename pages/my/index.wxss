@@ -78,6 +78,13 @@
   color: #111;
 }
 
+.mine-login-tip {
+  margin-top: 12rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #e64340;
+}
+
 .mine-team {
   padding: 6rpx 24rpx 0;
   text-align: center;

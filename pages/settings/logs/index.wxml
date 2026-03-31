@@ -1,0 +1,24 @@
+<view class="logs-page">
+  <view class="logs-toolbar">
+    <view class="logs-toolbar__btn" bindtap="onCopyLatest">复制最新</view>
+    <view class="logs-toolbar__btn" bindtap="onCopyAll">复制全部</view>
+    <view class="logs-toolbar__btn logs-toolbar__btn--danger" bindtap="onClearLogs">清空</view>
+  </view>
+
+  <view class="logs-path">本地日志存储：{{logs.length}} 条</view>
+
+  <view wx:if="{{!logs.length}}" class="logs-empty">
+    <view class="logs-empty__title">暂无日志</view>
+    <view class="logs-empty__desc">登录、资料修改、地址管理等操作会记录到这里</view>
+  </view>
+
+  <block wx:for="{{logs}}" wx:key="id">
+    <view class="log-card">
+      <view class="log-card__head">
+        <view class="log-card__title">{{item.title}}</view>
+        <view class="log-card__time">{{item.timeText}}</view>
+      </view>
+      <view wx:if="{{item.detail}}" class="log-card__detail">{{item.detail}}</view>
+    </view>
+  </block>
+</view>

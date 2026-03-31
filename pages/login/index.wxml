@@ -1,19 +1,87 @@
-<view class="container">
-    <view class='logo'>
-        <image class='logo-img' src='/images/default.png'></image>
+<view class="login-page">
+  <view class="login-nav" style="height: {{navHeight}}px; padding-top: {{navTop}}px; padding-right: {{menuRight}}px;">
+    <view class="login-back" bindtap="handleBack">
+      <image class="login-back-icon" src="/images/icon/go-l.svg" mode="aspectFit" />
     </view>
-    <view class='logo-name'>测试</view>
-    <view class='intro'>测试bug</view>
-    <view class='login'>请完成微信授权以继续使用</view>
-    <!-- <button class='btn-login' open-type="getUserInfo" bindgetuserinfo='getUserInfo'>
-        <image src='/images/icon/weixin-w.png' class='img-w'></image>
-        <view class='text'>微信快捷登录</view>
-    </button> -->
-    <button class='btn-login' bindtap='getUserProfile'>
-        <view class='img-w'></view>
-        <view class='text'>微信快捷登录</view>
-    </button>
+    <view class="login-title" style="line-height: {{menuHeight}}px;">登录</view>
+  </view>
 
-    <van-button wx:if="showloading" loading type="info" loading-text="登录中..." />
-    <view class="cancel" bindtap="goBack">取消</view>
+  <view class="login-content">
+    <image class="login-logo" src="{{logo}}" mode="aspectFit" />
+
+    <block wx:if="{{step === 'welcome'}}">
+      <view class="login-slogan">欢迎来到{{appName}}</view>
+
+      <button class="login-btn login-btn--primary" loading="{{submitting}}" bindtap="onWechatLogin">
+        微信一键登录
+      </button>
+
+      <button class="login-btn login-btn--ghost" bindtap="toMobileLogin">
+        其他手机号登录
+      </button>
+    </block>
+
+    <block wx:else>
+      <view class="login-form">
+        <view class="login-input-row">
+          <text class="login-country">+86</text>
+          <input
+            class="login-input"
+            type="number"
+            maxlength="11"
+            placeholder="请输入手机号"
+            placeholder-class="login-input-placeholder"
+            value="{{phone}}"
+            bindinput="onPhoneInput"
+          />
+        </view>
+        <view class="login-input-line"></view>
+
+        <view class="login-input-row">
+          <input
+            class="login-input login-input--full"
+            password
+            placeholder="请输入登录密码"
+            placeholder-class="login-input-placeholder"
+            value="{{password}}"
+            bindinput="onPasswordInput"
+            bindconfirm="onMobileLogin"
+          />
+        </view>
+        <view class="login-input-line"></view>
+      </view>
+
+      <button class="login-btn login-btn--primary" loading="{{submitting}}" bindtap="onMobileLogin">
+        登录/同意协议并继续
+      </button>
+    </block>
+
+    <view class="agreement-row" bindtap="toggleAgreement">
+      <view class="agreement-icon {{agreed ? 'agreement-icon--checked' : ''}}">
+        <text wx:if="{{agreed}}" class="agreement-check">✓</text>
+      </view>
+      <view class="agreement-text">
+        未注册{{appName}}的手机号，登录时将自动注册，且代表您已同意以下协议：
+        <text class="agreement-link" data-key="yhxy" catchtap="openAgreement">《用户服务协议》</text>
+        和
+        <text class="agreement-link" data-key="ysxy" catchtap="openAgreement">《隐私政策》</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showAgreementDialog}}" class="agreement-mask" catchtouchmove="preventTouchMove">
+    <view class="agreement-dialog" catchtap="preventTouchMove">
+      <view class="agreement-dialog-title">服务协议及隐私保护</view>
+      <view class="agreement-dialog-content">
+        为了更好地保障您的合法权益，请您阅读并同意
+        <text class="agreement-link" data-key="yhxy" catchtap="openAgreement">《用户服务协议》</text>
+        和
+        <text class="agreement-link" data-key="ysxy" catchtap="openAgreement">《隐私政策》</text>
+      </view>
+      <view class="agreement-dialog-actions">
+        <view class="agreement-dialog-btn agreement-dialog-btn--plain" bindtap="closeAgreementConfirm">不同意</view>
+        <view class="agreement-dialog-btn agreement-dialog-btn--primary" bindtap="agreeAndClose">同意</view>
+      </view>
+    </view>
+  </view>
 </view>

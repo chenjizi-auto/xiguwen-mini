@@ -1,6 +1,38 @@
-<van-cell title="关于我们" is-link url="/pages/about/index" />
-<van-cell title="视频客服" is-link url="/packageStreamMedia/pages/videoCall/videoCall" />
-<van-cell title="意见反馈" is-link url="/pages/my/feedback" />
-<van-cell title="清除缓存" is-link bind:click="clearStorage" />
-<van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
-<van-cell title="当前版本" value="{{version}}" />
+<view class="setting-page">
+  <view class="setting-card setting-card--single">
+    <view class="setting-item" data-action="address" bindtap="handleMenuTap">
+      <text class="setting-item__title">收货地址</text>
+      <view class="setting-item__arrow"></view>
+    </view>
+  </view>
+
+  <view class="setting-card">
+    <view class="setting-item" data-action="profile" bindtap="handleMenuTap">
+      <text class="setting-item__title">个人资料</text>
+      <view class="setting-item__arrow"></view>
+    </view>
+    <view class="setting-divider"></view>
+    <view class="setting-item" data-action="account" bindtap="handleMenuTap">
+      <text class="setting-item__title">账号与安全</text>
+      <view class="setting-item__arrow"></view>
+    </view>
+    <view class="setting-divider"></view>
+    <view class="setting-item" data-action="security" bindtap="handleMenuTap">
+      <text class="setting-item__title">安全设置</text>
+      <view class="setting-item__arrow"></view>
+    </view>
+    <block wx:if="{{showLogs}}">
+      <view class="setting-divider"></view>
+      <view class="setting-item" data-action="logs" bindtap="handleMenuTap">
+        <text class="setting-item__title">日志中心</text>
+        <view class="setting-item__arrow"></view>
+      </view>
+    </block>
+  </view>
+
+  <view class="setting-card setting-card--logout">
+    <view class="setting-item setting-item--logout" bindtap="handleLogout">
+      <text class="setting-item__title setting-item__title--danger">退出登录</text>
+    </view>
+  </view>
+</view>

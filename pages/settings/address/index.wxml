@@ -1,0 +1,31 @@
+<view class="address-page">
+  <view class="address-toolbar">
+    <view class="address-toolbar__title">收货地址</view>
+    <view class="address-toolbar__action" bindtap="onManageTap">{{manageMode ? '完成' : '管理'}}</view>
+  </view>
+
+  <view wx:if="{{!loading && !list.length}}" class="address-empty">
+    <view class="address-empty__title">暂无收货地址</view>
+    <view class="address-empty__desc">点击下方按钮新增收货地址</view>
+  </view>
+
+  <block wx:for="{{list}}" wx:key="id" wx:for-index="index">
+    <view class="address-card">
+      <view class="address-card__head">
+        <view class="address-card__name">{{item.username || '未命名联系人'}}</view>
+        <view class="address-card__mobile">{{item.mobile || ''}}</view>
+        <view wx:if="{{item.hot == 1}}" class="address-card__badge">默认</view>
+      </view>
+      <view class="address-card__detail">{{item.province || ''}} {{item.city || ''}} {{item.county || ''}} {{item.site || ''}}</view>
+      <view wx:if="{{manageMode}}" class="address-card__actions">
+        <view class="address-card__btn" bindtap="onSetDefaultTap" data-index="{{index}}">设为默认</view>
+        <view class="address-card__btn" bindtap="onEditTap" data-index="{{index}}">编辑</view>
+        <view class="address-card__btn address-card__btn--danger" bindtap="onDeleteTap" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </block>
+
+  <view class="address-footer">
+    <view class="address-footer__btn" bindtap="onAddTap">新增收货地址</view>
+  </view>
+</view>

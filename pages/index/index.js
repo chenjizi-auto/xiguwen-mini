@@ -25,6 +25,9 @@ Page({
     rementuandui:[],
     remenhuodong:{},
     youlike:[],
+    load_img: '/images/load_img.png',
+    load_img_erro: '/images/load_img_erro.png',
+    load_imag_error: '/images/load_img_erro.png',
 
     // 社团（参考 Android fragment_club_layout + ApiManager.getAssociation）
     clubCityId: '273', // 默认成都（Android 端默认 273）
@@ -210,6 +213,23 @@ Page({
       this.setData({
         banners: data
       });
+  },
+
+  onShopAvatarError(e) {
+    const idx = e && e.currentTarget ? Number(e.currentTarget.dataset.idx) : -1
+    if (idx < 0) return
+    this.setData({
+      [`youlike[${idx}].head`]: this.data.load_img_erro
+    })
+  },
+
+  onShopImageError(e) {
+    const idx = e && e.currentTarget ? Number(e.currentTarget.dataset.idx) : -1
+    const field = e && e.currentTarget ? e.currentTarget.dataset.field : ''
+    if (idx < 0 || !field) return
+    this.setData({
+      [`youlike[${idx}].${field}`]: this.data.load_img_erro
+    })
   },
 
   // -------------------- 社团列表（Homehot/association） --------------------

@@ -1,4 +1,5 @@
 const network = require('../../api/network.js')
+const xgwAuth = require('../../utils/xgw-auth.js')
 const APP = getApp()
 
 function normalizePhotoUrls(photourl) {
@@ -110,7 +111,7 @@ Page({
     if (idx === this.data.orderActive) return
 
     // 关注：需要登录 token
-    if (idx === 2 && !wx.getStorageSync('token')) {
+    if (idx === 2 && !xgwAuth.isLogined()) {
       wx.showToast({ title: '请先登录', icon: 'none' })
       return
     }
@@ -124,7 +125,15 @@ Page({
   },
 
   onAddDiscover() {
-    wx.showToast({ title: '发布功能开发中', icon: 'none' })
+    if (!xgwAuth.isLogined()) {
+      wx.navigateTo({
+        url: '/pages/login/index'
+      })
+      return
+    }
+    wx.navigateTo({
+      url: '/pages/discover-publish/index'
+    })
   },
 
   initNavBar() {

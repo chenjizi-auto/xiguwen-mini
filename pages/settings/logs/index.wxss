@@ -1,0 +1,88 @@
+page {
+  background: #f5f5f5;
+}
+
+.logs-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.logs-toolbar {
+  display: flex;
+}
+
+.logs-toolbar__btn {
+  min-width: 160rpx;
+  height: 64rpx;
+  padding: 0 24rpx;
+  margin-right: 16rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #444444;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.logs-toolbar__btn--danger {
+  color: #e5443d;
+}
+
+.logs-path {
+  margin: 24rpx 8rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.logs-empty {
+  padding: 140rpx 32rpx;
+  text-align: center;
+}
+
+.logs-empty__title {
+  font-size: 34rpx;
+  color: #333333;
+}
+
+.logs-empty__desc {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.log-card {
+  margin-bottom: 20rpx;
+  padding: 24rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+}
+
+.log-card__head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.log-card__title {
+  flex: 1;
+  font-size: 30rpx;
+  color: #222222;
+  font-weight: 600;
+}
+
+.log-card__time {
+  flex-shrink: 0;
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.log-card__detail {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  color: #666666;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

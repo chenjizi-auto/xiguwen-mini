@@ -1,0 +1,49 @@
+<view class="publish-page">
+  <view class="publish-nav" style="height: {{navHeight}}px; padding-top: {{navTop}}px; padding-right: {{menuRight}}px;">
+    <view class="publish-nav-left" style="height: {{menuHeight}}px; line-height: {{menuHeight}}px;" bindtap="handleBack">取消</view>
+    <view class="publish-nav-title" style="line-height: {{menuHeight}}px;">写动态</view>
+    <view
+      class="publish-nav-right {{canPublish ? 'publish-nav-right--active' : ''}}"
+      style="height: {{menuHeight}}px; line-height: {{menuHeight}}px;"
+      bindtap="onPublish"
+    >
+      {{submitting ? '发布中' : '发布'}}
+    </view>
+  </view>
+
+  <view class="publish-divider"></view>
+
+  <view class="publish-content">
+    <textarea
+      class="publish-textarea"
+      maxlength="-1"
+      auto-height
+      cursor-spacing="140"
+      placeholder="{{placeholder}}"
+      placeholder-class="publish-placeholder"
+      value="{{content}}"
+      bindinput="onContentInput"
+    />
+
+    <view wx:if="{{images.length > 0}}" class="publish-grid">
+      <view wx:for="{{images}}" wx:key="*this" class="publish-grid-item">
+        <image
+          class="publish-image"
+          src="{{item}}"
+          mode="aspectFill"
+          bindtap="previewImage"
+          data-url="{{item}}"
+        />
+        <view class="publish-delete" bindtap="removeImage" data-index="{{index}}">×</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="publish-toolbar">
+    <view class="publish-add-btn" bindtap="onAddImage">
+      <van-icon name="photo-o" size="20" color="#8c8c8c" />
+      <text class="publish-add-text">添加图片</text>
+      <text class="publish-add-count">{{images.length}}/{{maxImageCount}}</text>
+    </view>
+  </view>
+</view>

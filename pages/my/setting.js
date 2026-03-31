@@ -1,53 +1,98 @@
-const CONFIG = require('../../config.js')
-const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const xgwAuth = require('../../utils/xgw-auth')
+const xgwLog = require('../../utils/xgw-log')
+
+const ROUTE_MAP = {
+  address: '/pages/settings/address/index',
+  profile: '/pages/settings/profile/index',
+  account: '/pages/settings/account/index',
+  security: '/pages/settings/security/index',
+  logs: '/pages/settings/logs/index'
+}
+
 Page({
   data: {
+    showLogs: true
+  },
 
-  },
-  onLoad: function (options) {
-    this.setData({
-      version: CONFIG.version
-    })
-  },
-  onShow: function () {
-    this.getUserApiInfo()
-  },
-  async getUserApiInfo() {
-    const res = await WXAPI.userDetail(wx.getStorageSync('token'))
-    if (res.code == 0) {
-      let _data = {}
-      _data.apiUserInfoMap = res.data
-      if (res.data.base.mobile) {
-        _data.userMobile = res.data.base.mobile
-      }
-      if (this.data.order_hx_uids && this.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
-        _data.canHX = true // 具有扫码核销的权限
-      }
-      const adminUserIds = wx.getStorageSync('adminUserIds')
-      if (adminUserIds && adminUserIds.indexOf(res.data.base.id) != -1) {
-        _data.isAdmin = true
-      }
-      if (res.data.peisongMember && res.data.peisongMember.status == 1) {
-        _data.memberChecked = false
-      } else {
-        _data.memberChecked = true
-      }
-      this.setData(_data);
+  onLoad() {
+    if (!xgwAuth.isLogined()) {
+      this.promptXgwLogin()
     }
   },
-  clearStorage(){
-    wx.clearStorageSync()
-    wx.showToast({
-      title: '已清除',
-      icon: 'success'
+
+  onShow() {
+    if (!xgwAuth.isLogined()) {
+      this.promptXgwLogin()
+    }
+  },
+
+  promptXgwLogin() {
+    if (this._loginPromptShown) {
+      return
+    }
+    this._loginPromptShown = true
+    wx.showModal({
+      title: '请先登录',
+      content: '当前账号未登录，是否前往登录页？',
+      confirmText: '去登录',
+      confirmColor: '#e64340',
+      success: res => {
+        this._loginPromptShown = false
+        if (res.confirm) {
+          wx.redirectTo({
+            url: '/pages/login/index'
+          })
+          return
+        }
+        wx.switchTab({
+          url: '/pages/my/index'
+        })
+      },
+      fail: () => {
+        this._loginPromptShown = false
+      }
     })
   },
-  goadmin() {
-    wx.navigateToMiniProgram({
-      appId: 'wx5e5b0066c8d3f33d',
-      path: 'pages/login/auto?token=' + wx.getStorageSync('token'),
-      envVersion: 'trial' // develop trial release
+
+  handleMenuTap(e) {
+    const action = e.currentTarget.dataset.action
+    const url = ROUTE_MAP[action]
+    if (!url) {
+      return
+    }
+    if (!xgwAuth.isLogined()) {
+      this.promptXgwLogin()
+      return
+    }
+    wx.navigateTo({
+      url
     })
   },
+
+  handleLogout() {
+    wx.showModal({
+      title: '退出登录',
+      content: '确认退出当前登录账号？',
+      confirmText: '退出',
+      confirmColor: '#e64340',
+      success: res => {
+        if (!res.confirm) {
+          return
+        }
+        xgwLog.record('退出登录', `userid=${xgwAuth.getUserId()}`)
+        xgwAuth.clearLogin()
+        AUTH.loginOut()
+        wx.showToast({
+          title: '已退出登录',
+          icon: 'success'
+        })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/my/index'
+          })
+        }, 200)
+      }
+    })
+  }
 })

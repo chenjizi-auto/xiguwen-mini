@@ -1,0 +1,51 @@
+page {
+  background: #f5f5f5;
+}
+
+.security-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.security-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.security-item {
+  min-height: 104rpx;
+  padding: 0 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.security-item__title {
+  font-size: 30rpx;
+  color: #222222;
+}
+
+.security-item__arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 3rpx solid #c7c7cc;
+  border-right: 3rpx solid #c7c7cc;
+  transform: rotate(45deg);
+}
+
+.security-divider {
+  margin-left: 28rpx;
+  height: 1rpx;
+  background: #f0f0f0;
+}
+
+.security-tip {
+  margin-top: 24rpx;
+  padding: 0 8rpx;
+  font-size: 24rpx;
+  line-height: 38rpx;
+  color: #999999;
+}

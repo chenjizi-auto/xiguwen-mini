@@ -1,0 +1,137 @@
+page {
+  background: #f5f5f5;
+}
+
+.address-page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx calc(144rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.address-toolbar {
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.address-toolbar__title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #222222;
+}
+
+.address-toolbar__action {
+  padding: 8rpx 0 8rpx 24rpx;
+  font-size: 28rpx;
+  color: #e5443d;
+}
+
+.address-empty {
+  padding: 140rpx 32rpx;
+  text-align: center;
+  color: #999999;
+}
+
+.address-empty__title {
+  font-size: 34rpx;
+  color: #333333;
+}
+
+.address-empty__desc {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+}
+
+.address-card {
+  margin-bottom: 24rpx;
+  padding: 28rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+
+.address-card__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.address-card__name,
+.address-card__mobile,
+.address-card__badge {
+  margin-right: 12rpx;
+}
+
+.address-card__name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #222222;
+}
+
+.address-card__mobile {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.address-card__badge {
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  background: rgba(229, 68, 61, 0.12);
+  color: #e5443d;
+  font-size: 22rpx;
+}
+
+.address-card__detail {
+  margin-top: 18rpx;
+  font-size: 28rpx;
+  line-height: 42rpx;
+  color: #666666;
+}
+
+.address-card__actions {
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.address-card__btn {
+  min-width: 132rpx;
+  height: 60rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid #dedede;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #444444;
+  box-sizing: border-box;
+  margin-left: 16rpx;
+}
+
+.address-card__btn--danger {
+  border-color: #f1b3b0;
+  color: #e5443d;
+}
+
+.address-footer {
+  position: fixed;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: calc(24rpx + env(safe-area-inset-bottom));
+}
+
+.address-footer__btn {
+  height: 96rpx;
+  border-radius: 24rpx;
+  background: #e5443d;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14rpx 30rpx rgba(229, 68, 61, 0.22);
+}

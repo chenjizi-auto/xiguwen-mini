@@ -1,0 +1,89 @@
+page {
+  background: #f5f5f5;
+}
+
+.password-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.password-step {
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.password-step__item {
+  font-size: 24rpx;
+  color: #b0b0b0;
+}
+
+.password-step__item--active {
+  color: #e5443d;
+  font-weight: 600;
+}
+
+.password-step__line {
+  flex: 1;
+  margin: 0 16rpx;
+  height: 2rpx;
+  background: #e5e5e5;
+}
+
+.password-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.password-row {
+  min-height: 104rpx;
+  padding: 0 28rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.password-row__input {
+  flex: 1;
+  min-width: 0;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.password-row__code-btn {
+  min-width: 152rpx;
+  height: 60rpx;
+  border-radius: 999rpx;
+  background: #e5443d;
+  color: #ffffff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-row__code-btn--disabled {
+  background: #f4b1ae;
+}
+
+.password-divider {
+  margin-left: 28rpx;
+  height: 1rpx;
+  background: #f0f0f0;
+}
+
+.password-submit {
+  margin-top: 48rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  background: #e5443d;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14rpx 30rpx rgba(229, 68, 61, 0.22);
+}

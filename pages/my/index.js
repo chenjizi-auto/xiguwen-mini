@@ -2,6 +2,7 @@ const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
 const network = require('../../api/network.js')
+const xgwAuth = require('../../utils/xgw-auth.js')
 
 function asNumber(v, def = 0) {
   const n = Number(v)
@@ -11,6 +12,19 @@ function asNumber(v, def = 0) {
 function safeStr(v, def = '') {
   if (v == null) return def
   return String(v)
+}
+
+function buildGuestUser() {
+  return {
+    head: '',
+    nickname: '未登录',
+    association: '',
+    fans: 0,
+    follownumber: 0,
+    money: 0,
+    vouchers: 0,
+    usertype: 3
+  }
 }
 
 function buildOrderLists() {
@@ -112,6 +126,7 @@ Page({
 
     user: {},
     userType: 3,
+    isXgwLogined: false,
 
     showWeddingShopJiedan: false,
     showMallShopJiedan: false,
@@ -148,10 +163,43 @@ Page({
   },
 
   onShow() {
+    this.refreshLoginState()
     this.loadMineHome()
     this.refreshMallOrderBadges()
     this.loadMallOrderStatistics()
     TOOLS.showTabBarBadge()
+  },
+
+  refreshLoginState() {
+    this.setData({
+      isXgwLogined: xgwAuth.isLogined()
+    })
+  },
+
+  promptLogin(message = '当前未登录，是否前往登录？') {
+    wx.showModal({
+      title: '请先登录',
+      content: message,
+      confirmText: '去登录',
+      confirmColor: '#e64340',
+      success: res => {
+        if (!res.confirm) return
+        wx.navigateTo({
+          url: '/pages/login/index'
+        })
+      }
+    })
+  },
+
+  ensureXgwLogin(message) {
+    if (xgwAuth.isLogined()) {
+      return true
+    }
+    this.setData({
+      isXgwLogined: false
+    })
+    this.promptLogin(message)
+    return false
   },
 
   onAvatarError() {
@@ -161,22 +209,49 @@ Page({
   },
 
   goSetting() {
-    const token = wx.getStorageSync('token')
-    if (!token) {
-      wx.showToast({ title: '请先登录', icon: 'none' })
+    if (!this.ensureXgwLogin()) {
       return
     }
     wx.navigateTo({ url: '/pages/my/setting' })
   },
 
   onProfileTap() {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     wx.navigateTo({ url: '/pages/my/info-menu' })
   },
 
   onStatTap(e) {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     const type = e && e.currentTarget ? safeStr(e.currentTarget.dataset.type) : ''
     if (!type) return
     wx.showToast({ title: '功能开发中', icon: 'none' })
+  },
+
+  onLoginTap() {
+    this.promptLogin()
+  },
+
+  applyMineHomeData(data, isLogined = true) {
+    const userType = asNumber(data && data.usertype, 3)
+    this.setData({
+      isXgwLogined: isLogined,
+      user: {
+        head: safeStr(data && data.head, ''),
+        nickname: safeStr(data && data.nickname, isLogined ? '' : '未登录'),
+        association: safeStr(data && data.association, ''),
+        fans: asNumber(data && data.fans, 0),
+        follownumber: asNumber(data && data.follownumber, 0),
+        money: safeStr(data && data.money, '0'),
+        vouchers: safeStr(data && data.vouchers, '0'),
+        isuserivip: asNumber(data && data.isuserivip, 0),
+        isshopvip: asNumber(data && data.isshopvip, 0)
+      }
+    })
+    this.applyUserType(userType)
   },
 
   applyUserType(userType) {
@@ -195,49 +270,46 @@ Page({
   },
 
   async loadMineHome() {
+    if (!xgwAuth.isLogined()) {
+      this.applyMineHomeData(buildGuestUser(), false)
+      return
+    }
+
+    const cachedMineHome = xgwAuth.getMineHome()
+    if (cachedMineHome) {
+      this.applyMineHomeData(cachedMineHome, true)
+    }
+
     try {
       const res = await network.myHomeIndex({})
       if (!res || res.code !== 0 || !res.data) {
-        this.setData({
-          user: {
-            head: '',
-            nickname: '未登录',
-            association: '',
-            fans: 0,
-            follownumber: 0,
-            money: 0,
-            vouchers: 0,
-            usertype: 3
-          }
-        })
-        this.applyUserType(3)
+        if (!cachedMineHome) {
+          this.applyMineHomeData(buildGuestUser(), false)
+        }
         return
       }
 
-      const data = res.data
-      const userType = asNumber(data.usertype, 3)
-      this.setData({
-        user: {
-          head: safeStr(data.head, ''),
-          nickname: safeStr(data.nickname, ''),
-          association: safeStr(data.association, ''),
-          fans: asNumber(data.fans, 0),
-          follownumber: asNumber(data.follownumber, 0),
-          money: safeStr(data.money, '0'),
-          vouchers: safeStr(data.vouchers, '0'),
-          isuserivip: asNumber(data.isuserivip, 0),
-          isshopvip: asNumber(data.isshopvip, 0)
-        }
-      })
-      this.applyUserType(userType)
+      xgwAuth.saveMineHome(res.data)
+      this.applyMineHomeData(res.data, true)
     } catch (e) {
-      // ignore
+      if (!cachedMineHome) {
+        this.applyMineHomeData(buildGuestUser(), false)
+      }
     }
   },
 
   loadMallOrderStatistics() {
     AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) return
+      if (!isLogined) {
+        this.setData({
+          count_id_no_confirm: 0,
+          count_id_no_pay: 0,
+          count_id_no_reputation: 0,
+          count_id_no_transfer: 0
+        })
+        this.refreshMallOrderBadges()
+        return
+      }
       WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
         if (!res || res.code !== 0) return
         const data = res.data || {}
@@ -268,10 +340,16 @@ Page({
   },
 
   onWeddingOrderTap() {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     wx.showToast({ title: '婚庆订单开发中', icon: 'none' })
   },
 
   onMallOrderTap(e) {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, 0) : 0
     // 对齐 pages/order-list/index.js：status 0..3；全部不传 type
     if (id === 0) {
@@ -285,14 +363,23 @@ Page({
   },
 
   onWeddingJiedanTap() {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     wx.showToast({ title: '婚庆接单开发中', icon: 'none' })
   },
 
   onMallJiedanTap() {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     wx.showToast({ title: '商城接单开发中', icon: 'none' })
   },
 
   onOtherToolTap(e) {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, -1) : -1
     if (id === 0) {
       wx.navigateTo({ url: '/pages/idCheck/index' })
@@ -301,15 +388,29 @@ Page({
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
-  onShopManageTap() {
+  onShopManageTap(e) {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
+    const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, -1) : -1
+    if (id === 5) {
+      wx.navigateTo({ url: '/pages/my/mine-atlas/index' })
+      return
+    }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
   onUserToolTap() {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
   onActionTap(e) {
+    if (!this.ensureXgwLogin()) {
+      return
+    }
     const action = e && e.currentTarget ? safeStr(e.currentTarget.dataset.action) : ''
     if (!action) return
 
@@ -324,4 +425,3 @@ Page({
     wx.showToast({ title: '功能开发中', icon: 'none' })
   }
 })
-

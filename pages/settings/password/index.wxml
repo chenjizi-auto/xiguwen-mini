@@ -1,0 +1,34 @@
+<view class="password-page">
+  <view class="password-step">
+    <view class="password-step__item {{step >= 1 ? 'password-step__item--active' : ''}}">1. 验证手机号</view>
+    <view class="password-step__line"></view>
+    <view class="password-step__item {{step >= 2 ? 'password-step__item--active' : ''}}">2. 设置新密码</view>
+  </view>
+
+  <block wx:if="{{step === 1}}">
+    <view class="password-card">
+      <view class="password-row">
+        <input class="password-row__input" type="number" value="{{mobile}}" placeholder="请输入手机号" disabled="{{mobileReadonly}}" bindinput="onMobileInput" />
+        <view class="password-row__code-btn {{countdown ? 'password-row__code-btn--disabled' : ''}}" bindtap="onSendCode">{{countdown ? countdown + 's' : '获取验证码'}}</view>
+      </view>
+      <view class="password-divider"></view>
+      <view class="password-row">
+        <input class="password-row__input" type="number" value="{{code}}" placeholder="请输入验证码" bindinput="onCodeInput" />
+      </view>
+    </view>
+    <view class="password-submit" bindtap="onVerifyCode">下一步</view>
+  </block>
+
+  <block wx:if="{{step === 2}}">
+    <view class="password-card">
+      <view class="password-row">
+        <input class="password-row__input" password value="{{password}}" placeholder="请输入新密码" bindinput="onPasswordInput" />
+      </view>
+      <view class="password-divider"></view>
+      <view class="password-row">
+        <input class="password-row__input" password value="{{password2}}" placeholder="请再次输入新密码" bindinput="onPassword2Input" />
+      </view>
+    </view>
+    <view class="password-submit" bindtap="onSubmitPassword">完成</view>
+  </block>
+</view>

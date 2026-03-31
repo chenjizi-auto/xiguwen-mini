@@ -1,0 +1,30 @@
+<view class="account-page">
+  <view class="account-card">
+    <view class="account-item" bindtap="onPhoneTap">
+      <view class="account-item__title">手机绑定</view>
+      <view class="account-item__right">
+        <text class="account-item__status">{{mobileText}}</text>
+        <view class="account-item__arrow"></view>
+      </view>
+    </view>
+    <view class="account-divider"></view>
+    <view class="account-item" bindtap="onWechatTap">
+      <view class="account-item__title">微信绑定</view>
+      <view class="account-item__right">
+        <text class="account-item__status">{{wechatText}}</text>
+        <view class="account-item__arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="account-card">
+    <view class="account-item" bindtap="onCancelTap">
+      <view class="account-item__title">注销账号</view>
+      <view class="account-item__right">
+        <view class="account-item__arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="account-tip">手机号用于登录与安全校验，注销后当前账号数据不可恢复。</view>
+</view>

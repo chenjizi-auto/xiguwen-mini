@@ -9,10 +9,12 @@ const SYSTEM = 'System'
 const FOUND = 'Found'
 const MYHOME = 'Myhome'
 const ACTIVITY = 'activity'
+const ADDRESS_XGW = 'Address'
 
 module.exports = {
   ApiRoot: ApiRoot,
   // 登录
+  AuthLogin: ApiRootUrl + INDEX + '/login', // 手机号密码登录
   AuthLoginByWeixin: ApiRootUrl + INDEX+ '/registerThirdPart', //微信登录
   // 首页
   IndexUrl: ApiRootUrl + HOME+'/index', //首页数据接口
@@ -27,10 +29,35 @@ module.exports = {
   // 发现（婚庆圈/商城圈，同 Android：/appapi/Found/wedding /shops）
   DiscoverWedding: ApiRootUrl + FOUND + '/wedding',
   DiscoverShops: ApiRootUrl + FOUND + '/shops',
+  DiscoverPublish: ApiRootUrl + FOUND + '/publishingdynamicsd',
   // 我的（同 Android：/appapi/Myhome/index）
   MyHomeIndex: ApiRootUrl + MYHOME + '/index',
+  XgwUserInfo: ApiRootUrl + MYHOME + '/personaldata',
+  XgwUserInfoUpdate: ApiRootUrl + MYHOME + '/setPersonal',
   // 活动投票 URL（同 Android：/appapi/activity/index_list）
   ActivityVoteUrl: ApiRootUrl + ACTIVITY + '/index_list',
+  XgwUploadImage: ApiRootUrl + SYSTEM + '/uploadimg',
+  XgwAtlasList: ApiRootUrl + 'Atlas/atlaslist',
+  XgwAtlasDetail: ApiRootUrl + 'Atlas/Atlasdetails',
+  XgwAtlasAdd: ApiRootUrl + 'Atlas/addAtlas',
+  XgwAtlasEdit: ApiRootUrl + 'Atlas/editatlasios',
+  XgwAtlasDelete: ApiRootUrl + 'Atlas/delatlas',
+  XgwAtlasReason: ApiRootUrl + 'Atlas/atlassee',
+  XgwAtlasStatus: ApiRootUrl + 'Atlas/setAtlasStatus',
+  XgwAtlasSubmit: ApiRootUrl + 'Atlas/atlasexamine',
+  XgwAddressList: ApiRootUrl + ADDRESS_XGW + '/addresslist',
+  XgwAddressAdd: ApiRootUrl + ADDRESS_XGW + '/addsite',
+  XgwAddressUpdate: ApiRootUrl + ADDRESS_XGW + '/updateAddsite',
+  XgwAddressDelete: ApiRootUrl + ADDRESS_XGW + '/delsite',
+  XgwAddressDefault: ApiRootUrl + ADDRESS_XGW + '/shemoren',
+  XgwGetVerifyCode: ApiRootUrl + INDEX + '/getverifycode',
+  XgwPasswordVerify: ApiRootUrl + INDEX + '/retrievepwd',
+  XgwPasswordReset: ApiRootUrl + INDEX + '/retrievepwds',
+  XgwPayPasswordReset: ApiRootUrl + INDEX + '/repaypwd',
+  XgwPhoneVerify: ApiRootUrl + INDEX + '/upmobile',
+  XgwPhoneUpdate: ApiRootUrl + INDEX + '/upmobiles',
+  XgwBindOther: ApiRootUrl + INDEX + '/threeparties',
+  XgwUserCancel: ApiRootUrl + INDEX + '/usercancel',
   CatalogCurrent: ApiRootUrl + 'catalog/current', //分类目录当前分类数据接口
   GetCurrentList: ApiRootUrl + 'catalog/currentlist',
   // 购物车

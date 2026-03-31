@@ -1,0 +1,193 @@
+.atlas-edit-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 124, 157, 0.15), transparent 28%),
+    linear-gradient(180deg, #fff9fb 0%, #f5f5f7 100%);
+}
+
+.atlas-edit-card {
+  margin: 24rpx;
+  padding: 28rpx;
+  border-radius: 32rpx;
+  background: #ffffff;
+  box-shadow: 0 20rpx 48rpx rgba(34, 24, 28, 0.06);
+}
+
+.atlas-edit-title {
+  color: #22181c;
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.atlas-edit-sub {
+  margin-top: 10rpx;
+  color: #8c7d84;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.atlas-edit-section {
+  margin-top: 30rpx;
+}
+
+.atlas-edit-label {
+  color: #22181c;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.atlas-edit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.atlas-edit-tip {
+  color: #b1909d;
+  font-size: 22rpx;
+}
+
+.atlas-edit-input,
+.atlas-edit-textarea {
+  width: 100%;
+  margin-top: 14rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 22rpx;
+  background: #fff6f8;
+  color: #33272b;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.atlas-edit-textarea {
+  min-height: 200rpx;
+}
+
+.atlas-edit-counter {
+  margin-top: 10rpx;
+  text-align: right;
+  color: #b1909d;
+  font-size: 22rpx;
+}
+
+.atlas-edit-picker {
+  display: flex;
+  height: 220rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16rpx;
+  border: 2rpx dashed #f1c7d4;
+  border-radius: 26rpx;
+  background: linear-gradient(180deg, #fffafc, #fff4f7);
+}
+
+.atlas-edit-picker-plus {
+  color: #ff5b86;
+  font-size: 52rpx;
+  line-height: 1;
+}
+
+.atlas-edit-picker-text,
+.atlas-edit-grid-text {
+  margin-top: 10rpx;
+  color: #8c7d84;
+  font-size: 24rpx;
+}
+
+.atlas-edit-cover-wrap {
+  position: relative;
+  margin-top: 16rpx;
+}
+
+.atlas-edit-cover {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 24rpx;
+  background: #f4f4f4;
+}
+
+.atlas-edit-remove {
+  position: absolute;
+  top: 18rpx;
+  right: 18rpx;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(34, 24, 28, 0.62);
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 1;
+}
+
+.atlas-edit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18rpx;
+  margin-top: 16rpx;
+}
+
+.atlas-edit-grid-item {
+  position: relative;
+  width: calc((100% - 36rpx) / 3);
+  height: 200rpx;
+  border-radius: 22rpx;
+  overflow: hidden;
+}
+
+.atlas-edit-grid-item--image {
+  background: #f3f3f3;
+}
+
+.atlas-edit-grid-item--picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx dashed #f1c7d4;
+  background: #fff7fa;
+}
+
+.atlas-edit-grid-image {
+  width: 100%;
+  height: 100%;
+}
+
+.atlas-edit-grid-remove {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: rgba(34, 24, 28, 0.68);
+  color: #fff;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+
+.atlas-edit-safe {
+  height: 150rpx;
+}
+
+.atlas-edit-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20rpx 24rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 -8rpx 28rpx rgba(34, 24, 28, 0.04);
+  backdrop-filter: blur(12rpx);
+}
+
+.atlas-edit-submit {
+  height: 88rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #ff7b9b, #ff5b86);
+  color: #fff;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}

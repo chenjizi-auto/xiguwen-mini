@@ -55,22 +55,23 @@
 .goodsList {
   width: 100%;
   padding-bottom: 110rpx;
+  background: #ffffff;
 }
 
 .a-gooods {
-  width: 725rpx;
+  width: 100%;
   overflow: hidden;
   position: relative;
-  margin-left: 18rpx;
   background-color: white;
-  border-radius: 10rpx;
-  margin-top: 10rpx;
+  border-radius: 0;
+  margin-top: 0;
+  border-bottom: 1rpx solid #ececec;
 }
 
 .a-goods-conts {
   display: flex;
   justify-content: space-between;
-  padding-left: 30rpx;
+  padding-left: 24rpx;
   width: 850rpx;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
@@ -78,50 +79,53 @@
 
 .goods-info {
   display: flex;
-  padding: 30rpx 0 30rpx 0;
-  width: 720rpx;
+  padding: 26rpx 0;
+  width: 726rpx;
   box-sizing: border-box;
 }
 
 .goods-info .img-box {
-  width: 160rpx;
-  height: 160rpx;
+  width: 136rpx;
+  height: 136rpx;
   overflow: hidden;
-  margin-right: 20rpx;
+  margin-right: 24rpx;
   background-color: #d8d8d8;
   flex-shrink: 0;
-  border-radius: 16rpx;
+  border-radius: 8rpx;
 }
 
 .goods-info .text-box {
-  width: 440rpx;
+  width: 500rpx;
   position: relative;
 }
 
 .goods-info .text-box .goods-title {
-  width: 450rpx;
+  width: 420rpx;
   font-size: 28rpx;
   color: #000;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  padding: 10rpx 20rpx 5rpx 0;
+  padding: 4rpx 90rpx 0 0;
 }
 
 .goods-info .text-box .goods-label {
-  font-size: 26rpx;
+  font-size: 24rpx;
   color: #999;
-  height: 38rpx;
-  line-height: 38rpx;
-  margin: 8rpx 0 25rpx 0;
+  min-height: 34rpx;
+  line-height: 34rpx;
+  margin: 10rpx 0 22rpx 0;
   text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .goods-info .text-box .goods-price {
   font-size: 26rpx;
   color: #e64340;
+  font-weight: 600;
 }
 
 .goods-info .text-box .buy-num {
@@ -129,7 +133,7 @@
   height: 48rpx;
   line-height: 48rpx;
   position: absolute;
-  right: 30rpx;
+  right: 0;
   bottom: 0;
   display: flex;
   /*justify-content: space-between;*/
@@ -184,13 +188,13 @@
   font-size: 24rpx;
 }
 .goods-info .img-box .img {
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: 16rpx;
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 8rpx;
 }
 .a-goods-conts .delete-btn {
   width: 120rpx;
-  line-height: 220rpx;
+  line-height: 188rpx;
   text-align: center;
   background: #e64340;
   font-size: 24rpx;
@@ -205,6 +209,7 @@
   bottom: 0;
   left: 0;
   background-color: #FAFAFA;
+  border-top: 1rpx solid #ececec;
   z-index: 999;
   align-items: center;
 }

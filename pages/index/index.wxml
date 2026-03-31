@@ -145,7 +145,20 @@
         <view class="shop-item-list" wx:for="{{youlike}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typpe="{{item.typpe}}" data-shopid="{{item.shopid}}">
           <view class="shop-host-item" wx:if="{{item.typee === '4'}}">
             <view class="shop_item_head">
-              <van-image  round width="3rem" height="3rem" fit="cover" src="{{item.head}}" />
+              <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
+                <image
+                  slot="loading"
+                  src="{{load_img}}"
+                  mode="aspectFill"
+                  style="width: 100%; height: 100%;"
+                />
+                <image
+                  slot="error"
+                  src="{{load_imag_error}}"
+                  mode="aspectFill"
+                  style="width: 100%; height: 100%;"
+                />
+              </van-image>
               <view class="shop_label_container">
                 <view class="shop_name">{{item.nickname}}</view>
                 <view class="shop_type">{{item.occupationid}}</view>
@@ -154,14 +167,27 @@
                 <van-button plain hairline type="primary" size="mini">关注</van-button>
               </view>
             </view>
-            <image src="{{item.shopimg}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+            <image src="{{item.shopimg || load_img}}" class="shop_cover" mode="aspectFill" lazy-load="true" binderror="onShopImageError" data-idx="{{idx}}" data-field="shopimg" />
             <view class="shop-item-title">{{item.shopname}}</view>
             <view class="shop-item-price">{{item.price}}</view>
             <view class="shop_bottom_line"></view>
           </view>
           <view class="shop-host-item" wx:if="{{item.typee === '3'}}">
             <view class="shop_item_head">
-              <van-image round width="3rem" height="3rem" src="{{item.head}}" />
+              <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
+                <image
+                  slot="loading"
+                  src="{{load_img}}"
+                  mode="aspectFill"
+                  style="width: 100%; height: 100%;"
+                />
+                <image
+                  slot="error"
+                  src="{{load_imag_error}}"
+                  mode="aspectFill"
+                  style="width: 100%; height: 100%;"
+                />
+              </van-image>
               <view class="shop_label_container">
                 <view class="shop_name">{{item.nickname}}</view>
                 <view class="shop_type">{{item.occupationid}}</view>
@@ -173,7 +199,7 @@
             <view class="shop-video-container">
               <!-- <video src="{{item.video_url}}" autoplay="false" loop="true" style='width:730rpx;height:300rpx;'></video> -->
               <image style="width: 50rpx; height: 50rpx; position: absolute; z-index: 100;left: 350rpx;top: 175rpx;" src="../../images/video_play.png" />
-              <image src="{{item.cover}}" class="shop_cover" mode="aspectFill" lazy-load="true" />
+              <image src="{{item.cover || load_img}}" class="shop_cover" mode="aspectFill" lazy-load="true" binderror="onShopImageError" data-idx="{{idx}}" data-field="cover" />
             </view>
           
             <view class="shop-item-title">{{item.title}}</view>

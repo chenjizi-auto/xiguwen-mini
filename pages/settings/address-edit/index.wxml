@@ -1,0 +1,34 @@
+<view class="address-edit-page">
+  <view class="form-card">
+    <view class="form-item">
+      <view class="form-item__label">联系人</view>
+      <input class="form-item__input" value="{{username}}" placeholder="请输入联系人姓名" bindinput="onNameInput" />
+    </view>
+    <view class="form-divider"></view>
+    <view class="form-item">
+      <view class="form-item__label">手机号</view>
+      <input class="form-item__input" type="number" value="{{mobile}}" placeholder="请输入手机号" bindinput="onMobileInput" />
+    </view>
+    <view class="form-divider"></view>
+    <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+      <view class="form-item">
+        <view class="form-item__label">所在地区</view>
+        <view class="form-item__value {{regionText ? '' : 'form-item__value--placeholder'}}">{{regionText || '请选择省 / 市 / 区'}}</view>
+      </view>
+    </picker>
+    <view class="form-divider"></view>
+    <view class="form-item form-item--textarea">
+      <view class="form-item__label">详细地址</view>
+      <textarea class="form-item__textarea" value="{{site}}" placeholder="请输入详细地址" maxlength="120" bindinput="onSiteInput"></textarea>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="form-item">
+      <view class="form-item__label">设为默认地址</view>
+      <switch color="#e5443d" checked="{{hot}}" bindchange="onDefaultChange" />
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="onSubmit">{{isEdit ? '保存修改' : '保存地址'}}</view>
+</view>

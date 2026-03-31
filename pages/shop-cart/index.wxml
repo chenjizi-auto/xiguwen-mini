@@ -1,36 +1,66 @@
-<!--index.wxml-->
 <import src="../template-cart/template-cart.wxml" />
 
-<view class="container">
-  <van-tabs
-    wx:if="{{ shopping_cart_vop_open == 1 }}"
-    custom-class="vtabs"
-    active="{{ shopCarType }}"
-    bind:change="onChange"
-    line-width="0"
-    color="#ff5384"
-    title-active-color="#ff5384"
-    title-inactive-color="#333"
-  >
-    <van-tab title="自营商品" name="0">
+<view class="cart-page">
+  <view class="cart-nav" style="height: {{navHeight}}px; padding-top: {{navTop}}px; padding-right: {{menuRight}}px;">
+    <view class="cart-nav-side"></view>
+    <view class="cart-title" style="line-height: {{menuHeight}}px;">购物车</view>
+    <view
+      wx:if="{{isLogined && shippingCarInfo.items && shippingCarInfo.items.length > 0}}"
+      class="cart-edit"
+      style="top: {{navTop}}px; height: {{menuHeight}}px; line-height: {{menuHeight}}px; right: {{editRight}}px;"
+      bindtap="toggleEditMode"
+    >
+      {{editMode ? '完成' : '编辑'}}
+    </view>
+  </view>
+
+  <view class="cart-nav-divider"></view>
+
+  <view class="cart-tab-panel">
+    <view class="cart-tab-item {{shopCarType == 0 ? 'cart-tab-item--active' : ''}}" data-type="0" bindtap="selectCartTab">
+      <view class="cart-tab-icon-wrap">
+        <image
+          class="cart-tab-icon"
+          src="{{shopCarType == 0 ? '/images/nav/icon_cart_select2.png' : '/images/nav/icon_cart_unsle2.png'}}"
+          mode="aspectFit"
+        />
+        <view wx:if="{{selfCartCountText}}" class="cart-tab-badge">{{selfCartCountText}}</view>
+      </view>
+      <text class="cart-tab-text">自营商品</text>
+    </view>
+
+    <view
+      wx:if="{{shopping_cart_vop_open == 1}}"
+      class="cart-tab-item {{shopCarType == 1 ? 'cart-tab-item--active' : ''}}"
+      data-type="1"
+      bindtap="selectCartTab"
+    >
+      <view class="cart-tab-icon-wrap">
+        <image
+          class="cart-tab-icon"
+          src="{{shopCarType == 1 ? '/images/icon/shop-on.svg' : '/images/icon/shop.svg'}}"
+          mode="aspectFit"
+        />
+        <view wx:if="{{vopCartCountText}}" class="cart-tab-badge">{{vopCartCountText}}</view>
+      </view>
+      <text class="cart-tab-text">云货架</text>
+    </view>
+  </view>
+
+  <view class="cart-content {{isLogined ? '' : 'cart-content--empty'}}">
+    <block wx:if="{{isLogined}}">
       <template
         is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
         data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
       ></template>
-    </van-tab>
-    <van-tab title="云货架" name="1">
-      <template
-        is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
-        data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
-      ></template>
-    </van-tab>
-  </van-tabs>
+    </block>
 
-  <template
-    wx:else
-    is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
-    data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
-  ></template>
-
-  
+    <view wx:else class="cart-login-empty">
+      <image class="cart-login-empty-icon" src="/images/nologin.png" mode="aspectFit" />
+      <view class="cart-login-empty-title">登录后查看购物车</view>
+      <view class="cart-login-empty-desc">你的收藏商品、待结算商品都会展示在这里</view>
+      <button class="cart-login-btn" bindtap="toLoginPage">立即登录</button>
+      <view class="cart-login-secondary" bindtap="toIndexPage">先去逛逛</view>
+    </view>
+  </view>
 </view>
