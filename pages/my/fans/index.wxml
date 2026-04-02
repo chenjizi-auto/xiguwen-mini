@@ -1,0 +1,25 @@
+<view class="fans-page">
+  <view class="fans-summary">{{totalText}}</view>
+
+  <view class="fans-list" wx:if="{{fans.length > 0}}">
+    <view class="fans-item" wx:for="{{fans}}" wx:key="userid" wx:for-index="index">
+      <image
+        class="fans-avatar"
+        src="{{item.head || defaultAvatar}}"
+        mode="aspectFill"
+        binderror="onAvatarError"
+        data-index="{{index}}"
+      />
+      <view class="fans-main">
+        <view class="fans-headline">
+          <text class="fans-name van-ellipsis">{{item.nickname}}</text>
+          <text class="fans-job van-ellipsis" wx:if="{{item.occupation}}">{{item.occupation}}</text>
+        </view>
+        <view class="fans-region van-ellipsis">{{item.region || '暂未设置地区'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{loaded && fans.length === 0}}" image="/images/zw.png" description="暂无粉丝" />
+  <view wx:if="{{loading}}" class="fans-loading">加载中...</view>
+</view>

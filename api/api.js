@@ -10,6 +10,7 @@ const FOUND = 'Found'
 const MYHOME = 'Myhome'
 const ACTIVITY = 'activity'
 const ADDRESS_XGW = 'Address'
+const BANKROLL = 'Bankroll'
 
 module.exports = {
   ApiRoot: ApiRoot,
@@ -32,8 +33,12 @@ module.exports = {
   DiscoverPublish: ApiRootUrl + FOUND + '/publishingdynamicsd',
   // 我的（同 Android：/appapi/Myhome/index）
   MyHomeIndex: ApiRootUrl + MYHOME + '/index',
+  MyFansList: ApiRootUrl + MYHOME + '/mfensi',
+  MyAttentionList: ApiRootUrl + MYHOME + '/follow',
   XgwUserInfo: ApiRootUrl + MYHOME + '/personaldata',
   XgwUserInfoUpdate: ApiRootUrl + MYHOME + '/setPersonal',
+  XgwBankBalance: ApiRootUrl + BANKROLL + '/balance',
+  XgwBankSchedule: ApiRootUrl + BANKROLL + '/balanceofpayments',
   // 活动投票 URL（同 Android：/appapi/activity/index_list）
   ActivityVoteUrl: ApiRootUrl + ACTIVITY + '/index_list',
   XgwUploadImage: ApiRootUrl + SYSTEM + '/uploadimg',

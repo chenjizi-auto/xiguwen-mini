@@ -3,6 +3,7 @@ const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
 const network = require('../../api/network.js')
 const xgwAuth = require('../../utils/xgw-auth.js')
+const APP = getApp()
 
 function asNumber(v, def = 0) {
   const n = Number(v)
@@ -123,12 +124,16 @@ Page({
     load_img: '/images/load_img.png',
     load_img_erro: '/images/load_img_erro.png',
     defaultAvatar: '/images/default.png',
+    navHeight: 0,
+    navTop: 0,
+    navBarHeight: 44,
 
     user: {},
     userType: 3,
     isXgwLogined: false,
 
     showWeddingShopJiedan: false,
+    showMallOrder: false,
     showMallShopJiedan: false,
     showShopManage: false,
     showMallVip: false,
@@ -151,6 +156,7 @@ Page({
   },
 
   onLoad() {
+    this.initNavBar()
     const lists = buildOrderLists()
     this.setData({
       weddingOrderItems: lists.weddingOrderItems,
@@ -168,6 +174,41 @@ Page({
     this.refreshMallOrderBadges()
     this.loadMallOrderStatistics()
     TOOLS.showTabBarBadge()
+  },
+
+  onPullDownRefresh() {
+    this.refreshLoginState()
+    this.loadMineHome()
+    this.loadMallOrderStatistics()
+    wx.stopPullDownRefresh()
+  },
+
+  initNavBar() {
+    try {
+      const sys = wx.getSystemInfoSync()
+      const menuButtonObject =
+        (APP && APP.globalData && APP.globalData.menuButtonObject) || wx.getMenuButtonBoundingClientRect()
+      const navTop =
+        (APP && APP.globalData && APP.globalData.navTop) ||
+        (sys && typeof sys.statusBarHeight === 'number' ? sys.statusBarHeight : 0)
+      const navHeight =
+        (APP && APP.globalData && APP.globalData.navHeight) ||
+        (navTop +
+          (menuButtonObject && menuButtonObject.height ? menuButtonObject.height : 32) +
+          ((menuButtonObject && menuButtonObject.top ? menuButtonObject.top : navTop) - navTop) * 2)
+
+      this.setData({
+        navHeight,
+        navTop,
+        navBarHeight: Math.max(44, navHeight - navTop)
+      })
+    } catch (e) {
+      this.setData({
+        navHeight: 64,
+        navTop: 20,
+        navBarHeight: 44
+      })
+    }
   },
 
   refreshLoginState() {
@@ -228,6 +269,23 @@ Page({
     }
     const type = e && e.currentTarget ? safeStr(e.currentTarget.dataset.type) : ''
     if (!type) return
+    if (type === 'fans') {
+      wx.navigateTo({ url: '/pages/my/fans/index' })
+      return
+    }
+    if (type === 'money') {
+      wx.navigateTo({ url: '/pages/asset/index' })
+      return
+    }
+    if (type === 'follow') {
+      wx.navigateTo({ url: '/pages/my/cares/index' })
+      return
+    }
+    if (type === 'voucher') {
+      const price = safeStr(this.data.user && this.data.user.vouchers, '0')
+      wx.navigateTo({ url: `/pages/my/vouchers/index?price=${encodeURIComponent(price)}` })
+      return
+    }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 

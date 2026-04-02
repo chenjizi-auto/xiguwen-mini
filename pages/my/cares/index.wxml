@@ -1,0 +1,97 @@
+<view class="cares-page">
+  <view class="cares-tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="cares-tab {{activeTab === index ? 'cares-tab--active' : ''}}"
+      data-index="{{index}}"
+      bindtap="onTabTap"
+    >
+      <text class="cares-tab__text">{{item.label}}</text>
+      <view class="cares-tab__line"></view>
+    </view>
+  </view>
+
+  <view class="cares-summary">{{activeSummary}}</view>
+
+  <block wx:if="{{activeTab === 0}}">
+    <view class="cares-list" wx:if="{{merchantList.length}}">
+      <view class="merchant-card" wx:for="{{merchantList}}" wx:key="id" wx:for-index="index" bindtap="onMerchantTap">
+        <image
+          class="merchant-card__avatar"
+          src="{{item.head || defaultAvatar}}"
+          mode="aspectFill"
+          binderror="onImageError"
+          data-tab="merchant"
+          data-field="head"
+          data-index="{{index}}"
+        />
+        <view class="merchant-card__main">
+          <view class="merchant-card__head">
+            <text class="merchant-card__name van-ellipsis">{{item.nickname}}</text>
+            <text class="merchant-card__job van-ellipsis">{{item.occupation}}</text>
+          </view>
+          <view class="merchant-card__address van-ellipsis">{{item.address}}</view>
+        </view>
+        <view class="merchant-card__tag">已关注</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:elif="{{activeTab === 1}}">
+    <view class="cares-list cares-list--flat" wx:if="{{exampleList.length}}">
+      <view class="example-card" wx:for="{{exampleList}}" wx:key="id" wx:for-index="index" bindtap="onExampleTap">
+        <image
+          class="example-card__cover"
+          src="{{item.cover || load_img_erro}}"
+          mode="aspectFill"
+          binderror="onImageError"
+          data-tab="example"
+          data-field="cover"
+          data-index="{{index}}"
+        />
+        <view class="example-card__main">
+          <view class="example-card__title van-ellipsis">{{item.title}}</view>
+          <view class="example-card__desc example-card__desc--clamp">{{item.desc}}</view>
+          <view class="example-card__meta">
+            <text class="example-card__price">¥{{item.price}}</text>
+            <text class="example-card__care">关注 {{item.careCount}}</text>
+          </view>
+        </view>
+        <view class="example-card__tag">已关注</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="goods-grid" wx:if="{{goodsList.length}}">
+      <view class="goods-card" wx:for="{{goodsList}}" wx:key="id" wx:for-index="index" bindtap="onGoodsTap" data-id="{{item.id}}">
+        <image
+          class="goods-card__cover"
+          src="{{item.cover || load_img_erro}}"
+          mode="aspectFill"
+          binderror="onImageError"
+          data-tab="goods"
+          data-field="cover"
+          data-index="{{index}}"
+        />
+        <view class="goods-card__body">
+          <view class="goods-card__title goods-card__title--clamp">{{item.title}}</view>
+          <view class="goods-card__foot">
+            <text class="goods-card__price">¥{{item.price}}</text>
+            <text class="goods-card__sold">已售{{item.sold}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <van-empty
+    wx:if="{{activeLoaded && activeListLength === 0}}"
+    image="/images/zw.png"
+    description="暂无关注内容"
+  />
+
+  <view wx:if="{{activeLoading}}" class="cares-loading">加载中...</view>
+  <view wx:if="{{activeNoMore && activeListLength > 0}}" class="cares-nomore">没有更多了</view>
+</view>

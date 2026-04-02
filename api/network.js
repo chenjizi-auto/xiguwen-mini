@@ -196,6 +196,22 @@ async function myHomeIndex(data){
   return post(api.MyHomeIndex, data)
 }
 
+async function myFansList(data){
+  return post(api.MyFansList, data)
+}
+
+async function myAttentionList(data){
+  return post(api.MyAttentionList, data)
+}
+
+async function xgwBankBalance(data){
+  return post(api.XgwBankBalance, data)
+}
+
+async function xgwBankSchedule(data){
+  return post(api.XgwBankSchedule, data)
+}
+
 async function activityVoteUrl(data){
   return post(api.ActivityVoteUrl, data)
 }
@@ -324,6 +340,10 @@ module.exports = {
   discoverWedding,
   discoverShops,
   myHomeIndex,
+  myFansList,
+  myAttentionList,
+  xgwBankBalance,
+  xgwBankSchedule,
   activityVoteUrl,
   xgwUserInfo,
   xgwUserInfoUpdate,

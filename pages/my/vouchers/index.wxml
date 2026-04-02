@@ -1,0 +1,24 @@
+<view class="voucher-page">
+  <view class="voucher-list">
+    <view class="voucher-card">
+      <view class="voucher-card__notch voucher-card__notch--left"></view>
+      <view class="voucher-card__notch voucher-card__notch--right"></view>
+
+      <view class="voucher-card__main">
+        <view class="voucher-card__title">{{title}}</view>
+        <view class="voucher-card__desc">{{desc}}</view>
+        <view class="voucher-card__time">{{expiryText}}</view>
+      </view>
+
+      <view class="voucher-card__divider"></view>
+
+      <view class="voucher-card__side">
+        <text class="voucher-card__label">余额：</text>
+        <view class="voucher-card__amount">
+          <text class="voucher-card__amount-num">{{price}}</text>
+          <text class="voucher-card__amount-unit">元</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

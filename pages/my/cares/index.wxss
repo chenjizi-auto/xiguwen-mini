@@ -1,0 +1,266 @@
+page {
+  background: #f5f5f5;
+}
+
+.cares-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.cares-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 88rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.cares-tab {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cares-tab__text {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.cares-tab__line {
+  position: absolute;
+  bottom: 0;
+  width: 44rpx;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: transparent;
+}
+
+.cares-tab--active .cares-tab__text {
+  color: #ff5384;
+  font-weight: 600;
+}
+
+.cares-tab--active .cares-tab__line {
+  background: #ff5384;
+}
+
+.cares-summary {
+  height: 64rpx;
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+  background: #f0f0f0;
+}
+
+.cares-list {
+  background: #fff;
+}
+
+.cares-list--flat {
+  padding: 0 24rpx;
+}
+
+.merchant-card {
+  display: flex;
+  align-items: center;
+  min-height: 160rpx;
+  padding: 0 32rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.merchant-card__avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.merchant-card__main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 24rpx;
+}
+
+.merchant-card__head {
+  display: flex;
+  align-items: baseline;
+}
+
+.merchant-card__name {
+  max-width: 280rpx;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #222;
+  font-weight: 600;
+}
+
+.merchant-card__job {
+  max-width: 180rpx;
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #999;
+}
+
+.merchant-card__address {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #999;
+}
+
+.merchant-card__tag,
+.example-card__tag {
+  min-width: 108rpx;
+  height: 52rpx;
+  padding: 0 22rpx;
+  border-radius: 26rpx;
+  border: 1rpx solid #ffd3df;
+  background: #fff4f8;
+  color: #ff5384;
+  font-size: 22rpx;
+  line-height: 52rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.example-card {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.example-card:last-child {
+  border-bottom: 0;
+}
+
+.example-card__cover {
+  width: 152rpx;
+  height: 152rpx;
+  border-radius: 16rpx;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.example-card__main {
+  flex: 1;
+  min-width: 0;
+  margin: 0 20rpx;
+}
+
+.example-card__title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #222;
+  font-weight: 600;
+}
+
+.example-card__desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #888;
+}
+
+.example-card__desc--clamp,
+.goods-card__title--clamp {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.example-card__meta {
+  margin-top: 16rpx;
+  display: flex;
+  align-items: center;
+}
+
+.example-card__price {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+.example-card__care {
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #999;
+}
+
+.goods-grid {
+  padding: 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.goods-card {
+  width: 350rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+  border-radius: 24rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+
+.goods-card__cover {
+  width: 350rpx;
+  height: 350rpx;
+  background: #f2f3f5;
+}
+
+.goods-card__body {
+  padding: 18rpx 18rpx 20rpx;
+}
+
+.goods-card__title {
+  min-height: 76rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  color: #222;
+}
+
+.goods-card__foot {
+  margin-top: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.goods-card__price {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+.goods-card__sold {
+  font-size: 22rpx;
+  line-height: 32rpx;
+  color: #999;
+}
+
+.cares-loading,
+.cares-nomore {
+  padding: 28rpx 0 40rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+}

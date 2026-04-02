@@ -1,0 +1,74 @@
+.balance-detail-page {
+  min-height: 100vh;
+  background: #f5f6f8;
+  padding: 16rpx 0 32rpx;
+}
+
+.balance-detail-list {
+  background: #fff;
+}
+
+.balance-detail-item {
+  padding: 18rpx 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.balance-detail-item:last-child {
+  border-bottom: 0;
+}
+
+.balance-detail-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.balance-detail-row--bottom {
+  margin-top: 12rpx;
+  align-items: center;
+}
+
+.balance-detail-subject {
+  flex: 1;
+  min-width: 0;
+  padding-right: 24rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #535353;
+}
+
+.balance-detail-date {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #999;
+}
+
+.balance-detail-balance {
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #999;
+}
+
+.balance-detail-amount {
+  margin-left: 24rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #222;
+  font-weight: 500;
+}
+
+.balance-detail-amount--income {
+  color: #e64340;
+}
+
+.balance-detail-amount--expense {
+  color: #222;
+}
+
+.balance-detail-status {
+  padding: 28rpx 0 12rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+}

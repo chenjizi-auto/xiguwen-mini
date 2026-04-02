@@ -2,8 +2,13 @@
   <view class="mine-top">
     <image class="mine-top-bg" src="/images/mine/icon_main_bg.png" mode="aspectFill" />
     <view class="mine-top-arc"></view>
-    <view class="mine-setting" bindtap="goSetting">
-      <image class="mine-setting-icon" src="/images/mine/icon_setting2.png" mode="aspectFit" />
+
+    <view class="mine-top-bar" style="height:{{navHeight}}px;padding-top:{{navTop}}px;">
+      <view class="mine-top-bar-inner" style="height:{{navBarHeight}}px;">
+        <view class="mine-setting" bindtap="goSetting">
+          <image class="mine-setting-icon" src="/images/mine/icon_setting2.png" mode="aspectFit" />
+        </view>
+      </view>
     </view>
 
     <view class="mine-avatar-card" bindtap="onProfileTap">
@@ -16,9 +21,11 @@
     </view>
   </view>
 
-  <view class="mine-name" bindtap="onProfileTap">{{user.nickname ? user.nickname : '未登录'}}</view>
-  <view class="mine-login-tip" wx:if="{{!isXgwLogined}}" bindtap="onLoginTap">点击登录查看完整信息</view>
-  <view class="mine-team" wx:if="{{user.association}}">{{user.association}}</view>
+  <view class="mine-profile">
+    <view class="mine-name" bindtap="onProfileTap">{{user.nickname ? user.nickname : '未登录'}}</view>
+    <view class="mine-team">{{user.association ? user.association : ''}}</view>
+    <view class="mine-login-tip" wx:if="{{!isXgwLogined}}" bindtap="onLoginTap">点击登录查看完整信息</view>
+  </view>
 
   <view class="mine-stats">
     <view class="mine-stat-item" bindtap="onStatTap" data-type="fans">
@@ -39,8 +46,7 @@
     </view>
   </view>
 
-  <!-- 婚庆接单 / 商城接单（按 userType 控制显示） -->
-  <view class="mine-section" wx:if="{{showWeddingShopJiedan}}">
+  <view class="mine-section mine-section--spaced" wx:if="{{showWeddingShopJiedan}}">
     <view class="mine-section-hd">
       <text class="mine-section-title">婚庆接单</text>
     </view>
@@ -54,7 +60,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section">
+  <view class="mine-section mine-section--spaced">
     <view class="mine-section-hd">
       <text class="mine-section-title">婚庆订单</text>
     </view>
@@ -68,7 +74,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section">
+  <view class="mine-section mine-section--spaced" wx:if="{{showMallOrder}}">
     <view class="mine-section-hd">
       <text class="mine-section-title">商城订单</text>
     </view>
@@ -83,7 +89,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section" wx:if="{{showMallShopJiedan}}">
+  <view class="mine-section mine-section--spaced" wx:if="{{showMallShopJiedan}}">
     <view class="mine-section-hd">
       <text class="mine-section-title">商城接单</text>
     </view>
@@ -97,10 +103,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section">
-    <view class="mine-section-hd">
-      <text class="mine-section-title">其他常用工具</text>
-    </view>
+  <view class="mine-section mine-section--spaced">
     <van-grid column-num="4" border="{{false}}">
       <van-grid-item wx:for="{{otherToolsItems}}" wx:key="id" use-slot>
         <view class="mine-grid-item" bindtap="onOtherToolTap" data-id="{{item.id}}">
@@ -111,7 +114,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section" wx:if="{{showShopManage}}">
+  <view class="mine-section mine-section--spaced" wx:if="{{showShopManage}}">
     <view class="mine-section-hd">
       <text class="mine-section-title">店铺管理</text>
     </view>
@@ -125,7 +128,7 @@
     </van-grid>
   </view>
 
-  <view class="mine-section">
+  <view class="mine-section mine-section--spaced">
     <view class="mine-section-hd">
       <text class="mine-section-title">常用工具</text>
     </view>
@@ -139,32 +142,64 @@
     </van-grid>
   </view>
 
-  <view class="mine-actions">
-    <van-cell-group inset>
-      <van-cell title="充值" is-link clickable bind:click="onActionTap" data-action="charge">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_mall_charge.png" mode="aspectFit" />
-      </van-cell>
+  <view class="mine-menu mine-section--spaced">
+    <view class="mine-menu-item" bindtap="onActionTap" data-action="charge">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/icon_mall_charge.png" mode="aspectFit" />
+        <text class="mine-menu-text">充值</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
 
-      <van-cell wx:if="{{showMallVip}}" title="商家VIP" is-link clickable bind:click="onActionTap" data-action="mallVip">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_mall_vip.png" mode="aspectFit" />
-      </van-cell>
+    <view class="mine-menu-divider"></view>
 
-      <van-cell wx:if="{{showUserVip}}" title="用户VIP" is-link clickable bind:click="onActionTap" data-action="userVip">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_user_vip.png" mode="aspectFit" />
-      </van-cell>
+    <view class="mine-menu-item" wx:if="{{showMallVip}}" bindtap="onActionTap" data-action="mallVip">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/icon_mall_vip.png" mode="aspectFit" />
+        <text class="mine-menu-text">商家VIP</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
 
-      <van-cell title="邀请婚嫁商家" is-link clickable bind:click="onActionTap" data-action="inviteShop">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/yaooqingshop_icon.png" mode="aspectFit" />
-      </van-cell>
+    <view class="mine-menu-divider" wx:if="{{showMallVip}}"></view>
 
-      <van-cell wx:if="{{showPostShop}}" title="申请成为商家" is-link clickable bind:click="onActionTap" data-action="postShop">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/shenqingbeshop_icon.png" mode="aspectFit" />
-      </van-cell>
+    <view class="mine-menu-item" wx:if="{{showUserVip}}" bindtap="onActionTap" data-action="userVip">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/icon_user_vip.png" mode="aspectFit" />
+        <text class="mine-menu-text">用户VIP</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
 
-      <van-cell title="关于我们" is-link clickable bind:click="onActionTap" data-action="about">
-        <image slot="icon" class="mine-cell-icon" src="/images/mine/icon_about_us.png" mode="aspectFit" />
-      </van-cell>
-    </van-cell-group>
+    <view class="mine-menu-divider" wx:if="{{showUserVip}}"></view>
+
+    <view class="mine-menu-item" bindtap="onActionTap" data-action="inviteShop">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/yaooqingshop_icon.png" mode="aspectFit" />
+        <text class="mine-menu-text">邀请婚嫁商家</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
+
+    <view class="mine-menu-divider"></view>
+
+    <view class="mine-menu-item" wx:if="{{showPostShop}}" bindtap="onActionTap" data-action="postShop">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/shenqingbeshop_icon.png" mode="aspectFit" />
+        <text class="mine-menu-text">申请成为商家</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
+
+    <view class="mine-menu-divider" wx:if="{{showPostShop}}"></view>
+
+    <view class="mine-menu-item" bindtap="onActionTap" data-action="about">
+      <view class="mine-menu-main">
+        <image class="mine-menu-icon" src="/images/mine/icon_about_us.png" mode="aspectFit" />
+        <text class="mine-menu-text">关于我们</text>
+      </view>
+      <image class="mine-menu-arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
   </view>
 
   <view class="mine-safe-bottom"></view>

@@ -1,60 +1,146 @@
-@import "/template/login/index.wxss";
-
-.asset {
-  display: flex;
-  padding-top:50rpx;
-  height: 150rpx;
-  background-color: #e85654;
+.balance-page {
+  min-height: 100vh;
+  background: #f5f6f8;
 }
-.asset .item {
+
+.balance-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff7b64 0%, #e64340 100%);
+}
+
+.balance-hero-decoration {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.balance-hero-decoration--one {
+  top: 88rpx;
+  right: -80rpx;
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.balance-hero-decoration--two {
+  left: -70rpx;
+  bottom: -120rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.balance-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.balance-nav-inner {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  width:250rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.balance-nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+.balance-nav-side {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 88rpx;
+  display: flex;
+  align-items: center;
+}
+
+.balance-nav-side--left {
+  left: 24rpx;
+  justify-content: flex-start;
+}
+
+.balance-nav-side--right {
+  right: 28rpx;
+  justify-content: flex-end;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.balance-hero-main {
+  position: relative;
+  z-index: 1;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  padding-bottom: 60rpx;
+}
+
+.balance-hero-label {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.balance-hero-amount {
+  margin-top: 32rpx;
+  font-size: 72rpx;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #fff;
+}
+
+.balance-actions {
+  margin-top: -18rpx;
+  padding: 0 24rpx 40rpx;
+}
+
+.balance-action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 104rpx;
+  padding: 0 28rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 36rpx rgba(226, 67, 64, 0.08);
+}
+
+.balance-action-left {
+  display: flex;
+  align-items: center;
+}
+
+.balance-action-icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: rgba(230, 67, 64, 0.12);
+  color: #e64340;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 56rpx;
   text-align: center;
-  font-size: 14px;
-  line-height: 30px;
-  color:#fff;
 }
 
-.btn-view {
-  height: 88rpx;
-  background-color: #e85654;
-  padding-right:40rpx;
-  padding-bottom:30rpx;  
-  width: 100vw;
-  display: flex;
-  flex-direction: row-reverse;
-}
-.btn-view .btn {
-  border-color: #fff !important;
-  color:#fff !important;
-  margin-right:20rpx;  
+.balance-action-text {
+  margin-left: 18rpx;
+  font-size: 30rpx;
+  color: #222;
+  font-weight: 500;
 }
 
-.btn-hover {
-  border-color: #fff;
-  color:#fff;
+.balance-action-arrow {
+  width: 28rpx;
+  height: 28rpx;
 }
 
-.no-data {
-  margin-top: 100rpx;
+.balance-loading {
+  padding: 8rpx 0 40rpx;
   text-align: center;
-  font-size: 13px;
-  color:#ccc;
-}
-
-.cashlogs {
-  display: flex;
-  font-size: 12px;
-  margin-top: 20rpx;
-  padding-bottom: 20rpx;
-  border-bottom: 1px solid #eee;
-  line-height: 20px;
-}
-.cashlogs .profile {
-  width:600rpx;
-  padding-left: 30rpx;
-}
-.cashlogs .amount {
-  width:150rpx;
+  font-size: 24rpx;
+  color: #999;
 }

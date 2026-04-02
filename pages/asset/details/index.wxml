@@ -1,0 +1,19 @@
+<view class="balance-detail-page">
+  <view class="balance-detail-list" wx:if="{{list.length > 0}}">
+    <view class="balance-detail-item" wx:for="{{list}}" wx:key="id">
+      <view class="balance-detail-row">
+        <view class="balance-detail-subject">{{item.subject}}</view>
+        <view class="balance-detail-date">{{item.createdAtText}}</view>
+      </view>
+      <view class="balance-detail-row balance-detail-row--bottom">
+        <view class="balance-detail-balance">余额：{{item.aftermoneyText}}</view>
+        <view class="balance-detail-amount {{item.tradeType === 1 ? 'balance-detail-amount--income' : 'balance-detail-amount--expense'}}">{{item.amountText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{loaded && list.length === 0}}" image="/images/zw.png" description="暂无明细" />
+  <view wx:if="{{loading && !loaded}}" class="balance-detail-status">加载中...</view>
+  <view wx:if="{{loading && loaded && list.length > 0}}" class="balance-detail-status">加载中...</view>
+  <view wx:if="{{noMore && list.length > 0}}" class="balance-detail-status">没有更多了</view>
+</view>

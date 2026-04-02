@@ -5,51 +5,60 @@
 
 .mine-top {
   position: relative;
-  height: 260rpx;
+  height: 292rpx;
   background: #fff;
   overflow: hidden;
 }
 
 .mine-top-bg {
   width: 100%;
-  height: 260rpx;
+  height: 292rpx;
 }
 
 .mine-top-arc {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -60rpx;
-  height: 120rpx;
+  bottom: -62rpx;
+  height: 124rpx;
   background: #fff;
-  border-top-left-radius: 120rpx;
-  border-top-right-radius: 120rpx;
+  border-top-left-radius: 124rpx;
+  border-top-right-radius: 124rpx;
   z-index: 1;
+}
+
+.mine-top-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.mine-top-bar-inner {
+  position: relative;
 }
 
 .mine-setting {
   position: absolute;
   right: 24rpx;
-  top: 22rpx;
-  width: 68rpx;
-  height: 68rpx;
-  z-index: 3;
+  top: 0;
+  width: 88rpx;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 50%;
+  justify-content: flex-end;
 }
 
 .mine-setting-icon {
-  width: 40rpx;
-  height: 40rpx;
+  width: 44rpx;
+  height: 44rpx;
 }
 
 .mine-avatar-card {
   position: absolute;
   left: 50%;
-  bottom: 16rpx;
+  bottom: 18rpx;
   transform: translateX(-50%);
   width: 140rpx;
   height: 140rpx;
@@ -59,7 +68,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10rpx 26rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
 }
 
 .mine-avatar {
@@ -69,77 +78,86 @@
   background: #f2f3f5;
 }
 
+.mine-profile {
+  background: #fff;
+  padding: 10rpx 24rpx 14rpx;
+}
+
 .mine-name {
-  margin-top: 12rpx;
-  padding: 0 24rpx;
   text-align: center;
-  font-size: 34rpx;
-  font-weight: 600;
-  color: #111;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  font-weight: 500;
+  color: #333;
 }
 
 .mine-login-tip {
-  margin-top: 12rpx;
+  margin-top: 6rpx;
   text-align: center;
   font-size: 24rpx;
   color: #e64340;
 }
 
 .mine-team {
-  padding: 6rpx 24rpx 0;
   text-align: center;
   font-size: 24rpx;
+  line-height: 34rpx;
   color: #999;
+  min-height: 34rpx;
 }
 
 .mine-stats {
-  margin: 18rpx 24rpx 0;
+  margin-top: 2rpx;
   background: #fff;
-  border-radius: 18rpx;
-  padding: 18rpx 0;
+  padding: 20rpx 24rpx;
   display: flex;
 }
 
 .mine-stat-item {
   flex: 1;
   text-align: center;
+  min-width: 0;
 }
 
 .mine-stat-num {
-  font-size: 30rpx;
-  color: #111;
-  font-weight: 600;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333;
+  font-weight: 500;
 }
 
 .mine-stat-num--red {
-  color: #ff4d4f;
+  color: #e64340;
 }
 
 .mine-stat-label {
   margin-top: 6rpx;
   font-size: 24rpx;
-  color: #666;
+  line-height: 34rpx;
+  color: #333;
 }
 
 .mine-section {
-  margin: 16rpx 24rpx 0;
   background: #fff;
-  border-radius: 18rpx;
   overflow: hidden;
 }
 
+.mine-section--spaced {
+  margin-top: 16rpx;
+}
+
 .mine-section-hd {
-  height: 84rpx;
-  padding: 0 24rpx;
+  height: 76rpx;
+  padding: 0 32rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .mine-section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #111;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 500;
+  color: #333;
 }
 
 .mine-grid-item {
@@ -148,24 +166,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 18rpx 0 16rpx;
+  min-height: 112rpx;
+  padding: 10rpx 0 8rpx;
 }
 
 .mine-grid-icon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 38rpx;
+  height: 38rpx;
 }
 
 .mine-grid-text {
-  margin-top: 10rpx;
-  font-size: 22rpx;
+  margin-top: 4rpx;
+  font-size: 18rpx;
+  line-height: 24rpx;
   color: #666;
 }
 
 .mine-grid-badge {
   position: absolute;
-  right: 26rpx;
-  top: 10rpx;
+  right: 24rpx;
+  top: 12rpx;
   min-width: 32rpx;
   height: 32rpx;
   padding: 0 10rpx;
@@ -177,14 +197,49 @@
   text-align: center;
 }
 
-.mine-actions {
-  margin: 16rpx 0 0;
+.mine-menu {
+  margin-top: 16rpx;
+  background: #fff;
 }
 
-.mine-cell-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 10rpx;
+.mine-menu-item {
+  min-height: 92rpx;
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mine-menu-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mine-menu-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 14rpx;
+  flex-shrink: 0;
+}
+
+.mine-menu-text {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333;
+}
+
+.mine-menu-arrow {
+  width: 24rpx;
+  height: 24rpx;
+  flex-shrink: 0;
+}
+
+.mine-menu-divider {
+  height: 1rpx;
+  margin-left: 88rpx;
+  background: #ededed;
 }
 
 .mine-safe-bottom {
