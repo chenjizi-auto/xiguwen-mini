@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "van-empty": "@vant/weapp/empty/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-cell": "@vant/weapp/cell/index"
+  }
+}

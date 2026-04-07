@@ -1,0 +1,36 @@
+<view class="page" wx:if="{{detail}}">
+  <view class="card">
+    <view class="head">
+      <view class="title">{{detail.title}}</view>
+      <view class="status">{{detail.state === 1 ? '审核中' : (detail.state === 2 ? (detail.status === 1 ? '已上架' : '未上架') : '审核未通过')}}</view>
+    </view>
+    <view class="price-row">
+      <view class="price">¥ {{detail.price}}</view>
+      <view class="meta">定金 ¥{{detail.temporarypay}} / 抵扣 ¥{{detail.deductible}}</view>
+    </view>
+    <view class="meta">排序 {{detail.weigh}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">报价描述</view>
+    <mp-html content="{{detail.content || '暂无描述'}}" />
+  </view>
+
+  <view class="card">
+    <view class="section-title">报价图片</view>
+    <view class="photo-grid" wx:if="{{detail.photos.length}}">
+      <image wx:for="{{detail.photos}}" wx:key="*this" class="photo-item" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewImage" />
+    </view>
+    <van-empty wx:else image="/images/empty/nodata.webp" description="暂无图片" />
+  </view>
+
+  <view class="actions">
+    <view class="ghost-btn" bindtap="goEdit">编辑</view>
+    <view class="ghost-btn" bindtap="onDelete">删除</view>
+    <view class="ghost-btn" wx:if="{{detail.state === 3}}" bindtap="onShowReason">查看原因</view>
+    <view class="primary-btn" wx:if="{{detail.state === 4 || detail.state === 0}}" bindtap="onSubmitReview">提交审核</view>
+    <view class="primary-btn" wx:if="{{detail.state === 2 && detail.status !== 1}}" bindtap="onPutOn">上架</view>
+    <view class="primary-btn" wx:if="{{detail.state === 2 && detail.status === 1}}" bindtap="onPutOff">下架</view>
+  </view>
+</view>
+<view class="loading-text" wx:elif="{{loading}}">加载中...</view>

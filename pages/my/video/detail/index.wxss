@@ -1,0 +1,20 @@
+@import "/pages/my/mine-atlas-detail/index.wxss";
+
+.video-player {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 24rpx;
+  background: #000;
+}
+
+.copy-link-btn {
+  margin-top: 20rpx;
+  width: 180rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 999rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #e64340;
+  background: #fff1f0;
+}

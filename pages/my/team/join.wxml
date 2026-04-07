@@ -1,0 +1,34 @@
+<view class="join-page">
+  <view class="search-card">
+    <input class="search-input" value="{{keyword}}" placeholder="搜索社团名称" bindinput="onKeywordInput" confirm-type="search" bindconfirm="onSearchTap" />
+    <view class="search-btn" bindtap="onSearchTap">搜索</view>
+  </view>
+
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <block wx:if="{{list.length}}">
+    <view class="club-card" wx:for="{{list}}" wx:key="id">
+      <image wx:if="{{item.cover}}" class="club-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="club-main">
+        <image class="club-logo" src="{{item.logo || '/images/default.webp'}}" mode="aspectFill"></image>
+        <view class="club-content">
+          <view class="club-name">{{item.name}}</view>
+          <view class="club-type">{{item.type || '未设置类型'}}</view>
+          <view class="club-region">{{item.region || item.address || '未设置地区'}}</view>
+          <view class="club-profile van-multi-ellipsis--l2">{{item.profile || '暂无简介'}}</view>
+        </view>
+      </view>
+      <view class="club-footer">
+        <view class="club-members">成员 {{item.memberCount}}</view>
+        <view class="club-action {{item.disabled ? 'club-action--disabled' : ''}}" bindtap="onActionTap" data-id="{{item.id}}" data-status="{{item.status}}">
+          {{actionLoadingId === item.id ? '处理中...' : item.statusText}}
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <van-empty wx:if="{{!loading && !list.length && !errorText}}" image="search" description="暂无可加入社团" />
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  <view class="loading-text" wx:if="{{!loading && finished && list.length}}">没有更多了</view>
+</view>

@@ -1,0 +1,65 @@
+<view class="detail-page">
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <block wx:if="{{detail}}">
+    <view class="detail-card">
+      <view class="detail-type">{{detail.type}}需求</view>
+      <view class="detail-title">{{detail.title}}</view>
+      <view class="detail-price">{{detail.priceText}}</view>
+      <view class="detail-countdown">剩余 {{detail.countDownText}}</view>
+
+      <view class="detail-grid">
+        <view class="detail-grid__item detail-grid__item--code">
+          <view class="detail-grid__label">编号</view>
+          <view class="detail-grid__value detail-grid__value--code">{{detail.code || '--'}}</view>
+        </view>
+        <view class="detail-grid__item">
+          <view class="detail-grid__label">浏览</view>
+          <view class="detail-grid__value">{{detail.browseText}}</view>
+        </view>
+        <view class="detail-grid__item">
+          <view class="detail-grid__label">参与</view>
+          <view class="detail-grid__value">{{detail.joinText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">需求信息</view>
+      <view class="detail-row">
+        <view class="detail-row__label">发布时间</view>
+        <view class="detail-row__value">{{detail.createTime}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">服务地址</view>
+        <view class="detail-row__value">{{detail.address}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">电话公开</view>
+        <view class="detail-row__value">{{detail.openPhone ? '已公开' : '未公开'}}</view>
+      </view>
+      <view class="detail-row" wx:if="{{enablePrivateMessage}}">
+        <view class="detail-row__label">私信公开</view>
+        <view class="detail-row__value">{{detail.openMessage ? '已公开' : '未公开'}}</view>
+      </view>
+      <view class="detail-row detail-row--column">
+        <view class="detail-row__label">需求详情</view>
+        <view class="detail-row__content">{{detail.details}}</view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">接单说明</view>
+      <textarea class="remark-textarea" value="{{orderRemark}}" maxlength="200" placeholder="请输入你的接单说明" bindinput="onRemarkInput"></textarea>
+    </view>
+  </block>
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+
+  <view class="bottom-bar" wx:if="{{detail}}">
+    <view class="bottom-bar__inner">
+      <view class="action-btn action-btn--light" bindtap="onCallTap">电话</view>
+      <view class="action-btn action-btn--danger {{detail.countdown > 0 ? '' : 'action-btn--disabled'}}" bindtap="onTakeOrderTap">{{submitting ? '提交中...' : '我要接单'}}</view>
+    </view>
+  </view>
+</view>

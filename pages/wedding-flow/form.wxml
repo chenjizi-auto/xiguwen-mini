@@ -1,0 +1,29 @@
+<view class="flow-form-page">
+  <view class="form-card">
+    <view class="field-group">
+      <view class="field-label">流程类型</view>
+      <input class="field-input" placeholder="例如：迎宾、交换戒指" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">时间</view>
+      <picker mode="time" value="{{time}}" bindchange="onTimeChange">
+        <view class="picker-input {{time ? '' : 'picker-input--placeholder'}}">{{time || '请选择时间'}}</view>
+      </picker>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">人员</view>
+      <input class="field-input" placeholder="可选，填写负责人或参与人" value="{{person}}" bindinput="onPersonInput" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">事项</view>
+      <textarea class="field-textarea" placeholder="可选，填写流程说明或注意事项" value="{{matter}}" bindinput="onMatterInput" maxlength="300" />
+    </view>
+
+    <van-button type="primary" block custom-style="margin-top: 28rpx;" loading="{{saving}}" bind:click="onSaveTap">
+      {{id ? '保存修改' : '保存流程'}}
+    </van-button>
+  </view>
+</view>

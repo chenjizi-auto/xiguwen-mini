@@ -1,0 +1,28 @@
+.speech-detail-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background: #f6f7fb;
+}
+
+.detail-card {
+  padding: 32rpx 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.detail-title {
+  color: #2b211b;
+  font-size: 38rpx;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.detail-content {
+  margin-top: 24rpx;
+  color: #4c433d;
+  font-size: 28rpx;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}

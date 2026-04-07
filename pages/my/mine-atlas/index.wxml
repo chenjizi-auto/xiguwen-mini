@@ -25,7 +25,7 @@
   </block>
 
   <block wx:elif="{{!loading && !list.length}}">
-    <van-empty image="/images/zw.png" description="{{loadError || '暂无图册内容'}}" />
+    <van-empty image="/images/zw.webp" description="{{loadError || '暂无图册内容'}}" />
   </block>
 
   <view wx:else class="atlas-list">

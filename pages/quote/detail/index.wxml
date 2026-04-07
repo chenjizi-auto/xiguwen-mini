@@ -1,0 +1,28 @@
+<view class="page" wx:if="{{detail}}">
+  <swiper class="hero-swiper" indicator-dots autoplay circular wx:if="{{detail.photos.length > 1}}">
+    <swiper-item wx:for="{{detail.photos}}" wx:key="*this">
+      <image class="hero-image" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewImage" />
+    </swiper-item>
+  </swiper>
+  <image wx:elif="{{detail.photos.length === 1}}" class="hero-image hero-single" src="{{detail.photos[0]}}" mode="aspectFill" data-url="{{detail.photos[0]}}" bindtap="previewImage" />
+
+  <view class="card">
+    <view class="title">{{detail.title}}</view>
+    <view class="price">￥{{detail.price}}</view>
+    <view class="meta">定金 ￥{{detail.temporarypay}} / 抵扣 ￥{{detail.deductible}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">报价描述</view>
+    <mp-html content="{{detail.content || '暂无描述'}}" />
+  </view>
+
+  <view class="card">
+    <view class="section-title">报价图片</view>
+    <view class="photo-grid" wx:if="{{detail.photos.length}}">
+      <image wx:for="{{detail.photos}}" wx:key="*this" class="photo-item" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewImage" />
+    </view>
+    <van-empty wx:else image="/images/empty/nodata.webp" description="暂无图片" />
+  </view>
+</view>
+<view class="loading-text" wx:elif="{{loading}}">加载中...</view>

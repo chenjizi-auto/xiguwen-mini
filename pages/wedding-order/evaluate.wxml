@@ -1,0 +1,66 @@
+<view class="page">
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{detail}}">
+      <view class="card">
+        <view class="product">
+          <image class="product-cover" src="{{detail.baojia_image || '/images/default.webp'}}" mode="aspectFill" />
+          <view class="product-meta">
+            <view class="product-title van-multi-ellipsis--l2">{{detail.baojia_name || '未命名服务'}}</view>
+            <view class="product-spec">{{detail.specification || '暂无规格'}}</view>
+            <view class="product-price">订单号：{{detail.pid || detail.order_id}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">满意度</view>
+        <view class="rate-row">
+          <van-rate value="{{score}}" size="44rpx" bind:change="onScoreChange" />
+          <view class="rate-text">{{score}}分</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">评价内容</view>
+        <textarea
+          class="content-textarea"
+          value="{{content}}"
+          bindinput="onContentInput"
+          maxlength="500"
+          placeholder="从多个角度评价服务，可以帮助更多人做选择"
+        />
+      </view>
+
+      <view class="card">
+        <view class="section-title">评价图片</view>
+        <view class="uploader-wrap">
+          <van-uploader
+            accept="image"
+            multiple
+            max-count="9"
+            upload-text="上传图片"
+            file-list="{{fileList}}"
+            bind:after-read="afterRead"
+            bind:delete="onDeleteImage"
+          />
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="anonymous-row">
+          <view class="anonymous-text">匿名发布</view>
+          <van-switch checked="{{anonymous}}" bind:change="onAnonymousChange" active-color="#e64340" />
+        </view>
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !detail && !errorText}}" image="/images/empty/nodata.webp" description="暂无评价信息" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <view class="footer" wx:if="{{detail}}">
+    <view class="footer-btn" bindtap="onSubmit">发布</view>
+  </view>
+</view>

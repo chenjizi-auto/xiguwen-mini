@@ -91,8 +91,8 @@ Page({
     activeLoading: false,
     activeNoMore: false,
     activeListLength: 0,
-    defaultAvatar: '/images/default.png',
-    load_img_erro: '/images/load_img_erro.png',
+    defaultAvatar: '/images/default.webp',
+    load_img_erro: '/images/load_img_erro.webp',
     merchantList: [],
     exampleList: [],
     goodsList: [],
@@ -271,10 +271,11 @@ Page({
     })
   },
 
-  onExampleTap() {
-    wx.showToast({
-      title: '案例详情开发中',
-      icon: 'none'
+  onExampleTap(e) {
+    const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, 0) : 0
+    if (!id) return
+    wx.navigateTo({
+      url: `/packageCase/pages/detail/index?id=${id}`
     })
   },
 

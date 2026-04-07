@@ -105,13 +105,6 @@
         },
         {
           "id": -1,
-          "name": "生成海报",
-          "pathName": "pages/goods-details/poster",
-          "query": "goodsid=6761",
-          "scene": null
-        },
-        {
-          "id": -1,
           "name": "notice",
           "pathName": "pages/notice/index",
           "query": "",
@@ -127,7 +120,36 @@
     }
   },
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "file",
+        "value": "analyse-data.json"
+      },
+      {
+        "type": "folder",
+        "value": "xiguwen"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      },
+      {
+        "type": "file",
+        "value": "README.md"
+      },
+      {
+        "type": "file",
+        "value": "LICENSE"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "file",
+        "value": ".DS_Store"
+      }
+    ],
     "include": []
   },
   "editorSetting": {

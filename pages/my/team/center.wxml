@@ -1,0 +1,64 @@
+<view class="center-page">
+  <view class="state-error" wx:if="{{loadError}}">{{loadError}}</view>
+
+  <block wx:if="{{teamInfo}}">
+    <view class="summary-card">
+      <view class="summary-head">
+        <image class="summary-logo" src="{{teamInfo.logo || '/images/default.webp'}}" mode="aspectFill"></image>
+        <view class="summary-copy">
+          <view class="summary-name">{{teamInfo.name}}</view>
+          <view class="summary-type">{{teamInfo.type || '未设置类型'}}</view>
+          <view class="summary-location">{{teamInfo.location || '未设置地区'}}</view>
+        </view>
+      </view>
+
+      <view class="summary-stats">
+        <view class="summary-stat" bindtap="onStatTap" data-action="memberCount">
+          <view class="summary-stat__num">{{teamInfo.memberCount}}</view>
+          <view class="summary-stat__label">成员</view>
+        </view>
+        <view class="summary-stat" bindtap="onStatTap" data-action="todayNew">
+          <view class="summary-stat__num">{{teamInfo.todayNew}}</view>
+          <view class="summary-stat__label">今日新增</view>
+        </view>
+        <view class="summary-stat" bindtap="onStatTap" data-action="todayOrder">
+          <view class="summary-stat__num">{{teamInfo.todayOrder}}</view>
+          <view class="summary-stat__label">今日有单</view>
+        </view>
+        <view class="summary-stat" bindtap="onStatTap" data-action="schedule">
+          <view class="summary-stat__num">{{teamInfo.scheduleCount}}</view>
+          <view class="summary-stat__label">成员档期</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-card">
+      <view class="menu-item" bindtap="onMenuTap" data-action="home">
+        <view class="menu-title">团队主页</view>
+        <view class="menu-arrow"></view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="onMenuTap" data-action="invite">
+        <view class="menu-title">邀请新成员</view>
+        <view class="menu-arrow"></view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="onMenuTap" data-action="pending">
+        <view class="menu-title">待通过成员</view>
+        <view class="menu-arrow"></view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="onMenuTap" data-action="manager">
+        <view class="menu-title">成员管理</view>
+        <view class="menu-arrow"></view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item menu-item--danger" bindtap="onQuitTap">
+        <view class="menu-title">{{quitting ? '退出中...' : '退出团队'}}</view>
+        <view class="menu-arrow"></view>
+      </view>
+    </view>
+  </block>
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

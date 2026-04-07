@@ -1,0 +1,8 @@
+<view class="preview-page" wx:if="{{url}}">
+  <web-view src="{{url}}"></web-view>
+  <cover-view class="preview-toolbar">
+    <cover-view class="preview-toolbar__btn" bindtap="onEditTap">编辑请柬信息</cover-view>
+  </cover-view>
+</view>
+<view class="state-page" wx:elif="{{loading}}">加载中...</view>
+<view class="state-page" wx:else>{{errorText || '请柬地址不存在'}}</view>

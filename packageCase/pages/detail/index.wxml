@@ -1,0 +1,135 @@
+<view class="case-detail-page">
+  <view class="case-to-top" wx:if="{{showToTop}}" bindtap="onToTopTap">顶部</view>
+
+  <view class="case-detail-state" wx:if="{{loading}}">加载中...</view>
+  <view class="case-detail-state" wx:if="{{!loading && errorText}}">
+    <view>{{errorText}}</view>
+    <view class="case-detail-retry" bindtap="onRetryTap">点击重试</view>
+  </view>
+
+  <block wx:if="{{!loading && detail && merchant}}">
+    <swiper class="hero-swiper" indicator-dots autoplay circular wx:if="{{detail.gallery.length > 1}}">
+      <swiper-item wx:for="{{detail.gallery}}" wx:key="*this">
+        <image class="hero-image" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="onPreviewImage" />
+      </swiper-item>
+    </swiper>
+    <image wx:else class="hero-single" src="{{detail.cover}}" mode="aspectFill" data-url="{{detail.cover}}" bindtap="onPreviewImage" />
+
+    <view class="hero-card">
+      <view class="hero-title">{{detail.title}}</view>
+      <view class="hero-meta">婚礼时间：{{detail.weddingTime}}</view>
+      <view class="hero-meta">婚礼地址：{{detail.weddingPlace}}</view>
+      <view class="hero-price">{{detail.weddingExpenses}}</view>
+      <view class="hero-tags">
+        <view class="hero-tag">{{detail.weddingTypeText}}</view>
+        <view class="hero-tag hero-tag--light">{{detail.weddingEnvironmentText}}</view>
+      </view>
+      <view class="hero-stats">
+        <view class="hero-stat">
+          <view class="hero-stat__value">{{detail.clicked}}</view>
+          <view class="hero-stat__label">浏览</view>
+        </view>
+        <view class="hero-stat">
+          <view class="hero-stat__value">{{detail.careCount}}</view>
+          <view class="hero-stat__label">关注</view>
+        </view>
+        <view class="hero-stat">
+          <view class="hero-stat__value">{{detail.commentCount}}</view>
+          <view class="hero-stat__label">评论</view>
+        </view>
+        <view class="hero-stat">
+          <view class="hero-stat__value">{{detail.goodscore}}</view>
+          <view class="hero-stat__label">评分</view>
+        </view>
+      </view>
+      <view class="hero-detail-link" bindtap="onPriceDetailTap">查看明细</view>
+    </view>
+
+    <view class="section-card" wx:if="{{detail.gallery.length > 1}}">
+      <view class="section-title">案例图片</view>
+      <view class="case-gallery">
+        <image class="case-gallery-image" wx:for="{{detail.gallery}}" wx:key="*this" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="onPreviewImage" />
+      </view>
+    </view>
+
+    <view class="section-card merchant-card" bindtap="onMerchantTap">
+      <image class="merchant-avatar" src="{{merchant.head}}" mode="aspectFill" />
+      <view class="merchant-main">
+        <view class="merchant-name">{{merchant.nickname}}</view>
+        <view class="merchant-meta">{{merchant.occupation}}</view>
+        <view class="merchant-meta">好评 {{merchant.goodscore}} · 评论 {{merchant.evaluate}} · 粉丝 {{merchant.fans}}</view>
+        <view class="merchant-badges" wx:if="{{merchant.badges.length}}">
+          <view class="merchant-badge" wx:for="{{merchant.badges}}" wx:key="*this">{{item}}</view>
+        </view>
+      </view>
+      <view class="merchant-enter">进店看看</view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-head">
+        <view class="section-title">案例描述</view>
+      </view>
+      <view class="info-content">{{detail.description}}</view>
+    </view>
+
+    <view class="section-card" wx:if="{{teams.length}}">
+      <view class="section-title">推荐团队</view>
+      <view class="team-grid">
+        <view class="team-card" wx:for="{{teams}}" wx:key="userid" data-userid="{{item.userid}}" bindtap="onTeamTap">
+          <image class="team-avatar" src="{{item.head}}" mode="aspectFill" />
+          <view class="team-name">{{item.nickname}}</view>
+          <view class="team-role">{{item.occupation}}</view>
+          <view class="team-price">{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card" wx:if="{{comments.length}}">
+      <view class="section-head">
+        <view class="section-title">用户评价</view>
+        <view class="section-side">{{comments.length}}条</view>
+      </view>
+      <view class="comment-card" wx:for="{{comments}}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
+        <view class="comment-head">
+          <image class="comment-avatar" src="{{comment.head}}" mode="aspectFill" />
+          <view class="comment-main">
+            <view class="comment-name">{{comment.nickname}}</view>
+            <view class="comment-time">{{comment.time}}</view>
+          </view>
+          <view class="comment-score">{{comment.scoreText}}</view>
+        </view>
+        <view class="comment-content">{{comment.content}}</view>
+        <view class="comment-images" wx:if="{{comment.images.length}}">
+          <image class="comment-image" wx:for="{{comment.images}}" wx:key="*this" wx:for-index="imageIndex" src="{{item}}" mode="aspectFill" data-comment-index="{{commentIndex}}" data-image-index="{{imageIndex}}" bindtap="onPreviewCommentImage" />
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card" wx:if="{{relatedCases.length}}">
+      <view class="section-head">
+        <view class="section-title">更多案例</view>
+        <view class="section-side">{{relatedCases.length}}个</view>
+      </view>
+      <view class="related-grid">
+        <view class="related-card" wx:for="{{relatedCases}}" wx:key="id" data-id="{{item.id}}" bindtap="onRelatedTap">
+          <image class="related-cover" src="{{item.cover}}" mode="aspectFill" />
+          <view class="related-title">{{item.title}}</view>
+          <view class="related-meta">{{item.price}}</view>
+          <view class="related-sub">{{item.place}} · {{item.clicked}}浏览</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-bar">
+      <view class="action-icon" bindtap="onCallTap">
+        <view class="action-icon__symbol">☎</view>
+        <view class="action-icon__text">电话</view>
+      </view>
+      <view class="action-icon" bindtap="onFollowTap">
+        <view class="action-icon__symbol">{{merchant.followed ? '♥' : '♡'}}</view>
+        <view class="action-icon__text">{{merchant.followed ? '已关注' : '关注'}}</view>
+      </view>
+      <view class="action-btn action-btn--primary" bindtap="onGetPlanTap">免费获取方案</view>
+    </view>
+  </block>
+</view>

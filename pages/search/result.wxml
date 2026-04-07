@@ -1,0 +1,131 @@
+<view class="page">
+  <view class="result-header">
+    <view class="header-row">
+      <view class="search-box">
+        <image class="search-icon" src="/images/icon/search.svg" mode="aspectFit"></image>
+        <input
+          class="search-input"
+          value="{{keyword}}"
+          placeholder="请输入搜索内容"
+          confirm-type="search"
+          bindinput="onKeywordInput"
+          bindconfirm="onSearchConfirm"
+        />
+      </view>
+      <text class="cancel-text" bindtap="onCancel">取消</text>
+    </view>
+    <view class="search-meta">
+      <text class="search-city">{{cityName}}</text>
+      <view class="search-submit" bindtap="onSearchTap">搜索</view>
+    </view>
+    <scroll-view class="tabs-scroll" scroll-x enable-flex>
+      <view
+        wx:for="{{tabs}}"
+        wx:key="key"
+        class="tab-item {{activeTab === item.key ? 'tab-item-active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onTabTap"
+      >
+        {{item.label}}
+      </view>
+    </scroll-view>
+    <scroll-view class="sort-scroll" scroll-x enable-flex>
+      <view
+        wx:for="{{currentSortOptions}}"
+        wx:key="key"
+        class="sort-item {{item.key === currentSortKey ? 'sort-item-active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onSortTap"
+      >
+        {{item.label}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{activeTab === 'merchant'}}">
+    <view class="loading-box" wx:if="{{merchantLoading && !merchantList.length}}">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <van-empty wx:elif="{{merchantLoaded && !merchantList.length}}" image="search" description="暂无相关商家" />
+    <view wx:else class="merchant-list">
+      <view class="merchant-card" wx:for="{{merchantList}}" wx:key="id" data-userid="{{item.id}}" bindtap="onMerchantTap">
+        <image class="merchant-avatar" src="{{item.head}}" mode="aspectFill" />
+        <view class="merchant-main">
+          <view class="merchant-top">
+            <view class="merchant-name">{{item.nickname}}</view>
+            <view class="merchant-price">{{item.price}}</view>
+          </view>
+          <view class="merchant-role">{{item.occupation}}</view>
+          <view class="merchant-tags">
+            <view class="merchant-tag" wx:if="{{item.isVip}}">VIP</view>
+            <view class="merchant-tag" wx:if="{{item.realname}}">实名</view>
+            <view class="merchant-tag" wx:if="{{item.platform}}">平台认证</view>
+            <view class="merchant-tag" wx:if="{{item.sincerity}}">诚信</view>
+          </view>
+          <view class="merchant-stats">好评率 {{item.goodRate}} · 评论 {{item.commentCount}} · 粉丝 {{item.fans}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{activeTab === 'case'}}">
+    <view class="loading-box" wx:if="{{caseLoading && !caseList.length}}">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <van-empty wx:elif="{{caseLoaded && !caseList.length}}" image="search" description="暂无相关案例" />
+    <view wx:else class="case-list">
+      <view class="case-card" wx:for="{{caseList}}" wx:key="id" data-id="{{item.id}}" bindtap="onCaseTap">
+        <image class="case-cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="case-content">
+          <view class="case-author">
+            <image class="case-author-avatar" src="{{item.head}}" mode="aspectFill" />
+            <text class="case-author-name">{{item.nickname}}</text>
+          </view>
+          <view class="case-title">{{item.title}}</view>
+          <view class="case-desc">{{item.desc}}</view>
+          <view class="case-bottom">
+            <view class="case-price">{{item.price}}</view>
+            <view class="case-stats">浏览 {{item.viewCount}} · 评分 {{item.score}} · 评论 {{item.commentCount}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{activeTab === 'quote'}}">
+    <view class="loading-box" wx:if="{{quoteLoading && !quoteList.length}}">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <van-empty wx:elif="{{quoteLoaded && !quoteList.length}}" image="search" description="暂无相关报价" />
+    <view wx:else class="grid-list">
+      <view class="grid-card" wx:for="{{quoteList}}" wx:key="id" data-id="{{item.id}}" bindtap="onQuoteTap">
+        <image class="grid-cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="grid-title">{{item.title}}</view>
+        <view class="grid-bottom">
+          <view class="grid-price">{{item.price}}</view>
+          <view class="grid-meta">{{item.soldText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{activeTab === 'goods'}}">
+    <view class="loading-box" wx:if="{{goodsLoading && !goodsList.length}}">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <van-empty wx:elif="{{goodsLoaded && !goodsList.length}}" image="search" description="暂无相关商品" />
+    <view wx:else class="grid-list">
+      <view class="grid-card" wx:for="{{goodsList}}" wx:key="id" data-id="{{item.id}}" bindtap="onGoodsTap">
+        <image class="grid-cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="grid-title">{{item.title}}</view>
+        <view class="grid-bottom">
+          <view class="grid-price">{{item.price}}</view>
+          <view class="grid-meta">{{item.soldText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="list-footer" wx:if="{{footerLoading}}">加载更多中...</view>
+  <view class="list-footer" wx:if="{{footerNoMore}}">没有更多了</view>
+</view>

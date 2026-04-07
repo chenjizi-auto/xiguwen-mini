@@ -1,0 +1,108 @@
+.invite-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background:
+    radial-gradient(circle at top left, rgba(196, 145, 84, 0.16), transparent 32%),
+    linear-gradient(180deg, #fffaf5 0%, #f6f7fb 280rpx, #f6f7fb 100%);
+  box-sizing: border-box;
+}
+
+.hero-card,
+.search-card,
+.invite-card {
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-card {
+  padding: 32rpx;
+}
+
+.hero-kicker {
+  color: #b67b40;
+  font-size: 22rpx;
+  text-transform: uppercase;
+  letter-spacing: 6rpx;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #2c2119;
+  font-size: 38rpx;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  margin-top: 14rpx;
+  color: #84776d;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.hero-share-btn {
+  margin-top: 24rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: none;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #c79154, #9e5a24);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.search-card {
+  margin-top: 20rpx;
+  padding: 12rpx;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 40rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.invite-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-top: 24rpx;
+  padding: 28rpx;
+}
+
+.invite-main {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.invite-avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: #f2f2f2;
+  flex-shrink: 0;
+}
+
+.invite-copy {
+  margin-left: 20rpx;
+  min-width: 0;
+}
+
+.invite-name {
+  color: #1f2530;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.invite-meta {
+  margin-top: 8rpx;
+  color: #8a909d;
+  font-size: 24rpx;
+}

@@ -3,3 +3,79 @@
   color: #333;
   line-height: 64rpx;
 }
+
+.about-page {
+  min-height: 100vh;
+  padding: 0 0 40rpx;
+  background: #f5f5f5;
+}
+
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 344rpx;
+  background: #fff;
+}
+
+.about-logo {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 28rpx;
+}
+
+.about-name {
+  margin-top: 16rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #f14d4d;
+}
+
+.about-version {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #999;
+}
+
+.about-group,
+.about-richtext {
+  margin-top: 32rpx;
+  background: #fff;
+}
+
+.about-item {
+  display: flex;
+  align-items: center;
+  min-height: 100rpx;
+  padding: 0 32rpx;
+}
+
+.about-item__label {
+  flex: 1;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #333;
+}
+
+.about-item__value {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.about-item__arrow {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.about-divider {
+  height: 1rpx;
+  margin-left: 32rpx;
+  background: #ededed;
+}
+
+.about-richtext {
+  padding: 24rpx 32rpx 32rpx;
+}

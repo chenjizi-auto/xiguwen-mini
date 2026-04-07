@@ -1,66 +1,146 @@
-<import src="../template-cart/template-cart.wxml" />
-
 <view class="cart-page">
   <view class="cart-nav" style="height: {{navHeight}}px; padding-top: {{navTop}}px; padding-right: {{menuRight}}px;">
     <view class="cart-nav-side"></view>
-    <view class="cart-title" style="line-height: {{menuHeight}}px;">购物车</view>
-    <view
-      wx:if="{{isLogined && shippingCarInfo.items && shippingCarInfo.items.length > 0}}"
-      class="cart-edit"
-      style="top: {{navTop}}px; height: {{menuHeight}}px; line-height: {{menuHeight}}px; right: {{editRight}}px;"
-      bindtap="toggleEditMode"
-    >
-      {{editMode ? '完成' : '编辑'}}
-    </view>
+    <view class="cart-title" style="line-height: {{menuHeight}}px;">{{cartTitle}}</view>
   </view>
 
   <view class="cart-nav-divider"></view>
 
-  <view class="cart-tab-panel">
-    <view class="cart-tab-item {{shopCarType == 0 ? 'cart-tab-item--active' : ''}}" data-type="0" bindtap="selectCartTab">
-      <view class="cart-tab-icon-wrap">
-        <image
-          class="cart-tab-icon"
-          src="{{shopCarType == 0 ? '/images/nav/icon_cart_select2.png' : '/images/nav/icon_cart_unsle2.png'}}"
-          mode="aspectFit"
-        />
-        <view wx:if="{{selfCartCountText}}" class="cart-tab-badge">{{selfCartCountText}}</view>
-      </view>
-      <text class="cart-tab-text">自营商品</text>
-    </view>
-
-    <view
-      wx:if="{{shopping_cart_vop_open == 1}}"
-      class="cart-tab-item {{shopCarType == 1 ? 'cart-tab-item--active' : ''}}"
-      data-type="1"
-      bindtap="selectCartTab"
-    >
-      <view class="cart-tab-icon-wrap">
-        <image
-          class="cart-tab-icon"
-          src="{{shopCarType == 1 ? '/images/icon/shop-on.svg' : '/images/icon/shop.svg'}}"
-          mode="aspectFit"
-        />
-        <view wx:if="{{vopCartCountText}}" class="cart-tab-badge">{{vopCartCountText}}</view>
-      </view>
-      <text class="cart-tab-text">云货架</text>
-    </view>
-  </view>
-
   <view class="cart-content {{isLogined ? '' : 'cart-content--empty'}}">
-    <block wx:if="{{isLogined}}">
-      <template
-        is="{{(shippingCarInfo && shippingCarInfo.items && shippingCarInfo.items.length > 0) ? 'cart-goods-list' : 'no-goods'}}"
-        data="{{items: shippingCarInfo.items, shopList: shippingCarInfo.shopList, price: shippingCarInfo.price, score: shippingCarInfo.score, saveHidden: saveHidden, allSelect: allSelect, noSelect: noSelect, shopCarType: shopCarType, editMode: editMode, selectedGoodsNumText: selectedGoodsNumText}}"
-      ></template>
-    </block>
-
-    <view wx:else class="cart-login-empty">
-      <image class="cart-login-empty-icon" src="/images/nologin.png" mode="aspectFit" />
+    <view wx:if="{{!isLogined}}" class="cart-login-empty">
+      <image class="cart-login-empty-icon" src="/images/nologin.webp" mode="aspectFit" />
       <view class="cart-login-empty-title">登录后查看购物车</view>
-      <view class="cart-login-empty-desc">你的收藏商品、待结算商品都会展示在这里</view>
+      <view class="cart-login-empty-desc">你的待结算商品都会展示在这里</view>
       <button class="cart-login-btn" bindtap="toLoginPage">立即登录</button>
       <view class="cart-login-secondary" bindtap="toIndexPage">先去逛逛</view>
+    </view>
+
+    <block wx:elif="{{cartGroups.length > 0 || recommendList.length > 0}}">
+      <scroll-view class="cart-scroll" scroll-y enhanced show-scrollbar="false">
+        <view class="cart-list">
+          <view wx:if="{{!cartGroups.length}}" class="cart-empty cart-empty--inline">
+            <image class="cart-empty-icon" src="/images/zw.webp" mode="aspectFit" />
+            <view class="cart-empty-text">您的购物车是空的哦~</view>
+            <view class="cart-empty-btn" bindtap="toIndexPage">去逛逛</view>
+          </view>
+
+          <view class="cart-group" wx:for="{{cartGroups}}" wx:key="key">
+            <view class="cart-group-head" bindtap="onGroupToggle" data-shop-id="{{item.shopId}}">
+              <checkbox class="cart-group-check" checked="{{item.checked}}" />
+              <view class="cart-group-store-icon"></view>
+              <text class="cart-group-name">{{item.shopName}}</text>
+            </view>
+
+            <view class="cart-group-divider"></view>
+
+            <view
+              class="cart-item"
+              wx:for="{{item.items}}"
+              wx:for-item="goods"
+              wx:key="key"
+              bindtouchstart="touchS"
+              bindtouchmove="touchM"
+              bindtouchend="touchE"
+              data-index="{{goods._index}}"
+              style="{{goods.left}}"
+            >
+              <view class="cart-item-main">
+                <view class="cart-check-wrap" data-index="{{goods._index}}" bindtap="radioClick">
+                  <checkbox checked="{{goods.selected}}" disabled="{{goods.disabled}}" />
+                </view>
+
+                <image class="cart-item-image" src="{{goods.pic}}" mode="aspectFill" binderror="onCartImgError" data-index="{{goods._index}}" />
+
+                <view class="cart-item-body">
+                  <view class="cart-item-title">{{goods.title}}</view>
+                  <view wx:if="{{goods.specText}}" class="cart-item-spec">{{goods.specText}}</view>
+
+                  <view class="cart-item-meta">
+                    <view class="cart-item-price-block">
+                      <text class="cart-item-label">单价:</text>
+                      <text class="cart-item-price">￥{{goods.priceText}}</text>
+                      <block wx:if="{{goods.depositText}}">
+                        <text class="cart-item-label cart-item-label--gap">定金:</text>
+                        <text class="cart-item-price">￥{{goods.depositText}}</text>
+                      </block>
+                    </view>
+
+                    <view class="cart-item-count-row">
+                      <text class="cart-item-label">数量:</text>
+                      <view class="cart-stepper">
+                        <view class="cart-stepper-btn" catchtap="jianBtnTap" data-index="{{goods._index}}">-</view>
+                        <input class="cart-stepper-input" type="number" value="{{goods.number}}" data-key="{{goods.key}}" bindinput="changeCarNumber" />
+                        <view class="cart-stepper-btn" catchtap="jiaBtnTap" data-index="{{goods._index}}">+</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+              <view class="cart-delete-btn" data-key="{{goods.key}}" catchtap="delItem">删除</view>
+            </view>
+          </view>
+
+          <view wx:if="{{recommendList.length}}" class="cart-recommend">
+            <view class="cart-recommend-title">猜你喜欢</view>
+            <view class="cart-recommend-grid">
+              <view
+                class="cart-recommend-card"
+                wx:for="{{recommendList}}"
+                wx:key="userid"
+                data-userid="{{item.userid}}"
+                bindtap="onRecommendTap"
+              >
+                <view class="cart-recommend-media">
+                  <image class="cart-recommend-image" src="{{item.head}}" mode="aspectFill" />
+                  <view wx:if="{{item.isShopVip}}" class="cart-recommend-vip">VIP</view>
+                </view>
+                <view class="cart-recommend-body">
+                  <view class="cart-recommend-name">{{item.nickname}}</view>
+                  <view class="cart-recommend-role">{{item.occupation}}</view>
+                  <view class="cart-recommend-price-row">
+                    <text class="cart-recommend-price">￥{{item.priceText}}</text>
+                    <view class="cart-recommend-tags">
+                      <text wx:if="{{item.sincerity}}" class="cart-recommend-tag">诚信</text>
+                      <text wx:if="{{item.platform}}" class="cart-recommend-tag">平台</text>
+                      <text wx:if="{{item.realname}}" class="cart-recommend-tag">实名</text>
+                      <text wx:if="{{item.collegeText}}" class="cart-recommend-tag">{{item.collegeText}}</text>
+                    </view>
+                  </view>
+                  <view class="cart-recommend-stats">
+                    <text>报价: {{item.shopnum}}</text>
+                    <text>案例: {{item.anlinum}}</text>
+                    <text>评价: {{item.evaluate}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view wx:if="{{cartGroups.length}}" class="cart-bottom-bar">
+        <view class="cart-bottom-check" bindtap="toggleSelectAll">
+          <checkbox checked="{{allSelect}}" />
+          <text class="cart-bottom-check-text">全选</text>
+        </view>
+
+        <view class="cart-bottom-price">
+          <text class="cart-bottom-label">合计:</text>
+          <text class="cart-bottom-value">￥{{shippingCarInfo.price}}</text>
+          <text wx:if="{{shippingCarInfo.score}}" class="cart-bottom-score">+ {{shippingCarInfo.score}} 积分</text>
+        </view>
+
+        <view class="cart-bottom-action {{noSelect ? 'cart-bottom-action--disabled' : ''}}" bindtap="onCheckoutTap">
+          去结算{{selectedGoodsNumText}}
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="cart-empty">
+      <image class="cart-empty-icon" src="/images/zw.webp" mode="aspectFit" />
+      <view class="cart-empty-text">您的购物车是空的哦~</view>
+      <view class="cart-empty-btn" bindtap="toIndexPage">去逛逛</view>
     </view>
   </view>
 </view>

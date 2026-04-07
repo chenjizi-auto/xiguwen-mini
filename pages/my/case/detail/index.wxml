@@ -1,0 +1,67 @@
+<view class="atlas-detail-page">
+  <block wx:if="{{loading && !detail}}">
+    <view class="atlas-detail-loading">加载中...</view>
+  </block>
+
+  <block wx:elif="{{detail}}">
+    <scroll-view scroll-y class="atlas-detail-scroll">
+      <view class="atlas-detail-card">
+        <image class="atlas-detail-cover" src="{{detail.cover || defaultCover}}" mode="aspectFill" bindtap="previewCover" />
+
+        <view class="atlas-detail-head">
+          <view class="atlas-detail-title">{{detail.title}}</view>
+          <view class="atlas-detail-status">{{detail.statusLabel}}</view>
+        </view>
+
+        <view class="atlas-detail-meta">
+          <view class="atlas-detail-meta-item">
+            <text class="atlas-detail-meta-label">排序</text>
+            <text class="atlas-detail-meta-value">{{detail.weight || '--'}}</text>
+          </view>
+          <view class="atlas-detail-meta-item">
+            <text class="atlas-detail-meta-label">婚礼日期</text>
+            <text class="atlas-detail-meta-value">{{detail.weddingTime || '--'}}</text>
+          </view>
+        </view>
+
+        <view class="atlas-detail-section">
+          <view class="atlas-detail-section-title">案例信息</view>
+          <view class="info-row"><text class="info-label">婚礼地点</text><text class="info-value">{{detail.weddingPlace || '--'}}</text></view>
+          <view class="info-row"><text class="info-label">婚礼费用</text><text class="info-value">{{detail.weddingExpenses || '--'}}</text></view>
+          <view class="info-row"><text class="info-label">婚礼类型</text><text class="info-value">{{detail.typeText || '--'}}</text></view>
+          <view class="info-row"><text class="info-label">婚礼环境</text><text class="info-value">{{detail.environmentText || '--'}}</text></view>
+        </view>
+
+        <view class="atlas-detail-section">
+          <view class="atlas-detail-section-title">案例描述</view>
+          <view class="atlas-detail-section-text">{{detail.description || '暂无描述'}}</view>
+        </view>
+
+        <view class="atlas-detail-section">
+          <view class="atlas-detail-section-title">案例图片</view>
+          <view wx:if="{{detail.photos.length}}" class="atlas-detail-grid">
+            <image
+              wx:for="{{detail.photos}}"
+              wx:key="*this"
+              class="atlas-detail-grid-item"
+              src="{{item}}"
+              mode="aspectFill"
+              bindtap="previewImage"
+              data-url="{{item}}"
+            />
+          </view>
+          <view wx:else class="atlas-detail-empty">暂无图片</view>
+        </view>
+      </view>
+      <view class="atlas-detail-safe"></view>
+    </scroll-view>
+
+    <view class="atlas-detail-actions">
+      <view wx:if="{{actionConfig.canEdit}}" class="atlas-detail-action atlas-detail-action--ghost" bindtap="goEdit">编辑</view>
+      <view wx:if="{{actionConfig.canDelete}}" class="atlas-detail-action atlas-detail-action--ghost" bindtap="onDelete">删除</view>
+      <view wx:if="{{actionConfig.primaryText}}" class="atlas-detail-action atlas-detail-action--primary" bindtap="onPrimaryAction">
+        {{actionConfig.primaryText}}
+      </view>
+    </view>
+  </block>
+</view>

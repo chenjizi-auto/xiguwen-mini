@@ -1,4 +1,45 @@
-<van-empty wx:if="{{!cmsPageDetail}}" description="请在后台添加内容" />
-<view wx:else class="content">
+<view wx:if="{{cmsPageDetail && !showAboutPanel}}" class="content">
   <mp-html content="{{cmsPageDetail.info.content}}" />
+</view>
+
+<view wx:elif="{{!loading}}" class="about-page">
+  <view class="about-header">
+    <image class="about-logo" src="{{logo}}" mode="aspectFill" />
+    <view class="about-name">{{appName}}</view>
+    <view class="about-version">{{versionText}}</view>
+  </view>
+
+  <view wx:if="{{showAboutPanel}}" class="about-group">
+    <view class="about-item" bindtap="openUserAgreement">
+      <text class="about-item__label">用户协议</text>
+      <image class="about-item__arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
+    <view class="about-divider"></view>
+    <view class="about-item" bindtap="openPrivacyPolicy">
+      <text class="about-item__label">隐私政策</text>
+      <image class="about-item__arrow" src="/images/mine/icon_next_step.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view wx:if="{{showAboutPanel}}" class="about-group">
+    <view class="about-item">
+      <text class="about-item__label">微信公众号</text>
+      <text class="about-item__value">{{wechatName}}</text>
+    </view>
+    <view class="about-divider"></view>
+    <view class="about-item" bindtap="contactNow">
+      <text class="about-item__label">客服电话</text>
+      <text class="about-item__value">{{fallbackPhone}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{showAboutPanel}}" class="about-group">
+    <view class="about-item" bindtap="checkVersion">
+      <text class="about-item__label">检查更新</text>
+    </view>
+  </view>
+
+  <view wx:if="{{showAboutPanel && cmsPageDetail && cmsPageDetail.info && cmsPageDetail.info.content}}" class="about-richtext">
+    <mp-html content="{{cmsPageDetail.info.content}}" />
+  </view>
 </view>

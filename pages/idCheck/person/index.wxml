@@ -1,0 +1,70 @@
+<view class="cert-page">
+  <view class="cert-card">
+    <view class="cert-item">
+      <view class="cert-item__label">姓名</view>
+      <input
+        class="cert-item__input"
+        value="{{name}}"
+        placeholder="请输入姓名"
+        maxlength="20"
+        bindinput="onNameInput"
+      />
+    </view>
+    <view class="cert-divider"></view>
+    <view class="cert-item">
+      <view class="cert-item__label">身份证号码</view>
+      <input
+        class="cert-item__input"
+        type="idcard"
+        value="{{idcard}}"
+        placeholder="请输入身份证号码"
+        maxlength="18"
+        bindinput="onIdCardInput"
+      />
+    </view>
+  </view>
+
+  <view wx:if="{{!legacyMode}}" class="upload-group">
+    <view class="upload-title">认证材料</view>
+
+    <view class="upload-card">
+      <view class="upload-card__header">
+        <view class="upload-card__title">身份证正面照</view>
+        <view class="upload-card__hint">请上传人像面</view>
+      </view>
+      <view class="upload-box" data-key="front" bindtap="chooseImage">
+        <image wx:if="{{front.localPath || front.url}}" class="upload-box__image" src="{{front.localPath || front.url}}" mode="aspectFill" data-key="front" catchtap="previewImage"></image>
+        <view wx:else class="upload-box__placeholder">点击上传</view>
+        <view wx:if="{{auditState === 2}}" class="upload-box__edit" data-key="front" catchtap="chooseImage">修改图片</view>
+      </view>
+    </view>
+
+    <view class="upload-card">
+      <view class="upload-card__header">
+        <view class="upload-card__title">身份证反面照</view>
+        <view class="upload-card__hint">请上传国徽面</view>
+      </view>
+      <view class="upload-box" data-key="back" bindtap="chooseImage">
+        <image wx:if="{{back.localPath || back.url}}" class="upload-box__image" src="{{back.localPath || back.url}}" mode="aspectFill" data-key="back" catchtap="previewImage"></image>
+        <view wx:else class="upload-box__placeholder">点击上传</view>
+        <view wx:if="{{auditState === 2}}" class="upload-box__edit" data-key="back" catchtap="chooseImage">修改图片</view>
+      </view>
+    </view>
+
+    <view class="upload-card">
+      <view class="upload-card__header">
+        <view class="upload-card__title">手持身份证照</view>
+        <view class="upload-card__hint">请确保姓名和证件信息清晰可见</view>
+      </view>
+      <view class="upload-box" data-key="handheld" bindtap="chooseImage">
+        <image wx:if="{{handheld.localPath || handheld.url}}" class="upload-box__image" src="{{handheld.localPath || handheld.url}}" mode="aspectFill" data-key="handheld" catchtap="previewImage"></image>
+        <view wx:else class="upload-box__placeholder">点击上传</view>
+        <view wx:if="{{auditState === 2}}" class="upload-box__edit" data-key="handheld" catchtap="chooseImage">修改图片</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="cert-submit">
+    <van-button type="primary" block loading="{{submitting}}" bind:click="submit">{{legacyMode ? '立即认证' : '提交认证'}}</van-button>
+  </view>
+</view>

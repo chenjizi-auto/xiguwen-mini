@@ -20,6 +20,6 @@
     </view>
   </view>
 
-  <van-empty wx:if="{{loaded && fans.length === 0}}" image="/images/zw.png" description="暂无粉丝" />
+  <van-empty wx:if="{{loaded && fans.length === 0}}" image="/images/zw.webp" description="暂无粉丝" />
   <view wx:if="{{loading}}" class="fans-loading">加载中...</view>
 </view>

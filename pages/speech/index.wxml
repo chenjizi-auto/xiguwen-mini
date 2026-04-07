@@ -1,0 +1,30 @@
+<view class="speech-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Wedding Speech</view>
+    <view class="hero-title">婚礼宝典</view>
+    <view class="hero-desc">沉淀婚礼致辞与发言内容，支持随时查阅、修改和微信分享。</view>
+  </view>
+
+  <view class="toolbar-card">
+    <view class="toolbar-title">我的宝典</view>
+    <van-button type="primary" size="small" bind:click="onAddTap">新增宝典</van-button>
+  </view>
+
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <view class="speech-list" wx:if="{{list.length}}">
+    <view class="speech-card" wx:for="{{list}}" wx:key="id" wx:for-item="item">
+      <view class="speech-main" bindtap="onDetailTap" data-item="{{item}}">
+        <view class="speech-title">{{item.title}}</view>
+        <view class="speech-content">{{item.content}}</view>
+      </view>
+      <view class="speech-actions">
+        <van-button plain size="mini" custom-class="speech-btn" bind:click="onEditTap" data-item="{{item}}">编辑</van-button>
+        <van-button plain type="danger" size="mini" custom-class="speech-btn" bind:click="onDeleteTap" data-id="{{item.id}}">删除</van-button>
+      </view>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{!loading && !errorText && list.length === 0}}" image="search" description="还没有婚礼宝典" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

@@ -16,13 +16,13 @@
     <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id" wx:for-index="idx">
       <view class="t">{{item.name}}</view>
       <view class="items">
-        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id"  hidden="{{ small.hidden }}" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="skuSelect">{{small.name}}</text>
+        <text class="sku-item-text {{small.active ? 'sku-item-text--active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id" hidden="{{ small.hidden }}" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="skuSelect">{{small.name}}</text>
       </view>
     </view>
     <view class="sku" wx:for="{{ goodsAddition }}" wx:key="id" wx:for-index="idx">
       <view class="t">{{item.name}}</view>
       <view class="items">
-        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.items}}" wx:for-item="small" wx:key="id" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="additionSelect">{{small.name}}</text>
+        <text class="sku-item-text {{small.active ? 'sku-item-text--active' : ''}}" wx:for="{{item.items}}" wx:for-item="small" wx:key="id" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="additionSelect">{{small.name}}</text>
       </view>
     </view>
     <view class="num">

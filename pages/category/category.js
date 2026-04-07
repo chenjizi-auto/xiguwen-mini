@@ -1,4 +1,4 @@
-const network = require('../../api/network.js')
+const network = require('../../api/network-main.js')
 const xgwAuth = require('../../utils/xgw-auth.js')
 const APP = getApp()
 
@@ -47,8 +47,8 @@ Page({
     navTabWidth: 0,
     menuButtonObject: null,
 
-    load_img: '/images/load_img.png',
-    load_img_erro: '/images/load_img_erro.png',
+    load_img: '/images/load_img.webp',
+    load_img_erro: '/images/load_img_erro.webp',
 
     circleActive: 0, // 0 婚庆圈 1 商城圈（对齐 Android FindFragment）
     orderActive: 0, // 0 最新 1 热门 2 关注（对齐 Android DiscoverFragment）
@@ -60,9 +60,20 @@ Page({
 
     // 婚庆圈职业筛选（对齐 Android DiscoverFragment discover_condition）
     jobPopupShow: false,
+    filterPopupShow: false,
+    popupMode: '',
     jobTypes: [],
     jobTypeId: '',
     jobTypeName: '全部',
+    sortOptions: [
+      { key: 'latest', label: '最新' },
+      { key: 'hot', label: '热门' },
+      { key: 'follow', label: '关注' }
+    ],
+    sortLabel: '综合排序',
+    areaName: '全区域',
+    areaOptions: [],
+    filterSummary: '筛选',
 
     // list
     discoverList: [],
@@ -77,11 +88,14 @@ Page({
     this.initNavBar()
     this.initGridSizes()
     this.ensureJobTypesLoaded()
+    this.ensureAreaOptionsLoaded()
+    this.restoreAreaSelection()
+    this.syncSortLabel()
     this.refreshDiscover()
   },
 
   onShow() {
-    // no-op
+    this.restoreAreaSelection()
   },
 
   onPullDownRefresh() {
@@ -96,12 +110,11 @@ Page({
     const index = e && e.detail ? e.detail.index : 0
     this.setData({
       circleActive: index,
-      // 切换圈子时重置排序到“最新”
-      orderActive: 0,
       // 商城圈不带职业筛选
       jobTypeId: index === 0 ? this.data.jobTypeId : '',
       jobTypeName: index === 0 ? this.data.jobTypeName : '全部'
     })
+    this.syncSortLabel()
     this.refreshDiscover()
   },
 
@@ -121,7 +134,27 @@ Page({
     if (idx === 2) {
       this.setData({ jobTypeId: '', jobTypeName: '全部' })
     }
+    this.syncSortLabel(idx)
     this.refreshDiscover()
+  },
+
+  openFilterPopup(e) {
+    const mode = e && e.currentTarget ? String(e.currentTarget.dataset.mode || '') : ''
+    if (!mode) return
+    if (mode === 'category') {
+      this.openJobPopup()
+      return
+    }
+    if (mode === 'area') {
+      wx.navigateTo({
+        url: '/pages/city-select/index'
+      })
+      return
+    }
+    this.setData({
+      popupMode: mode,
+      filterPopupShow: true
+    })
   },
 
   onAddDiscover() {
@@ -132,7 +165,7 @@ Page({
       return
     }
     wx.navigateTo({
-      url: '/pages/discover-publish/index'
+      url: '/packageDiscover/pages/discover-publish/index'
     })
   },
 
@@ -210,6 +243,14 @@ Page({
     })
   },
 
+  onDiscoverTap(e) {
+    const id = e && e.currentTarget ? Number(e.currentTarget.dataset.id) : 0
+    if (!id) return
+    wx.navigateTo({
+      url: `/packageDiscover/pages/discover-detail/index?id=${id}&type=${this.data.circleActive}`
+    })
+  },
+
   ensureJobTypesLoaded() {
     if (this.data.jobTypes && this.data.jobTypes.length > 0) return
     network.homeCategory({}).then(res => {
@@ -219,13 +260,49 @@ Page({
     })
   },
 
+  ensureAreaOptionsLoaded() {
+    if (this.data.areaOptions && this.data.areaOptions.length > 0) return
+    network.cityList({}).then(res => {
+      if (!res || res.code !== 0) return
+      const data = res.data || {}
+      const hotCities = Array.isArray(data.newsite) ? data.newsite : []
+      const site = Array.isArray(data.site) ? data.site : []
+      this.setData({
+        areaOptions: [{ id: '', name: '全区域' }].concat(hotCities.length ? hotCities : site.slice(0, 30))
+      })
+    })
+  },
+
+  restoreAreaSelection() {
+    const selected = wx.getStorageSync('selectedCity')
+    if (selected && selected.name) {
+      this.setData({
+        areaName: selected.name
+      })
+      return
+    }
+    this.setData({
+      areaName: '全区域'
+    })
+  },
+
   openJobPopup() {
     if (this.data.circleActive !== 0) return
-    this.setData({ jobPopupShow: true })
+    this.setData({
+      jobPopupShow: true,
+      filterPopupShow: false
+    })
   },
 
   closeJobPopup() {
     this.setData({ jobPopupShow: false })
+  },
+
+  closeFilterPopup() {
+    this.setData({
+      filterPopupShow: false,
+      popupMode: ''
+    })
   },
 
   selectJobType(e) {
@@ -237,6 +314,44 @@ Page({
       jobPopupShow: false
     })
     this.refreshDiscover()
+  },
+
+  selectSortOption(e) {
+    const key = e && e.currentTarget ? String(e.currentTarget.dataset.key || '') : ''
+    const orderMap = { latest: 0, hot: 1, follow: 2 }
+    const idx = orderMap[key]
+    if (idx == null) return
+    this.closeFilterPopup()
+    this.onOrderTap({
+      currentTarget: {
+        dataset: { idx }
+      }
+    })
+  },
+
+  selectAreaOption(e) {
+    const name = e && e.currentTarget ? String(e.currentTarget.dataset.name || '全区域') : '全区域'
+    this.setData({
+      areaName: name
+    })
+    this.closeFilterPopup()
+  },
+
+  resetDiscoverFilter() {
+    this.setData({
+      jobTypeId: '',
+      jobTypeName: '全部',
+      areaName: '全区域'
+    })
+    this.closeFilterPopup()
+    this.refreshDiscover()
+  },
+
+  syncSortLabel(orderActive = this.data.orderActive) {
+    const labels = ['最新', '热门', '关注']
+    this.setData({
+      sortLabel: labels[orderActive] || '综合排序'
+    })
   },
 
   refreshDiscover() {

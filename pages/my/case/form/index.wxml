@@ -1,0 +1,88 @@
+<scroll-view scroll-y class="atlas-edit-page">
+  <view class="atlas-edit-card">
+    <view class="atlas-edit-title">{{pageTitle}}</view>
+    <view class="atlas-edit-sub">对齐 Android 的案例提交字段，先完成核心图文信息录入</view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">案例名称</view>
+      <input class="atlas-edit-input" value="{{title}}" maxlength="30" placeholder="请输入案例名称" bindinput="onTitleInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">婚礼日期</view>
+      <picker mode="date" value="{{weddingTime}}" bindchange="onWeddingTimeChange">
+        <view class="picker-field {{weddingTime ? '' : 'picker-field--placeholder'}}">{{weddingTime || '请选择婚礼日期'}}</view>
+      </picker>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">婚礼地点</view>
+      <input class="atlas-edit-input" value="{{weddingPlace}}" maxlength="50" placeholder="请输入婚礼地点" bindinput="onWeddingPlaceInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">婚礼费用</view>
+      <input class="atlas-edit-input" value="{{weddingExpenses}}" type="digit" maxlength="10" placeholder="请输入婚礼费用" bindinput="onWeddingExpensesInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">婚礼类型</view>
+      <view class="picker-field {{selectedTypeText ? '' : 'picker-field--placeholder'}}" bindtap="chooseType">{{selectedTypeText || '请选择婚礼类型'}}</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">婚礼环境</view>
+      <view class="picker-field {{selectedEnvironmentText ? '' : 'picker-field--placeholder'}}" bindtap="chooseEnvironment">{{selectedEnvironmentText || '请选择婚礼环境'}}</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">排序</view>
+      <input class="atlas-edit-input" value="{{weight}}" type="digit" maxlength="6" placeholder="请输入排序值" bindinput="onWeightInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">案例描述</view>
+      <textarea class="atlas-edit-textarea case-textarea" value="{{description}}" maxlength="500" placeholder="请输入案例描述" bindinput="onDescriptionInput" />
+      <view class="atlas-edit-counter">{{description.length}}/500</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">案例封面</view>
+        <view class="atlas-edit-tip">必填</view>
+      </view>
+      <block wx:if="{{cover}}">
+        <view class="atlas-edit-cover-wrap">
+          <image class="atlas-edit-cover" src="{{cover || defaultCover}}" mode="aspectFill" bindtap="previewCover" />
+          <view class="atlas-edit-remove" bindtap="removeCover">删除</view>
+        </view>
+      </block>
+      <view wx:else class="atlas-edit-picker" bindtap="chooseCover">
+        <text class="atlas-edit-picker-plus">+</text>
+        <text class="atlas-edit-picker-text">选择封面</text>
+      </view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">案例图片</view>
+        <view class="atlas-edit-tip">{{photoList.length}}/{{maxPhotoCount}}</view>
+      </view>
+      <view class="atlas-edit-grid">
+        <view wx:for="{{photoList}}" wx:key="*this" class="atlas-edit-grid-item atlas-edit-grid-item--image">
+          <image class="atlas-edit-grid-image" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" />
+          <view class="atlas-edit-grid-remove" bindtap="removePhoto" data-index="{{index}}">×</view>
+        </view>
+        <view wx:if="{{photoList.length < maxPhotoCount}}" class="atlas-edit-grid-item atlas-edit-grid-item--picker" bindtap="choosePhotos">
+          <text class="atlas-edit-picker-plus">+</text>
+          <text class="atlas-edit-grid-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="atlas-edit-safe"></view>
+  <view class="atlas-edit-actions">
+    <view class="atlas-edit-submit" bindtap="onSave">{{saving ? '保存中...' : '保存案例'}}</view>
+  </view>
+</scroll-view>

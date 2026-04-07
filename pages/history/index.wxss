@@ -1,0 +1,249 @@
+.history-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background: #f6f7fb;
+}
+
+.history-filter-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.history-date-box {
+  width: 560rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 10rpx 32rpx rgba(31, 35, 41, 0.06);
+  box-sizing: border-box;
+}
+
+.history-date-box--active {
+  background: linear-gradient(135deg, #fff4eb 0%, #ffffff 100%);
+}
+
+.history-date-label {
+  font-size: 22rpx;
+  color: #8f959e;
+  line-height: 1.4;
+}
+
+.history-date-value {
+  margin-top: 8rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2329;
+  line-height: 1.4;
+}
+
+.history-clear {
+  flex-shrink: 0;
+  padding: 0 8rpx;
+  font-size: 26rpx;
+  color: #ea6a3c;
+}
+
+.history-slot-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20rpx;
+  margin-right: -16rpx;
+}
+
+.history-slot {
+  min-width: 110rpx;
+  padding: 14rpx 24rpx;
+  margin-right: 16rpx;
+  margin-bottom: 16rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  font-size: 24rpx;
+  color: #5b6472;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.history-slot--disabled {
+  background: #f2f4f7;
+  color: #b6bcc6;
+}
+
+.history-slot--active {
+  background: #1f2329;
+  color: #ffffff;
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+  font-size: 22rpx;
+  color: #8f959e;
+}
+
+.history-tabs-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: 0 -24rpx 20rpx;
+  padding: 0 24rpx;
+  background: rgba(246, 247, 251, 0.96);
+  box-shadow: 0 10rpx 24rpx rgba(246, 247, 251, 0.92);
+  backdrop-filter: blur(10rpx);
+}
+
+.history-tabs {
+  white-space: nowrap;
+}
+
+.history-tabs__inner {
+  display: inline-flex;
+  align-items: center;
+  min-height: 74rpx;
+  padding-right: 24rpx;
+}
+
+.history-tab {
+  position: relative;
+  flex-shrink: 0;
+  margin-right: 36rpx;
+  padding-bottom: 10rpx;
+  font-size: 28rpx;
+  color: #7d8590;
+}
+
+.history-tab--active {
+  color: #1f2329;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.history-tab__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: #ea6a3c;
+}
+
+.history-state-error {
+  margin-top: 140rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #8f959e;
+}
+
+.history-content-swipe {
+  min-height: 320rpx;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-card {
+  display: flex;
+  align-items: center;
+  padding: 22rpx;
+  margin-bottom: 20rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 14rpx 40rpx rgba(31, 35, 41, 0.06);
+  box-sizing: border-box;
+}
+
+.history-card__avatar {
+  width: 152rpx;
+  height: 152rpx;
+  flex-shrink: 0;
+  border-radius: 20rpx;
+  background: #eef1f5;
+}
+
+.history-card__main {
+  min-width: 0;
+  flex: 1;
+  margin-left: 22rpx;
+}
+
+.history-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.history-card__name {
+  min-width: 0;
+  flex: 1;
+  padding-right: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2329;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-card__price {
+  flex-shrink: 0;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ea4335;
+  line-height: 1.4;
+}
+
+.history-card__role {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #8f959e;
+  line-height: 1.4;
+}
+
+.history-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.history-tag {
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+  background: #f2f4f7;
+  font-size: 20rpx;
+  color: #5b6472;
+  line-height: 1;
+}
+
+.history-tag--vip {
+  background: rgba(234, 106, 60, 0.12);
+  color: #ea6a3c;
+}
+
+.history-tag--college {
+  background: rgba(54, 121, 255, 0.12);
+  color: #3679ff;
+}
+
+.history-card__stats {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: #8f959e;
+  line-height: 1.4;
+}
+
+.history-footer {
+  padding: 32rpx 0 40rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #8f959e;
+}

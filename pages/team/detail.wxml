@@ -1,0 +1,81 @@
+<view class="team-detail-page">
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <block wx:if="{{detail}}">
+    <view class="hero-card">
+      <image wx:if="{{detail.cover}}" class="hero-cover" src="{{detail.cover}}" mode="aspectFill"></image>
+      <view class="hero-mask"></view>
+      <view class="hero-main">
+        <image class="hero-logo" src="{{detail.logo || '/images/default.webp'}}" mode="aspectFill"></image>
+        <view class="hero-copy">
+          <view class="hero-title">{{detail.name}}</view>
+          <view class="hero-tags">
+            <text class="hero-tag">{{detail.type || '未设置类型'}}</text>
+            <text class="hero-tag" wx:if="{{detail.roleText}}">{{detail.roleText}}</text>
+          </view>
+          <view class="hero-address">{{detail.address}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stats-num">{{detail.memberCount}}</view>
+        <view class="stats-label">成员数</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-num">{{detail.browseCount}}</view>
+        <view class="stats-label">浏览量</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-num">{{detail.dynamicCount}}</view>
+        <view class="stats-label">动态</view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">社团简介</view>
+      <view class="section-content">{{detail.profile}}</view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">社团动态</view>
+      <block wx:if="{{detail.dynamicList.length}}">
+        <view class="dynamic-item" wx:for="{{detail.dynamicList}}" wx:key="id">
+          <view class="dynamic-head">
+            <image class="dynamic-avatar" src="{{item.avatar || '/images/default.webp'}}" mode="aspectFill"></image>
+            <view class="dynamic-meta">
+              <view class="dynamic-name">{{item.nickname}}</view>
+              <view class="dynamic-sub">{{item.occupation || '社团成员'}} · {{item.createTime || '--'}}</view>
+            </view>
+          </view>
+          <view class="dynamic-content">
+            <mp-html content="{{item.content}}" />
+          </view>
+          <view class="dynamic-images" wx:if="{{item.images.length}}">
+            <image
+              class="dynamic-image"
+              wx:for="{{item.images}}"
+              wx:for-item="imageUrl"
+              wx:for-index="imageIndex"
+              wx:key="*this"
+              src="{{imageUrl}}"
+              mode="aspectFill"
+              bindtap="onPreviewImage"
+              data-current="{{imageUrl}}"
+              data-images="{{item.images}}"
+            ></image>
+          </view>
+          <view class="dynamic-footer">
+            <text>浏览 {{item.pv}}</text>
+            <text>点赞 {{item.zan}}</text>
+            <text>评论 {{item.commentCount}}</text>
+          </view>
+        </view>
+      </block>
+      <van-empty wx:else image="search" description="暂无社团动态" />
+    </view>
+  </block>
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

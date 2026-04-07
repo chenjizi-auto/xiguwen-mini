@@ -1,0 +1,62 @@
+<view class="create-page">
+  <view class="form-card">
+    <view class="upload-row" bindtap="chooseImage" data-field="logo">
+      <view class="upload-copy">
+        <view class="upload-title">LOGO</view>
+        <view class="upload-desc">建议使用横向矩形清晰图片</view>
+      </view>
+      <view class="upload-thumb-wrap upload-thumb-wrap--logo">
+        <image
+          class="upload-thumb upload-thumb--logo"
+          src="{{logoTemp || logoUrl || '/images/load_img.webp'}}"
+          mode="{{logoTemp || logoUrl ? 'aspectFit' : 'aspectFill'}}"
+        ></image>
+      </view>
+    </view>
+    <view class="form-divider"></view>
+    <view class="upload-row" bindtap="chooseImage" data-field="background">
+      <view class="upload-copy">
+        <view class="upload-title">背景</view>
+        <view class="upload-desc">用于社团顶部展示</view>
+      </view>
+      <view class="upload-thumb-wrap upload-thumb-wrap--background">
+        <image class="upload-thumb upload-thumb--wide" src="{{backgroundTemp || backgroundUrl || '/images/load_img.webp'}}" mode="aspectFill"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="form-row">
+      <view class="form-label">社团名称</view>
+      <input class="form-input" value="{{name}}" maxlength="30" placeholder="请输入社团名称" bindinput="onNameInput" />
+    </view>
+    <view class="form-divider"></view>
+    <picker range="{{typeOptions}}" range-key="name" value="{{typeIndex > -1 ? typeIndex : 0}}" bindchange="onTypeChange">
+      <view class="form-row">
+        <view class="form-label">社团类型</view>
+        <view class="form-value {{typeText ? '' : 'form-value--placeholder'}}">{{typeText || (loadingTypes ? '加载中...' : '请选择')}}</view>
+      </view>
+    </picker>
+    <view class="form-divider"></view>
+    <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+      <view class="form-row">
+        <view class="form-label">社团地区</view>
+        <view class="form-value {{regionText ? '' : 'form-value--placeholder'}}">{{regionText || '请选择'}}</view>
+      </view>
+    </picker>
+    <view class="form-divider"></view>
+    <view class="form-row">
+      <view class="form-label">详细地址</view>
+      <input class="form-input" value="{{address}}" maxlength="60" placeholder="请输入社团地址" bindinput="onAddressInput" />
+    </view>
+    <view class="form-divider"></view>
+    <view class="form-row form-row--top">
+      <view class="form-label">社团简介</view>
+      <textarea class="form-textarea" value="{{profile}}" maxlength="500" placeholder="请输入社团简介…" bindinput="onProfileInput"></textarea>
+    </view>
+  </view>
+
+  <view class="submit-bar">
+    <van-button type="primary" block loading="{{submitting}}" bind:click="onSubmit">保存</van-button>
+  </view>
+</view>

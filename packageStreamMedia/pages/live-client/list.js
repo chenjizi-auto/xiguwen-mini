@@ -146,7 +146,7 @@ Page({
       return
     }
     wx.navigateTo({
-      url: '/pages/live-client/client?id=' + id
+      url: '/packageStreamMedia/pages/live-client/client?id=' + id
     })
   },
    /**

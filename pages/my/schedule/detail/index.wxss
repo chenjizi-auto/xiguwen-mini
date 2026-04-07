@@ -1,0 +1,87 @@
+.page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 140rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid #f3f4f6;
+}
+
+.detail-row:last-child {
+  border-bottom: 0;
+}
+
+.detail-label {
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #8c8f96;
+}
+
+.detail-value {
+  flex: 1;
+  text-align: right;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #222;
+}
+
+.section-title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.section-text {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #4b5563;
+  white-space: pre-wrap;
+}
+
+.actions {
+  position: fixed;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: 24rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.ghost-btn,
+.danger-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 999rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.ghost-btn {
+  color: #e64340;
+  background: rgba(230, 67, 64, 0.1);
+}
+
+.danger-btn {
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}

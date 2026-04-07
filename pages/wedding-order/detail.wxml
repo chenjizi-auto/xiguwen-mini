@@ -1,0 +1,89 @@
+<view class="page">
+  <view class="hero" wx:if="{{detail}}">
+    <view class="hero-title">{{statusText}}</view>
+    <view class="hero-subtitle">{{title}}</view>
+    <view class="hero-refund" wx:if="{{refundText}}">{{refundText}}</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{detail}}">
+      <view class="card">
+        <view class="card-hd">
+          <view class="card-title">{{contactTitle}}</view>
+          <view class="card-subtitle">{{contactName || '未提供'}}</view>
+        </view>
+        <view class="product">
+          <image class="product-cover" src="{{detail.baojia_image || '/images/default.webp'}}" mode="aspectFill" />
+          <view class="product-meta">
+            <view class="product-title van-multi-ellipsis--l2">{{detail.baojia_name || '未命名服务'}}</view>
+            <view class="product-spec">{{detail.specification || '暂无规格'}}</view>
+            <view class="product-price">¥ {{detail.dindanzongge || detail.order_amount || '0.00'}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">金额明细</view>
+        <view class="row" wx:for="{{amountRows}}" wx:key="label">
+          <view class="row-label">{{item.label}}</view>
+          <view class="row-value">{{item.value}}</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">订单信息</view>
+        <view class="row" wx:for="{{infoRows}}" wx:key="label">
+          <view class="row-label">{{item.label}}</view>
+          <view class="row-value row-value--plain">{{item.value}}</view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !detail && !errorText}}" image="/images/empty/nodata.webp" description="暂无订单详情" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <view class="footer" wx:if="{{detail}}">
+    <view
+      class="footer-btn footer-btn--{{item.style === 'ghost' ? 'ghost' : 'primary'}}"
+      wx:for="{{actionButtons}}"
+      wx:key="key"
+      bindtap="onActionTap"
+      data-key="{{item.key}}"
+    >
+      {{item.text}}
+    </view>
+  </view>
+
+  <van-popup show="{{showReasonPopup}}" position="bottom" round bind:close="onCloseReasonPopup">
+    <view class="reason-popup">
+      <view class="reason-title">{{reasonPopupTitle}}</view>
+      <view class="reason-field" wx:if="{{reasonNeedAmount}}">
+        <view class="reason-label">退款金额</view>
+        <input
+          class="reason-input"
+          type="digit"
+          value="{{refundAmount}}"
+          bindinput="onRefundAmountInput"
+          placeholder="请输入退款金额"
+        />
+      </view>
+      <view class="reason-field">
+        <view class="reason-label">原因说明</view>
+        <textarea
+          class="reason-textarea"
+          value="{{reasonText}}"
+          bindinput="onReasonInput"
+          maxlength="200"
+          placeholder="请输入原因"
+        />
+      </view>
+      <view class="reason-actions">
+        <view class="reason-btn reason-btn--ghost" bindtap="onCloseReasonPopup">取消</view>
+        <view class="reason-btn reason-btn--primary" bindtap="onSubmitReasonPopup">提交</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

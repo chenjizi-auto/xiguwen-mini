@@ -1,0 +1,19 @@
+@import "/pages/my/mine-atlas-edit/index.wxss";
+
+.picker-field {
+  min-height: 88rpx;
+  padding: 0 24rpx;
+  border-radius: 24rpx;
+  background: #f7f8fa;
+  font-size: 28rpx;
+  line-height: 88rpx;
+  color: #222;
+}
+
+.picker-field--placeholder {
+  color: #b4b8bf;
+}
+
+.case-textarea {
+  min-height: 240rpx;
+}

@@ -35,46 +35,54 @@
 .find-filter {
   background: #fff;
   border-bottom: 1rpx solid #f0f0f0;
-  display: flex;
-  align-items: center;
-  padding: 14rpx 24rpx;
+  padding: 14rpx 24rpx 16rpx;
 }
 
-.find-job {
+.find-filter-row {
   display: flex;
   align-items: center;
-  padding-right: 20rpx;
-  max-width: 260rpx;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
-.find-job-text {
+.find-filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.find-filter-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 132rpx;
+  height: 58rpx;
+  padding: 0 22rpx;
+  margin-right: 14rpx;
+  border-radius: 30rpx;
+  background: #f7f8fa;
+  box-sizing: border-box;
+}
+
+.find-filter-item--category {
+  justify-content: space-between;
+  min-width: 148rpx;
+}
+
+.find-filter-text {
   font-size: 14px;
   color: #666;
-  max-width: 200rpx;
+  max-width: 180rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right: 8rpx;
 }
 
-.find-order {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.find-order-item {
-  padding: 10rpx 18rpx;
-  font-size: 14px;
-  color: #666;
-  border-radius: 28rpx;
-  margin-left: 12rpx;
-  background: #f7f8fa;
-}
-
-.find-order-item--active {
+.find-filter-item--active {
   color: #ff5384;
   background: rgba(255, 83, 132, 0.12);
+}
+
+.find-filter-item--active .find-filter-text {
+  color: #ff5384;
   font-weight: 600;
 }
 
@@ -207,4 +215,36 @@
   justify-content: center;
   font-weight: 600;
   color: #111;
+}
+
+.find-filter-panel {
+  padding: 24rpx 24rpx 32rpx;
+}
+
+.find-filter-panel__text {
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: #666;
+}
+
+.find-filter-panel__actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 28rpx;
+}
+
+.find-filter-panel__btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #ff5384;
+}
+
+.find-filter-panel__btn--ghost {
+  color: #666;
+  background: #f4f5f7;
 }

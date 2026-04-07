@@ -1,0 +1,66 @@
+<view class="schedule-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Wedding Schedule</view>
+    <view class="hero-title">日程安排</view>
+    <view class="hero-desc">按日期管理筹备事项，区分已完成和未完成任务，避免漏项。</view>
+  </view>
+
+  <view class="toolbar-card">
+    <view>
+      <view class="toolbar-date">{{currentDate}}</view>
+      <view class="toolbar-week">{{weekText}}</view>
+    </view>
+    <view class="toolbar-actions">
+      <picker mode="date" value="{{currentDate}}" bindchange="onDateChange">
+        <view class="toolbar-picker">切换日期</view>
+      </picker>
+      <van-button type="primary" size="small" bind:click="onAddTap">新建日程</van-button>
+    </view>
+  </view>
+
+  <view class="state-error" wx:if="{{loadError}}">{{loadError}}</view>
+
+  <view class="section-card">
+    <view class="section-head">
+      <view class="section-title">未完成</view>
+      <view class="section-count">{{unfinishedList.length}} 项</view>
+    </view>
+    <block wx:if="{{unfinishedList.length}}">
+      <view class="task-item" wx:for="{{unfinishedList}}" wx:key="id" wx:for-item="task">
+        <view class="task-main">
+          <view class="task-title">{{task.content}}</view>
+          <view class="task-time">{{task.startTime}} - {{task.endTime}}</view>
+        </view>
+        <view class="task-actions">
+          <van-button plain size="mini" custom-class="task-btn" bind:click="onStatusTap" data-id="{{task.id}}" data-status="{{task.status}}">完成</van-button>
+          <van-button plain size="mini" custom-class="task-btn" bind:click="onEditTap" data-item="{{task}}">编辑</van-button>
+          <van-button plain type="danger" size="mini" custom-class="task-btn" bind:click="onDeleteTap" data-id="{{task.id}}">删除</van-button>
+        </view>
+      </view>
+    </block>
+    <van-empty wx:if="{{!loading && unfinishedList.length === 0}}" image="search" description="当天没有未完成日程" />
+  </view>
+
+  <view class="section-card">
+    <view class="section-head">
+      <view class="section-title">已完成</view>
+      <view class="section-count">{{finishedList.length}} 项</view>
+    </view>
+    <block wx:if="{{finishedList.length}}">
+      <view class="task-item task-item--finished" wx:for="{{finishedList}}" wx:key="id" wx:for-item="task">
+        <view class="task-main">
+          <view class="task-title">{{task.content}}</view>
+          <view class="task-time">{{task.startTime}} - {{task.endTime}}</view>
+        </view>
+        <view class="task-actions">
+          <van-button plain size="mini" custom-class="task-btn" bind:click="onStatusTap" data-id="{{task.id}}" data-status="{{task.status}}">取消完成</van-button>
+          <van-button plain size="mini" custom-class="task-btn" bind:click="onEditTap" data-item="{{task}}">编辑</van-button>
+          <van-button plain type="danger" size="mini" custom-class="task-btn" bind:click="onDeleteTap" data-id="{{task.id}}">删除</van-button>
+        </view>
+      </view>
+    </block>
+    <van-empty wx:if="{{!loading && finishedList.length === 0}}" image="search" description="当天没有已完成日程" />
+  </view>
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

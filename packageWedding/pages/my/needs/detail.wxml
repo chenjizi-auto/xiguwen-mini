@@ -1,0 +1,121 @@
+<view class="detail-page">
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <block wx:if="{{detail}}">
+    <view class="detail-card">
+      <view class="detail-type">{{detail.type}}需求</view>
+      <view class="detail-title">{{detail.title}}</view>
+      <view class="detail-price">{{detail.priceText}}</view>
+      <view class="detail-countdown">{{detail.statusText}} · 剩余 {{detail.countDownText}}</view>
+
+      <view class="detail-grid">
+        <view class="detail-grid__item">
+          <view class="detail-grid__label">状态</view>
+          <view class="detail-grid__value">{{detail.statusText}}</view>
+        </view>
+        <view class="detail-grid__item">
+          <view class="detail-grid__label">浏览</view>
+          <view class="detail-grid__value">{{detail.browseText}}</view>
+        </view>
+        <view class="detail-grid__item">
+          <view class="detail-grid__label">参与</view>
+          <view class="detail-grid__value">{{detail.joinText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">需求信息</view>
+      <view class="detail-row">
+        <view class="detail-row__label">需求编号</view>
+        <view class="detail-row__value">{{detail.code || '--'}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">发布时间</view>
+        <view class="detail-row__value">{{detail.createTime}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">服务地址</view>
+        <view class="detail-row__value">{{detail.address}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">电话公开</view>
+        <view class="detail-row__value">{{detail.openPhone ? '已公开' : '未公开'}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-row__label">私信公开</view>
+        <view class="detail-row__value">{{detail.openMessage ? '已公开' : '未公开'}}</view>
+      </view>
+      <view class="detail-row detail-row--column">
+        <view class="detail-row__label">需求详情</view>
+        <view class="detail-row__content">{{detail.details}}</view>
+      </view>
+      <view class="detail-actions">
+        <view class="detail-action-btn {{detail.openPhone ? 'detail-action-btn--danger' : 'detail-action-btn--disabled'}}" bindtap="onCallTap">联系发布人</view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">参与人员</view>
+      <view class="section-subtitle">点击参与人卡片可查看说明和合作信息</view>
+      <block wx:if="{{participants.length}}">
+        <view class="user-card" wx:for="{{participants}}" wx:key="id" bindtap="onParticipantTap" data-cid="{{item.id}}">
+          <image class="user-avatar" src="{{item.head}}" mode="aspectFill" />
+          <view class="user-main">
+            <view class="user-name">{{item.nickname}}</view>
+            <view class="user-desc van-multi-ellipsis--l2">{{item.desc}}</view>
+            <view class="user-price">最低起价 ¥{{item.minimumprice}}</view>
+          </view>
+          <view class="user-status">{{item.statusText}}</view>
+        </view>
+      </block>
+      <van-empty wx:else image="search" description="暂无参与人员" />
+    </view>
+  </block>
+
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+
+  <van-popup show="{{participantPopupVisible}}" position="bottom" round bind:close="onCloseParticipantPopup">
+    <view class="popup-shell">
+      <view class="popup-title">参与详情</view>
+      <view class="loading-text" wx:if="{{participantLoading}}">加载中...</view>
+      <block wx:if="{{selectedParticipant}}">
+        <view class="popup-card">
+          <image class="popup-avatar" src="{{selectedParticipant.head}}" mode="aspectFill" />
+          <view class="popup-name">{{selectedParticipant.nickname}}</view>
+          <view class="popup-occupation">{{selectedParticipant.occupation}}</view>
+          <view class="popup-price">最低起价 ¥{{selectedParticipant.price}}</view>
+          <view class="popup-badges">
+            <view class="popup-badge" wx:if="{{selectedParticipant.isPlatform}}">平台认证</view>
+            <view class="popup-badge" wx:if="{{selectedParticipant.isSincerity}}">诚信认证</view>
+            <view class="popup-badge" wx:if="{{selectedParticipant.isCollege}}">学院认证</view>
+          </view>
+        </view>
+
+        <view class="popup-section">
+          <view class="popup-row">
+            <view class="popup-row__label">状态</view>
+            <view class="popup-row__value">{{selectedParticipant.statusText}}</view>
+          </view>
+          <view class="popup-row">
+            <view class="popup-row__label">好评率</view>
+            <view class="popup-row__value">{{selectedParticipant.goodscore}}</view>
+          </view>
+          <view class="popup-row">
+            <view class="popup-row__label">选中时间</view>
+            <view class="popup-row__value">{{selectedParticipant.selectedTime || '--'}}</view>
+          </view>
+          <view class="popup-row popup-row--column">
+            <view class="popup-row__label">接单说明</view>
+            <view class="popup-row__content">{{selectedParticipant.content}}</view>
+          </view>
+        </view>
+
+        <view class="popup-actions">
+          <view class="popup-action-btn popup-action-btn--light" bindtap="onParticipantCallTap">拨打电话</view>
+          <view class="popup-action-btn popup-action-btn--danger {{detail && detail.countdown > 0 ? '' : 'popup-action-btn--disabled'}}" bindtap="onCooperateTap">{{cooperating ? '提交中...' : '合作'}}</view>
+        </view>
+      </block>
+    </view>
+  </van-popup>
+</view>

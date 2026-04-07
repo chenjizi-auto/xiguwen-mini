@@ -1,4 +1,4 @@
-const network = require('../../api/network.js')
+const network = require('../../api/network-main.js')
 const xgwAuth = require('../../utils/xgw-auth.js')
 const xgwLog = require('../../utils/xgw-log.js')
 
@@ -34,7 +34,7 @@ Page({
     agreed: false,
     submitting: false,
     showAgreementDialog: false,
-    logo: '/images/login-app-icon.png',
+    logo: '/images/login-app-icon.webp',
     appName: '喜顾问'
   },
 

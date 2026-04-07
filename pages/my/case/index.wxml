@@ -1,0 +1,50 @@
+<view class="atlas-page">
+  <view class="atlas-toolbar">
+    <view class="atlas-toolbar-copy">
+      <view class="atlas-toolbar-title">我的案例</view>
+      <view class="atlas-toolbar-sub">管理店铺案例，支持编辑、提交审核和上下架</view>
+    </view>
+    <view class="atlas-toolbar-action" bindtap="goAdd">+ 添加案例</view>
+  </view>
+
+  <view class="atlas-tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="atlas-tab {{activeStatus === item.key ? 'atlas-tab--active' : ''}}"
+      bindtap="onTabTap"
+      data-status="{{item.key}}"
+    >
+      <text class="atlas-tab-text">{{item.title}}</text>
+      <view class="atlas-tab-line"></view>
+    </view>
+  </view>
+
+  <block wx:if="{{loading && !list.length}}">
+    <view class="atlas-empty atlas-empty--loading">加载中...</view>
+  </block>
+
+  <block wx:elif="{{!loading && !list.length}}">
+    <van-empty image="/images/empty/nodata.webp" description="{{loadError || '暂无案例内容'}}" />
+  </block>
+
+  <view wx:else class="atlas-list">
+    <view wx:for="{{list}}" wx:key="id" class="atlas-card" bindtap="goDetail" data-id="{{item.id}}">
+      <image class="atlas-card-cover" src="{{item.cover || defaultCover}}" mode="aspectFill" binderror="handleImageError" data-index="{{index}}" />
+      <view class="atlas-card-body">
+        <view class="atlas-card-head">
+          <text class="atlas-card-title">{{item.title}}</text>
+          <view class="atlas-card-status atlas-card-status--{{item.statusTone}}">{{item.statusText}}</view>
+        </view>
+        <view class="atlas-card-desc">{{item.description || '暂无案例描述'}}</view>
+        <view class="atlas-card-meta">
+          <text wx:if="{{item.weddingTime}}">婚礼日期 {{item.weddingTime}}</text>
+          <text wx:if="{{item.weight}}">排序 {{item.weight}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length && loadingMore}}" class="atlas-loadmore">加载更多中...</view>
+  <view wx:elif="{{list.length && finished}}" class="atlas-loadmore atlas-loadmore--done">没有更多了</view>
+</view>

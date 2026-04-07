@@ -1,19 +1,28 @@
 <van-sticky>
-  <view class="header">
-    <view class="search">
-      <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
-      <image src="/images/icon/search.svg" bindtap="search"></image>
+  <view class="result-header">
+    <view class="header">
+      <view class="search">
+        <image class="search-icon" src="/images/icon/search.svg" mode="aspectFit"></image>
+        <input type="text" placeholder="请输入搜索内容" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm" confirm-type="search"></input>
+      </view>
+      <text class="header-cancel" bindtap="onCancel">取消</text>
     </view>
-    <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
-  </view>
-  <view class="filters">
-    <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
-    <view class="item {{orderBy=='addedDown'?'active':''}}" data-val="addedDown" bindtap="filter">新品</view>
-    <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
-    <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
+    <view class="result-toolbar">
+      <view class="result-summary">
+        <text class="result-title">商品结果</text>
+        <text wx:if="{{resultCountText}}" class="result-count">{{resultCountText}}</text>
+      </view>
+      <view class="result-actions">
+        <view class="search-submit" bindtap="onSearchTap">搜索</view>
+        <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
+      </view>
+    </view>
+    <view class="filters">
+      <view wx:for="{{sortOptions}}" wx:key="value" class="item {{orderBy==item.value?'active':''}}" data-val="{{item.value}}" bindtap="filter">{{item.label}}</view>
+    </view>
   </view>
 </van-sticky>
-<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
+<van-empty wx:if="{{ !loading && (!goods || goods.length == 0) }}" image="search" description="暂无相关商品" />
 <wxs module="goodsDetailPage">
 module.exports = {
   url : function(item) {
@@ -31,7 +40,10 @@ module.exports = {
   }
 }
 </wxs>
-<block wx:if="{{listType == 1}}">
+<view wx:if="{{loading && page === 1}}" class="loading-box">
+  <van-loading size="24px" vertical>搜索中...</van-loading>
+</view>
+<block wx:if="{{!loading && listType == 1}}">
   <view class="list1" wx:for="{{goods}}" wx:key="id">
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
@@ -47,7 +59,7 @@ module.exports = {
     </view>
   </view>
 </block>
-<view wx:if="{{listType == 2}}" class="list2-box">
+<view wx:if="{{!loading && listType == 2}}" class="list2-box">
   <view class="list2" wx:for="{{goods}}" wx:key="id">
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
@@ -64,5 +76,7 @@ module.exports = {
     </view>
   </view>
 </view>
+<view wx:if="{{loading && page > 1}}" class="list-loading-more">加载更多中...</view>
+<view wx:if="{{!loading && goods && goods.length > 0 && !hasMore}}" class="list-loading-more">没有更多了</view>
 
 <goods-pop skuCurGoodsBaseInfo="{{ skuCurGoods }}" />

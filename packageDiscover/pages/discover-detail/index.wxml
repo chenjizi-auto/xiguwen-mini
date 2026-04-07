@@ -1,0 +1,118 @@
+<view class="detail-page">
+  <view class="detail-nav" style="height: {{navHeight}}px; padding-top: {{navTop}}px;">
+    <view class="detail-nav__back" style="height: {{menuHeight}}px; line-height: {{menuHeight}}px;" bindtap="handleBack">返回</view>
+    <view class="detail-nav__title" style="line-height: {{menuHeight}}px;">动态详情</view>
+  </view>
+
+  <view wx:if="{{detail}}" class="detail-scroll">
+    <view class="detail-card">
+      <view class="detail-head">
+        <image class="detail-avatar" src="{{detail.head}}" mode="aspectFill" />
+        <view class="detail-user">
+          <view class="detail-name">{{detail.nickname}}</view>
+          <view class="detail-sub">
+            <text wx:if="{{type === 0 && detail.occupation}}">{{detail.occupation}}</text>
+            <text wx:if="{{detail.theteam}}">{{detail.theteam}}</text>
+          </view>
+        </view>
+        <view class="detail-time">{{detail.create_ti}}</view>
+      </view>
+
+      <view class="detail-content">
+        <mp-html content="{{detail.content}}" />
+      </view>
+
+      <view wx:if="{{photoUrls.length}}" class="detail-images">
+        <image
+          wx:for="{{photoUrls}}"
+          wx:key="*this"
+          class="detail-image"
+          src="{{item}}"
+          mode="aspectFill"
+          bindtap="previewImage"
+          data-url="{{item}}"
+        />
+      </view>
+
+      <view class="detail-stats">
+        <view class="detail-stat">
+          <van-icon name="eye-o" size="14" color="#999" />
+          <text class="detail-stat__text">{{detail.pv}}</text>
+        </view>
+        <view class="detail-stat">
+          <van-icon name="comment-o" size="14" color="#999" />
+          <text class="detail-stat__text">{{detail.commentnum}}</text>
+        </view>
+        <view class="detail-stat">
+          <van-icon name="good-job-o" size="14" color="#999" />
+          <text class="detail-stat__text">{{detail.zan}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-tabs">
+      <view class="detail-tab {{activeTab === 'comment' ? 'detail-tab--active' : ''}}" bindtap="switchTab" data-tab="comment">
+        评论 {{detail.commentnum}}
+      </view>
+      <view class="detail-tab {{activeTab === 'like' ? 'detail-tab--active' : ''}}" bindtap="switchTab" data-tab="like">
+        点赞 {{detail.zan}}
+      </view>
+    </view>
+
+    <view wx:if="{{activeTab === 'comment'}}" class="detail-section">
+      <block wx:if="{{comments.length}}">
+        <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+          <image class="comment-avatar" src="{{item.head}}" mode="aspectFill" />
+          <view class="comment-main">
+            <view class="comment-top">
+              <text class="comment-name">{{item.nickname}}</text>
+              <text class="comment-time">{{item.create_ti}}</text>
+            </view>
+            <view class="comment-content">{{item.comm}}</view>
+            <view class="comment-actions">
+              <text class="comment-reply" bindtap="onReplyTap" data-id="{{item.id}}" data-nickname="{{item.nickname}}">回复</text>
+            </view>
+            <view wx:if="{{item.xiaji.length}}" class="comment-children">
+              <view wx:for="{{item.xiaji}}" wx:key="index" class="comment-child">
+                <text class="comment-child__name">{{item.nickname}}：</text>
+                <text class="comment-child__text">{{item.comm}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <van-empty wx:else image="search" description="暂无评论" />
+    </view>
+
+    <view wx:if="{{activeTab === 'like'}}" class="detail-section">
+      <block wx:if="{{likes.length}}">
+        <view class="like-item" wx:for="{{likes}}" wx:key="index">
+          <image class="like-avatar" src="{{item.head}}" mode="aspectFill" />
+          <text class="like-name">{{item.nickname}}</text>
+        </view>
+      </block>
+      <van-empty wx:else image="search" description="暂无点赞" />
+    </view>
+  </view>
+
+  <view wx:elif="{{!loading}}" class="detail-empty">
+    <van-empty image="search" description="暂无详情" />
+  </view>
+
+  <view class="detail-bottom">
+    <input
+      class="detail-input"
+      placeholder="{{commentPlaceholder}}"
+      value="{{inputValue}}"
+      confirm-type="send"
+      bindinput="onCommentInput"
+      bindconfirm="onSendComment"
+    />
+    <view class="detail-send {{sending ? 'detail-send--disabled' : ''}}" bindtap="onSendComment">
+      {{sending ? '发送中' : '发送'}}
+    </view>
+    <view class="detail-like {{isLiked ? 'detail-like--active' : ''}}" bindtap="onLikeTap">
+      <van-icon name="{{likeIcon}}" size="18" color="{{likeColor}}" />
+    </view>
+  </view>
+</view>

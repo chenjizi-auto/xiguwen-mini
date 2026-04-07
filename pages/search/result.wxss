@@ -1,0 +1,285 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+}
+
+.result-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  padding: 24rpx 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  height: 68rpx;
+  border-radius: 34rpx;
+  background: #f7f8fa;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+}
+
+.search-icon {
+  width: 28rpx;
+  height: 28rpx;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  height: 68rpx;
+  margin-left: 14rpx;
+  font-size: 26rpx;
+}
+
+.cancel-text {
+  margin-left: 24rpx;
+  font-size: 28rpx;
+  color: #ff4d4f;
+}
+
+.search-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+
+.search-city {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.search-submit {
+  padding: 12rpx 24rpx;
+  border-radius: 28rpx;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 32rpx;
+}
+
+.tabs-scroll,
+.sort-scroll {
+  white-space: nowrap;
+}
+
+.tab-item,
+.sort-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 28rpx;
+  padding-bottom: 16rpx;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.sort-item {
+  font-size: 24rpx;
+  padding-bottom: 18rpx;
+}
+
+.tab-item-active,
+.sort-item-active {
+  color: #fa1e26;
+  font-weight: 600;
+}
+
+.tab-item-active::after,
+.sort-item-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4rpx;
+  width: 28rpx;
+  height: 6rpx;
+  margin-left: -14rpx;
+  border-radius: 6rpx;
+  background: #fa1e26;
+}
+
+.merchant-list,
+.case-list {
+  padding: 20rpx 24rpx 0;
+}
+
+.merchant-card,
+.case-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(15, 23, 42, 0.05);
+}
+
+.merchant-card {
+  display: flex;
+  align-items: center;
+}
+
+.merchant-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+}
+
+.merchant-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20rpx;
+}
+
+.merchant-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.merchant-name,
+.case-title,
+.grid-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2329;
+}
+
+.merchant-price,
+.case-price,
+.grid-price {
+  font-size: 28rpx;
+  color: #ff4d4f;
+  flex-shrink: 0;
+}
+
+.merchant-role,
+.merchant-stats,
+.case-desc,
+.case-stats,
+.grid-meta {
+  font-size: 24rpx;
+  color: #8c8c8c;
+}
+
+.merchant-role {
+  margin-top: 10rpx;
+}
+
+.merchant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 12rpx;
+}
+
+.merchant-tag {
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  background: #fff5f5;
+  color: #ff4d4f;
+  font-size: 20rpx;
+  line-height: 28rpx;
+}
+
+.merchant-stats {
+  margin-top: 12rpx;
+}
+
+.case-cover {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 18rpx;
+}
+
+.case-content {
+  margin-top: 20rpx;
+}
+
+.case-author {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.case-author-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+}
+
+.case-author-name {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.case-desc {
+  margin-top: 12rpx;
+  line-height: 1.6;
+}
+
+.case-bottom {
+  margin-top: 18rpx;
+}
+
+.case-stats {
+  margin-top: 8rpx;
+}
+
+.grid-list {
+  padding: 20rpx 24rpx 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.grid-card {
+  width: 342rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(15, 23, 42, 0.05);
+}
+
+.grid-cover {
+  width: 342rpx;
+  height: 342rpx;
+}
+
+.grid-title {
+  padding: 18rpx 18rpx 0;
+  font-size: 28rpx;
+  line-height: 1.5;
+  min-height: 84rpx;
+}
+
+.grid-bottom {
+  padding: 14rpx 18rpx 20rpx;
+}
+
+.grid-meta {
+  margin-top: 8rpx;
+}
+
+.loading-box {
+  padding: 120rpx 0;
+}
+
+.list-footer {
+  padding: 24rpx 0 40rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+}

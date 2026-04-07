@@ -1,0 +1,32 @@
+.preview-page {
+  min-height: 100vh;
+}
+
+.preview-toolbar {
+  position: fixed;
+  right: 24rpx;
+  bottom: 48rpx;
+  z-index: 20;
+}
+
+.preview-toolbar__btn {
+  padding: 18rpx 28rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2c2519;
+  font-size: 24rpx;
+  box-shadow: 0 10rpx 24rpx rgba(18, 31, 53, 0.12);
+}
+
+.state-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  box-sizing: border-box;
+  color: #8d826b;
+  font-size: 28rpx;
+  text-align: center;
+  background: #f6f7fb;
+}

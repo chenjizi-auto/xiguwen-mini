@@ -1,0 +1,15 @@
+<view class="speech-form-page">
+  <view class="form-card">
+    <view class="field-group">
+      <view class="field-label">标题</view>
+      <input class="field-input" placeholder="请输入标题，最多9个汉字" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">内容</view>
+      <textarea class="field-textarea" placeholder="请输入婚礼宝典内容" value="{{content}}" maxlength="3000" bindinput="onContentInput" />
+    </view>
+
+    <van-button type="primary" block custom-style="margin-top: 28rpx;" loading="{{saving}}" bind:click="onSaveTap">{{id ? '保存修改' : '保存宝典'}}</van-button>
+  </view>
+</view>

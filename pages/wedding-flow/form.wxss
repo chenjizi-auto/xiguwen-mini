@@ -1,0 +1,52 @@
+.flow-form-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background: #f6f7fb;
+}
+
+.form-card {
+  padding: 30rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.field-group + .field-group {
+  margin-top: 24rpx;
+}
+
+.field-label {
+  color: #231f20;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.field-input,
+.picker-input,
+.field-textarea {
+  width: 100%;
+  margin-top: 12rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+  color: #222;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.field-input,
+.picker-input {
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.picker-input--placeholder {
+  color: #9a9ea5;
+}
+
+.field-textarea {
+  height: 220rpx;
+  padding-top: 20rpx;
+  line-height: 1.8;
+}

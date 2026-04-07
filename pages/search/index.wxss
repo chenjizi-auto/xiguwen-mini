@@ -1,1 +1,83 @@
-/* pages/search/index.wxss */
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding: 24rpx;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar .van-search {
+  flex: 1;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.search-cancel {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: #ff4d4f;
+  flex-shrink: 0;
+}
+
+.search-card {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 18rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.section-action {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.search-tag {
+  max-width: 100%;
+  padding: 14rpx 24rpx;
+  border-radius: 999rpx;
+  background: #f7f8fa;
+  color: #333;
+  font-size: 24rpx;
+  line-height: 32rpx;
+}
+
+.history-chip {
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  padding: 14rpx 20rpx 14rpx 24rpx;
+  border-radius: 999rpx;
+  background: #fff5f5;
+}
+
+.history-chip-text {
+  max-width: 420rpx;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 10rpx;
+}

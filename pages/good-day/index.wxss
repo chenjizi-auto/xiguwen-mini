@@ -1,0 +1,159 @@
+.good-day-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(211, 116, 76, 0.14), transparent 32%),
+    linear-gradient(180deg, #fff8f3 0%, #f6f7fb 280rpx, #f6f7fb 100%);
+}
+
+.hero-card,
+.toolbar-card,
+.calendar-card,
+.result-card {
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-card {
+  padding: 32rpx;
+}
+
+.hero-kicker {
+  color: #c66f3f;
+  font-size: 22rpx;
+  letter-spacing: 6rpx;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #2c2119;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-sub {
+  margin-top: 12rpx;
+  color: #8b7d72;
+  font-size: 24rpx;
+}
+
+.toolbar-card,
+.calendar-card,
+.result-card {
+  margin-top: 20rpx;
+  padding: 28rpx;
+}
+
+.toolbar-top,
+.toolbar-actions,
+.calendar-week,
+.calendar-grid {
+  display: flex;
+}
+
+.toolbar-top {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-month {
+  color: #231f20;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.toolbar-picker {
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  background: #f5f2ef;
+  color: #7f573e;
+  font-size: 24rpx;
+}
+
+.toolbar-actions {
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.calendar-week {
+  margin-bottom: 16rpx;
+}
+
+.calendar-week__item,
+.calendar-day {
+  width: calc(100% / 7);
+  text-align: center;
+}
+
+.calendar-week__item {
+  color: #8f8a84;
+  font-size: 24rpx;
+}
+
+.calendar-grid {
+  flex-wrap: wrap;
+}
+
+.calendar-day {
+  height: 88rpx;
+  margin-bottom: 12rpx;
+}
+
+.calendar-day__text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  color: #2c2119;
+  font-size: 28rpx;
+}
+
+.calendar-day__text--today {
+  color: #d46a3b;
+  font-weight: 700;
+}
+
+.calendar-day--checked .calendar-day__text {
+  background: linear-gradient(135deg, #d46a3b, #a6472d);
+  color: #fff;
+  font-weight: 700;
+}
+
+.calendar-day--disabled .calendar-day__text {
+  color: transparent;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 32rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.result-hd {
+  display: flex;
+  align-items: center;
+}
+
+.result-title {
+  color: #231f20;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.result-body {
+  margin-top: 18rpx;
+  color: #574f49;
+  font-size: 28rpx;
+  line-height: 1.9;
+}
+
+.result-card--danger .result-title {
+  color: #b94f41;
+}

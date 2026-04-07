@@ -1,0 +1,7 @@
+<web-view wx:if="{{isWebUrl && url}}" src="{{url}}"></web-view>
+<view class="html-page" wx:elif="{{html}}">
+  <mp-html content="{{html}}" />
+</view>
+<view class="page" wx:else>
+  <van-empty image="/images/empty/nodata.webp" description="详情地址不存在" />
+</view>

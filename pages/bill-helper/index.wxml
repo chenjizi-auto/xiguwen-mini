@@ -1,0 +1,57 @@
+<view class="bill-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Bill Helper</view>
+    <view class="hero-title">记账助手</view>
+    <view class="hero-desc">按月份记录婚礼筹备期间的收入与支出，快速掌握整体收支情况。</view>
+  </view>
+
+  <view class="summary-card">
+    <view class="summary-top">
+      <view class="summary-month">{{currentMonthText}}</view>
+      <picker mode="date" fields="month" value="{{pickerMonth}}" bindchange="onMonthChange">
+        <view class="summary-picker">切换月份</view>
+      </picker>
+    </view>
+    <view class="summary-stats">
+      <view class="summary-item">
+        <view class="summary-item__label">本月支出</view>
+        <view class="summary-item__value summary-item__value--expense">¥ {{summaryExpense}}</view>
+      </view>
+      <view class="summary-item">
+        <view class="summary-item__label">本月收入</view>
+        <view class="summary-item__value summary-item__value--income">¥ {{summaryIncome}}</view>
+      </view>
+    </view>
+    <van-button type="primary" size="small" bind:click="onAddTap">新增记账</van-button>
+  </view>
+
+  <view class="state-error" wx:if="{{loadError}}">{{loadError}}</view>
+
+  <block wx:if="{{groups.length}}">
+    <view class="group-card" wx:for="{{groups}}" wx:key="date" wx:for-item="group">
+      <view class="group-head">
+        <view class="group-date">{{group.date}}</view>
+        <view class="group-total">合计 ¥ {{group.total}}</view>
+      </view>
+      <view class="bill-item" wx:for="{{group.items}}" wx:key="id" wx:for-item="bill">
+        <view class="bill-main">
+          <view class="bill-row">
+            <view class="bill-type {{bill.type === 2 ? 'bill-type--income' : 'bill-type--expense'}}">{{bill.typeText}}</view>
+            <view class="bill-amount {{bill.type === 2 ? 'bill-amount--income' : 'bill-amount--expense'}}">
+              {{bill.type === 2 ? '+' : '-'}} ¥ {{bill.amount}}
+            </view>
+          </view>
+          <view class="bill-remark">{{bill.remarks}}</view>
+          <view class="bill-time">{{bill.occurrence}}</view>
+        </view>
+        <view class="bill-actions">
+          <van-button plain size="mini" custom-class="bill-action-btn" bind:click="onEditTap" data-bill="{{bill}}">编辑</van-button>
+          <van-button plain type="danger" size="mini" custom-class="bill-action-btn" bind:click="onDeleteTap" data-id="{{bill.id}}">删除</van-button>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <van-empty wx:if="{{!loading && !loadError && groups.length === 0}}" image="search" description="还没有记账记录" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

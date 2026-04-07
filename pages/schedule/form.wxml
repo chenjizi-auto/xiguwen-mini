@@ -1,0 +1,33 @@
+<view class="schedule-form-page">
+  <view class="form-card">
+    <view class="field-group">
+      <view class="field-label">日期</view>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="picker-input">{{date}}</view>
+      </picker>
+    </view>
+
+    <view class="field-grid">
+      <view class="field-group field-group--half">
+        <view class="field-label">开始时间</view>
+        <picker mode="time" value="{{startTime}}" bindchange="onStartTimeChange">
+          <view class="picker-input">{{startTime}}</view>
+        </picker>
+      </view>
+
+      <view class="field-group field-group--half">
+        <view class="field-label">结束时间</view>
+        <picker mode="time" value="{{endTime}}" bindchange="onEndTimeChange">
+          <view class="picker-input">{{endTime}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">日程内容</view>
+      <textarea class="field-textarea" placeholder="请输入日程内容" value="{{content}}" maxlength="200" bindinput="onContentInput" />
+    </view>
+
+    <van-button type="primary" block custom-style="margin-top: 28rpx;" loading="{{saving}}" bind:click="onSaveTap">{{id ? '保存修改' : '保存日程'}}</van-button>
+  </view>
+</view>

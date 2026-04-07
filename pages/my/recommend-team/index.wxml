@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="hero">
+    <view>
+      <view class="hero-kicker">店铺协作</view>
+      <view class="hero-title">推荐团队</view>
+    </view>
+    <view class="hero-add" bindtap="openAddPopup">添加推荐</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <view class="team-card" wx:for="{{list}}" wx:key="id">
+      <view class="team-head">
+        <view class="team-name">{{item.nickname}}</view>
+        <view class="team-weight">排序 {{item.weight}}</view>
+      </view>
+      <view class="team-meta">店铺编号：{{item.shopcode}}</view>
+      <view class="team-foot">
+        <view class="team-time">更新时间：{{item.timeText}}</view>
+        <view class="team-delete" data-id="{{item.id}}" bindtap="onDeleteTap">删除</view>
+      </view>
+    </view>
+
+    <van-empty wx:if="{{!loading && !list.length && !errorText}}" image="/images/empty/nodata.webp" description="暂无推荐团队" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <van-popup show="{{showAddPopup}}" position="bottom" round bind:close="closeAddPopup">
+    <view class="popup">
+      <view class="popup-title">添加推荐</view>
+      <view class="popup-desc">填写 Android 端一致的店铺编号和排序值后提交。</view>
+      <van-field
+        value="{{form.shopcode}}"
+        label="店铺编号"
+        placeholder="请输入店铺编号"
+        border="{{false}}"
+        bind:change="onShopcodeInput"
+      />
+      <van-field
+        value="{{form.weight}}"
+        label="排序"
+        placeholder="请输入排序值"
+        type="digit"
+        border="{{false}}"
+        bind:change="onWeightInput"
+      />
+      <view class="popup-actions">
+        <view class="popup-btn popup-btn--ghost" bindtap="closeAddPopup">取消</view>
+        <view class="popup-btn" bindtap="submitAdd">{{submitLoading ? '提交中...' : '保存'}}</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

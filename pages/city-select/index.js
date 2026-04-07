@@ -1,4 +1,4 @@
-const network = require('../../api/network.js')
+const network = require('../../api/network-main.js')
 const CONFIG = require('../../config.js')
 
 function normalizeCityName(name) {

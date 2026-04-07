@@ -13,7 +13,14 @@ Page({
     mobile: '',
     mobileText: '未绑定',
     wechatBound: false,
-    wechatText: '未绑定'
+    wechatText: '未绑定',
+    securityLevelText: '基础保护'
+  },
+
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: '账号与安全'
+    })
   },
 
   onShow() {
@@ -34,7 +41,8 @@ Page({
       mobile,
       mobileText: mobile ? maskMobile(mobile) : '未绑定',
       wechatBound,
-      wechatText: wechatBound ? '已绑定' : '未绑定'
+      wechatText: wechatBound ? '已绑定' : '未绑定',
+      securityLevelText: mobile && wechatBound ? '高强度保护' : (mobile || wechatBound ? '中等级保护' : '基础保护')
     })
   },
 

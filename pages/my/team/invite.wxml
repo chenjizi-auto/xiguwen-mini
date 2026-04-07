@@ -1,0 +1,44 @@
+<view class="invite-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Invite</view>
+    <view class="hero-title">邀请加入 {{teamName || '当前社团'}}</view>
+    <view class="hero-desc">搜索平台内符合条件的成员，直接发起团队邀请。</view>
+    <button class="hero-share-btn" open-type="share">微信邀请好友</button>
+  </view>
+
+  <view class="search-card">
+    <van-search
+      value="{{keyword}}"
+      placeholder="搜索昵称或职业"
+      shape="round"
+      bind:change="onSearchChange"
+      bind:search="onSearch"
+      bind:clear="onSearch"
+    />
+  </view>
+
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <block wx:if="{{list.length}}">
+    <view class="invite-card" wx:for="{{list}}" wx:key="userId">
+      <view class="invite-main">
+        <image class="invite-avatar" src="{{item.head || '/images/default.webp'}}" mode="aspectFill"></image>
+        <view class="invite-copy">
+          <view class="invite-name">{{item.nickname}}</view>
+          <view class="invite-meta">{{item.occupation}}</view>
+          <view class="invite-meta" wx:if="{{item.mobile}}">{{item.mobile}}</view>
+        </view>
+      </view>
+      <van-button
+        size="small"
+        type="primary"
+        bind:click="onInviteTap"
+        data-userid="{{item.userId}}"
+        loading="{{invitingId === item.userId}}"
+      >发送邀请</van-button>
+    </view>
+  </block>
+
+  <van-empty wx:if="{{!loading && !errorText && list.length === 0}}" image="search" description="暂无可邀请成员" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

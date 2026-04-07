@@ -1,0 +1,27 @@
+<view class="bill-form-page">
+  <view class="form-card">
+    <view class="type-row">
+      <view class="type-chip {{type === 1 ? 'type-chip--active-expense' : ''}}" bindtap="onTypeTap" data-type="1">支出</view>
+      <view class="type-chip {{type === 2 ? 'type-chip--active-income' : ''}}" bindtap="onTypeTap" data-type="2">收入</view>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">金额</view>
+      <input class="field-input" type="digit" placeholder="请输入金额" value="{{amount}}" bindinput="onAmountInput" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">日期</view>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="picker-input">{{date}}</view>
+      </picker>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">备注</view>
+      <input class="field-input" placeholder="最多12个字" value="{{remark}}" bindinput="onRemarkInput" />
+    </view>
+
+    <van-button type="primary" block custom-style="margin-top: 28rpx;" loading="{{saving}}" bind:click="onSaveTap">{{id ? '保存修改' : '保存记录'}}</van-button>
+  </view>
+</view>

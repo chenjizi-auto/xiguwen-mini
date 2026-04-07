@@ -1,0 +1,62 @@
+<view class="page">
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{detail}}">
+      <view class="card">
+        <view class="product">
+          <image class="product-cover" src="{{detail.baojia_image || '/images/default.webp'}}" mode="aspectFill" />
+          <view class="product-meta">
+            <view class="product-title van-multi-ellipsis--l2">{{detail.baojia_name || '未命名服务'}}</view>
+            <view class="product-spec">{{detail.specification || '暂无规格'}}</view>
+            <view class="product-price">原价：¥ {{detail.price || detail.dindanzongge || detail.order_amount || '0.00'}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">价格设置</view>
+
+        <view class="field" wx:if="{{paytype !== 2}}">
+          <view class="field-label">订单金额</view>
+          <input
+            class="field-input"
+            type="digit"
+            value="{{orderPrice}}"
+            bindinput="onOrderPriceInput"
+            placeholder="请输入订单金额"
+          />
+        </view>
+
+        <view class="field" wx:if="{{paytype === 2}}">
+          <view class="field-label">定金金额</view>
+          <input
+            class="field-input"
+            type="digit"
+            value="{{depositPrice}}"
+            bindinput="onDepositPriceInput"
+            placeholder="请输入定金金额"
+          />
+        </view>
+
+        <view class="field" wx:if="{{paytype === 2}}">
+          <view class="field-label">尾款金额</view>
+          <input
+            class="field-input"
+            type="digit"
+            value="{{tailPrice}}"
+            bindinput="onTailPriceInput"
+            placeholder="请输入尾款金额"
+          />
+        </view>
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !detail && !errorText}}" image="/images/empty/nodata.webp" description="暂无价格信息" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <view class="footer" wx:if="{{detail}}">
+    <view class="footer-btn" bindtap="onSubmit">提交</view>
+  </view>
+</view>

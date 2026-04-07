@@ -1,0 +1,57 @@
+<view class="page">
+  <van-sticky>
+    <view class="hero">
+      <view class="hero-top">
+        <view class="hero-kicker">{{title}}</view>
+        <view class="hero-title">{{currentLabel}}</view>
+        <view class="hero-desc">下拉可刷新，滑到底部会继续加载更多订单。</view>
+      </view>
+    </view>
+    <van-tabs
+      active="{{tabIndex}}"
+      bind:change="onTabChange"
+      swipeable="{{false}}"
+      animated="{{false}}"
+      color="#e64340"
+      line-width="40rpx"
+      scrollable="{{true}}"
+    >
+      <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item.label}}" />
+    </van-tabs>
+  </van-sticky>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{list.length}}">
+      <view class="order-card" wx:for="{{list}}" wx:key="id" bindtap="onCardTap" data-id="{{item.id}}">
+        <view class="order-card__hd">
+          <view class="order-sn">订单号：{{item.orderSn || item.id}}</view>
+          <view class="order-status">{{item.statusText}}</view>
+        </view>
+
+        <view class="order-main">
+          <image class="order-cover" src="{{item.cover}}" mode="aspectFill" />
+          <view class="order-meta">
+            <view class="order-title van-multi-ellipsis--l2">{{item.title}}</view>
+            <view class="order-spec van-multi-ellipsis--l1">{{item.spec}}</view>
+            <view class="order-price">{{item.priceText}}</view>
+          </view>
+        </view>
+
+        <view class="order-card__ft" wx:if="{{item.refundText}}">
+          <view class="order-refund">{{item.refundText}}</view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty
+      wx:if="{{!loading && !list.length && !errorText}}"
+      image="/images/empty/nodata.webp"
+      description="{{currentLabel || '当前分类'}}暂无订单"
+    />
+
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+    <view class="loading-text" wx:if="{{!loading && finished && list.length}}">没有更多了</view>
+  </view>
+</view>

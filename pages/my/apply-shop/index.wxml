@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-kicker">婚嫁商家入驻</view>
+    <view class="hero-title">申请成为商家</view>
+    <view class="hero-sub">优先支持婚庆商家入驻。提交后系统会更新身份，请重新登录后查看商家中心与店铺能力。</view>
+  </view>
+
+  <view class="option-list">
+    <view wx:for="{{options}}" wx:key="id" class="option-item {{selectedType === item.id ? 'option-item--active' : ''}}" data-id="{{item.id}}" bindtap="onOptionTap">
+      <view class="option-head">
+        <view class="option-title">{{item.title}}</view>
+        <view class="option-dot"></view>
+      </view>
+      <view class="option-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="onSubmit">{{submitting ? '提交中...' : '确认申请'}}</view>
+</view>

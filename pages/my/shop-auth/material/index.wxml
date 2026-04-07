@@ -1,0 +1,38 @@
+<view class="page">
+  <block wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </block>
+  <block wx:else>
+    <view class="card">
+      <view class="section-title">{{mode === 'watch' ? '认证信息' : '视频/补充信息'}}</view>
+      <textarea
+        class="textarea"
+        value="{{videoUrl}}"
+        bindinput="onVideoInput"
+        maxlength="1000"
+        disabled="{{mode === 'watch'}}"
+        placeholder="请输入视频链接或补充说明"
+      />
+    </view>
+
+    <view class="card">
+      <view class="section-head">
+        <view class="section-title">认证材料</view>
+        <view class="section-action" wx:if="{{mode !== 'watch'}}" bindtap="choosePhotos">添加图片</view>
+      </view>
+      <view wx:if="{{photos.length}}" class="photo-grid">
+        <view wx:for="{{photos}}" wx:key="index" class="photo-wrap">
+          <image class="photo-item" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewPhoto" />
+          <view class="photo-remove" wx:if="{{mode !== 'watch'}}" data-index="{{index}}" bindtap="removePhoto">删除</view>
+        </view>
+      </view>
+      <van-empty wx:else image="/images/empty/nodata.webp" description="暂无认证材料" />
+    </view>
+
+    <view class="tips">{{mode === 'watch' ? '当前为只读查看模式。' : '请将线下认证合格证书拍照上传。'}}</view>
+
+    <view class="actions" wx:if="{{mode !== 'watch'}}">
+      <view class="action-btn {{saving ? 'action-btn--disabled' : ''}}" bindtap="onSubmit">{{saving ? '提交中...' : '提交'}}</view>
+    </view>
+  </block>
+</view>

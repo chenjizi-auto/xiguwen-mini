@@ -1,0 +1,301 @@
+<view class="merchant-page">
+  <view class="merchant-to-top" wx:if="{{showToTop}}" bindtap="onToTopTap">顶部</view>
+
+  <view class="merchant-loading" wx:if="{{loading}}">加载中...</view>
+
+  <block wx:if="{{detail}}">
+    <view class="merchant-hero" style="{{detail.background ? 'background-image:url(' + detail.background + ');' : ''}}">
+      <view class="merchant-mask"></view>
+      <view class="merchant-hero-main">
+        <image class="merchant-avatar" src="{{detail.head || '/images/default.webp'}}" mode="aspectFill" />
+        <view class="merchant-main">
+          <view class="merchant-name">{{detail.nickname}}</view>
+          <view class="merchant-occupation">{{detail.occupation || '婚礼商家'}}</view>
+          <view class="merchant-badges" wx:if="{{detail.company || detail.mobile}}">
+            <view class="merchant-badge" wx:if="{{detail.company}}">{{detail.company}}</view>
+            <view class="merchant-badge merchant-badge--ghost" wx:if="{{detail.mobile}}">{{detail.mobile}}</view>
+          </view>
+          <view class="merchant-address">{{detail.address}}</view>
+        </view>
+      </view>
+
+      <view class="merchant-score-card">
+        <view class="merchant-score-item" wx:for="{{detail.stats}}" wx:key="label">
+          <view class="merchant-score-value">{{item.value}}</view>
+          <view class="merchant-score-label">{{item.label}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="merchant-summary-card">
+      <view class="merchant-summary-title">商家简介</view>
+      <view class="merchant-summary-text">{{detail.intro}}</view>
+    </view>
+
+    <view class="merchant-tabs-wrap">
+      <scroll-view class="merchant-tabs" scroll-x enable-flex scroll-with-animation>
+        <view
+          wx:for="{{tabs}}"
+          wx:key="key"
+          class="merchant-tab {{activeTab === item.key ? 'merchant-tab-active' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onTabTap"
+        >
+          {{item.text}}
+          <text wx:if="{{item.key === 'quote'}}"> {{detail.counts.quotes}}</text>
+          <text wx:if="{{item.key === 'works'}}"> {{detail.counts.works}}</text>
+          <text wx:if="{{item.key === 'comment'}}"> {{detail.counts.comments}}</text>
+          <text wx:if="{{item.key === 'dynamic'}}"> {{detail.dynamic.total}}</text>
+          <text wx:if="{{item.key === 'schedule'}}"> {{detail.schedule.total}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="merchant-content">
+      <block wx:if="{{activeTab === 'home'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">商家概览</view>
+          </view>
+          <view class="merchant-section-desc">{{detail.qualification}}</view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.quotePreviewList.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">报价</view>
+            <view class="merchant-section-more" data-key="quote" bindtap="onSectionMoreTap">查看全部</view>
+          </view>
+          <view class="merchant-grid merchant-grid-two">
+            <view class="quote-card" wx:for="{{detail.quotePreviewList}}" wx:key="id" data-id="{{item.id}}" bindtap="onQuoteTap">
+              <image class="quote-cover" src="{{item.cover || detail.head}}" mode="aspectFill" />
+              <view class="quote-title">{{item.title}}</view>
+              <view class="quote-price">{{item.price}}</view>
+              <view class="quote-meta">{{item.countText}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.workPreviewList.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">作品</view>
+            <view class="merchant-section-more" data-key="works" bindtap="onSectionMoreTap">查看全部</view>
+          </view>
+          <view class="merchant-grid merchant-grid-two">
+            <view class="work-card" wx:for="{{detail.workPreviewList}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="onWorkTap">
+              <image class="work-cover" src="{{item.cover || detail.head}}" mode="aspectFill" />
+              <view class="work-title">{{item.title}}</view>
+              <view class="work-desc">{{item.desc || item.countText}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.commentPreviewList.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">评价</view>
+            <view class="merchant-section-more" data-key="comment" bindtap="onSectionMoreTap">查看全部</view>
+          </view>
+          <view class="comment-card" wx:for="{{detail.commentPreviewList}}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
+            <view class="comment-head">
+              <image class="comment-avatar" src="{{comment.head || detail.head}}" mode="aspectFill" />
+              <view class="comment-main">
+                <view class="comment-name">{{comment.nickname}}</view>
+                <view class="comment-time">{{comment.time}}</view>
+              </view>
+              <view class="comment-score">{{comment.score}}分</view>
+            </view>
+            <view class="comment-content">{{comment.content}}</view>
+            <view class="comment-images" wx:if="{{comment.pictures.length}}">
+              <image class="comment-image" wx:for="{{comment.pictures}}" wx:key="*this" wx:for-index="imageIndex" src="{{item}}" mode="aspectFill" data-comment-index="{{commentIndex}}" data-image-index="{{imageIndex}}" bindtap="onPreviewCommentImage" />
+            </view>
+          </view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.teamList.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">推荐团队</view>
+          </view>
+          <view class="merchant-grid merchant-grid-three">
+            <view class="team-card" wx:for="{{detail.teamList}}" wx:key="userid" data-userid="{{item.userid}}" bindtap="onTeamTap">
+              <image class="team-avatar" src="{{item.head || detail.head}}" mode="aspectFill" />
+              <view class="team-name">{{item.nickname}}</view>
+              <view class="team-role">{{item.occupation}}</view>
+              <view class="team-price">{{item.price}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.dynamicPreviewList.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">动态</view>
+            <view class="merchant-section-more" data-key="dynamic" bindtap="onSectionMoreTap">查看全部</view>
+          </view>
+          <view class="dynamic-card" wx:for="{{detail.dynamicPreviewList}}" wx:key="id" wx:for-item="dynamic" wx:for-index="dynamicIndex" data-id="{{dynamic.id}}" bindtap="onDynamicTap">
+            <view class="dynamic-head">
+              <image class="dynamic-avatar" src="{{dynamic.head || detail.head}}" mode="aspectFill" />
+              <view class="dynamic-main">
+                <view class="dynamic-name">{{dynamic.nickname}}</view>
+                <view class="dynamic-time">{{dynamic.time}}</view>
+              </view>
+            </view>
+            <view class="dynamic-content">{{dynamic.content}}</view>
+            <view class="dynamic-images" wx:if="{{dynamic.images.length}}">
+              <image class="dynamic-image" wx:for="{{dynamic.images}}" wx:key="*this" wx:for-index="imageIndex" src="{{item}}" mode="aspectFill" data-dynamic-index="{{dynamicIndex}}" data-image-index="{{imageIndex}}" catchtap="onPreviewDynamicImage" />
+            </view>
+          </view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.schedule.groups.length}}">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">档期</view>
+            <view class="merchant-section-more" data-key="schedule" bindtap="onSectionMoreTap">查看全部</view>
+          </view>
+          <view class="schedule-group" wx:for="{{detail.schedule.groups}}" wx:key="title" wx:for-item="group">
+            <view class="schedule-title">{{group.title}}</view>
+            <view class="schedule-row" wx:for="{{group.list}}" wx:key="id">
+              <view class="schedule-date">{{item.date}}</view>
+              <view class="schedule-slot">{{item.timeslot}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'quote'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-title">报价</view>
+          <view class="quote-list-empty" wx:if="{{!detail.quoteList.length}}">暂无报价</view>
+          <view class="quote-row" wx:for="{{detail.quoteList}}" wx:key="id" data-id="{{item.id}}" bindtap="onQuoteTap">
+            <image class="quote-row-cover" src="{{item.cover || detail.head}}" mode="aspectFill" />
+            <view class="quote-row-main">
+              <view class="quote-row-title">{{item.title}}</view>
+              <view class="quote-row-meta">{{item.countText}}</view>
+            </view>
+            <view class="quote-row-price">{{item.price}}</view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'works'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-title">作品</view>
+          <view class="quote-list-empty" wx:if="{{!detail.workList.length}}">暂无作品</view>
+          <view class="merchant-grid merchant-grid-two" wx:if="{{detail.workList.length}}">
+            <view class="work-card" wx:for="{{detail.workList}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="onWorkTap">
+              <image class="work-cover" src="{{item.cover || detail.head}}" mode="aspectFill" />
+              <view class="work-title">{{item.title}}</view>
+              <view class="work-desc">{{item.desc || item.countText}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'comment'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-title">评价</view>
+          <view class="quote-list-empty" wx:if="{{!detail.commentList.length}}">暂无评价</view>
+          <view class="comment-card" wx:for="{{detail.commentList}}" wx:key="id" wx:for-item="comment">
+            <view class="comment-head">
+              <image class="comment-avatar" src="{{comment.head || detail.head}}" mode="aspectFill" />
+              <view class="comment-main">
+                <view class="comment-name">{{comment.nickname}}</view>
+                <view class="comment-time">{{comment.time}}</view>
+              </view>
+              <view class="comment-score">{{comment.score}}分</view>
+            </view>
+            <view class="comment-content">{{comment.content}}</view>
+            <view class="comment-reply" wx:if="{{comment.replyContent}}">
+              <view class="comment-reply-label">商家回复</view>
+              <view class="comment-reply-content">{{comment.replyContent}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'dynamic'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-title">动态</view>
+          <view class="quote-list-empty" wx:if="{{!detail.dynamic.list.length}}">暂无动态</view>
+          <view class="dynamic-card" wx:for="{{detail.dynamic.list}}" wx:key="id" wx:for-item="dynamic" wx:for-index="dynamicIndex" data-id="{{dynamic.id}}" bindtap="onDynamicTap">
+            <view class="dynamic-head">
+              <image class="dynamic-avatar" src="{{dynamic.head || detail.head}}" mode="aspectFill" />
+              <view class="dynamic-main">
+                <view class="dynamic-name">{{dynamic.nickname}}</view>
+                <view class="dynamic-time">{{dynamic.time}}</view>
+              </view>
+            </view>
+            <view class="dynamic-content">{{dynamic.content}}</view>
+            <view class="dynamic-images" wx:if="{{dynamic.images.length}}">
+              <image class="dynamic-image" wx:for="{{dynamic.images}}" wx:key="*this" wx:for-index="imageIndex" src="{{item}}" mode="aspectFill" data-dynamic-index="{{dynamicIndex}}" data-image-index="{{imageIndex}}" catchtap="onPreviewDynamicImage" />
+            </view>
+            <view class="dynamic-actions">
+              <view class="dynamic-action" data-id="{{dynamic.id}}" catchtap="onDynamicTap">浏览 {{dynamic.pv}}</view>
+              <view class="dynamic-action" data-id="{{dynamic.id}}" catchtap="onDynamicCommentTap">评论 {{dynamic.commentCount}}</view>
+              <view class="dynamic-action {{dynamic.myzan === 1 ? 'dynamic-action-active' : ''}}" data-dynamic-index="{{dynamicIndex}}" catchtap="onDynamicLikeTap">点赞 {{dynamic.zan}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'schedule'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-header">
+            <view class="merchant-section-title">档期</view>
+            <view class="merchant-section-badge" wx:if="{{detail.schedule.total}}">{{detail.schedule.total}}个档期</view>
+          </view>
+          <view class="quote-list-empty" wx:if="{{!detail.schedule.groups.length}}">暂无档期安排</view>
+          <view class="schedule-group" wx:for="{{detail.schedule.groups}}" wx:key="title" wx:for-item="group">
+            <view class="schedule-title">{{group.title}}</view>
+            <view class="schedule-grid">
+              <view class="schedule-box" wx:for="{{group.list}}" wx:key="id">
+                <view class="schedule-box-date">{{item.date}}</view>
+                <view class="schedule-box-slot">{{item.timeslot}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{activeTab === 'profile'}}">
+        <view class="merchant-card">
+          <view class="merchant-section-title">资料</view>
+          <view class="merchant-row"><view class="merchant-label">地区</view><view class="merchant-value">{{detail.address}}</view></view>
+          <view class="merchant-row"><view class="merchant-label">手机</view><view class="merchant-value">{{detail.mobile}}</view></view>
+          <view class="merchant-row"><view class="merchant-label">性别</view><view class="merchant-value">{{detail.sex}}</view></view>
+          <view class="merchant-row"><view class="merchant-label">年龄</view><view class="merchant-value">{{detail.age}}</view></view>
+          <view class="merchant-row"><view class="merchant-label">身高 / 体重</view><view class="merchant-value">{{detail.height || '--'}} / {{detail.weight || '--'}}</view></view>
+        </view>
+
+        <view class="merchant-card" wx:if="{{detail.gallery.length}}">
+          <view class="merchant-section-title">店铺展示</view>
+          <view class="merchant-gallery">
+            <image class="merchant-gallery-image" wx:for="{{detail.gallery}}" wx:key="*this" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="onPreviewGallery" />
+          </view>
+        </view>
+
+        <view class="merchant-card">
+          <view class="merchant-section-title">商家介绍</view>
+          <view class="merchant-section-desc">{{detail.intro}}</view>
+        </view>
+      </block>
+
+      <view class="merchant-tab-footer" wx:if="{{activeTab !== 'home' && activeTab !== 'profile' && tabLoading}}">{{tabLoadingText}}</view>
+      <view class="merchant-tab-footer" wx:if="{{activeTab !== 'home' && activeTab !== 'profile' && !tabLoading && tabNoMore}}">没有更多了</view>
+    </view>
+  </block>
+
+  <view class="merchant-state" wx:if="{{errorText}}">
+    <view>{{errorText}}</view>
+    <van-button size="small" plain type="primary" bind:click="onRetryTap">重新加载</van-button>
+  </view>
+
+  <view class="merchant-bottom-bar" wx:if="{{detail}}">
+    <view class="merchant-bottom-icon" bindtap="onCallTap">
+      <view class="merchant-bottom-icon__symbol">☎</view>
+      <view class="merchant-bottom-icon__text">电话</view>
+    </view>
+    <view class="merchant-bottom-icon" bindtap="onFollowTap">
+      <view class="merchant-bottom-icon__symbol">{{detail.followed ? '♥' : '♡'}}</view>
+      <view class="merchant-bottom-icon__text">{{detail.followed ? '已关注' : '关注'}}</view>
+    </view>
+    <view class="merchant-bottom-action" bindtap="onBookTap">预约商家</view>
+  </view>
+</view>

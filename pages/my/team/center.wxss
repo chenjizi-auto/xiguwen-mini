@@ -1,0 +1,127 @@
+.center-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.state-error {
+  margin-bottom: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: #fff1f0;
+  color: #d4380d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+
+.summary-card,
+.menu-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.summary-head {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.summary-logo {
+  width: 108rpx;
+  height: 108rpx;
+  border-radius: 24rpx;
+  background: #f3f4f6;
+  flex-shrink: 0;
+}
+
+.summary-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.summary-name {
+  font-size: 32rpx;
+  line-height: 44rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.summary-type,
+.summary-location {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #7b7f87;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18rpx;
+  margin-top: 24rpx;
+}
+
+.summary-stat {
+  padding: 20rpx 12rpx;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+  text-align: center;
+}
+
+.summary-stat__num {
+  font-size: 28rpx;
+  line-height: 38rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.summary-stat__label {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  line-height: 30rpx;
+  color: #8c8f96;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 88rpx;
+}
+
+.menu-title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #222;
+}
+
+.menu-item--danger .menu-title {
+  color: #e64340;
+}
+
+.menu-divider {
+  height: 1rpx;
+  background: #f3f4f6;
+}
+
+.menu-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #c7c7c7;
+  border-right: 4rpx solid #c7c7c7;
+  transform: rotate(45deg);
+}
+
+.loading-text {
+  padding: 24rpx 0;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}

@@ -1,7 +1,7 @@
 const network = require('../../../api/network.js')
 const xgwAuth = require('../../../utils/xgw-auth.js')
 
-const DEFAULT_COVER = '/images/load_img.png'
+const DEFAULT_COVER = '/images/load_img.webp'
 const MAX_PHOTO_COUNT = 9
 
 function asNumber(value, fallback = 0) {

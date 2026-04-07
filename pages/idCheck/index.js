@@ -1,54 +1,49 @@
-const WXAPI = require('apifm-wxapi')
+const xgwAuth = require('../../utils/xgw-auth.js')
+
+function getUserType() {
+  const mineHome = xgwAuth.getMineHome() || {}
+  const userInfo = xgwAuth.getUserInfo() || {}
+  const userType = Number(mineHome.usertype || userInfo.usertype || 3)
+  return [1, 2, 3].includes(userType) ? userType : 3
+}
+
 Page({
   data: {
-
+    userType: 3,
+    typeList: []
   },
-  onLoad: function (options) {
 
-  },
-  onShow: function () {
+  onShow() {
+    const userType = getUserType()
+    const typeList = [
+      {
+        key: 'person',
+        title: '个人认证',
+        desc: '提交姓名、身份证和手持证件照进行审核',
+        icon: '/images/mine/shimingrenzheng_icon.png'
+      }
+    ]
 
-  },
-  async submit() {
-    if (!this.data.name) {
-      wx.showToast({
-        title: '请输入姓名',
-        icon: 'none'
+    if (userType === 1 || userType === 2) {
+      typeList.push({
+        key: 'company',
+        title: '企业认证',
+        desc: '提交法人身份信息与营业执照进行审核',
+        icon: '/images/mine/dianpurenzheng_icon.png'
       })
-      return
     }
-    if (!this.data.idcard) {
-      wx.showToast({
-        title: '请输入身份证号码',
-        icon: 'none'
-      })
-      return
-    }
-    wx.showLoading({
-      title: '',
-    })
+
     this.setData({
-      loading: true
+      userType,
+      typeList
     })
-    const res = await WXAPI.idcardCheck(wx.getStorageSync('token'), this.data.name, this.data.idcard)
-    wx.hideLoading({
-      success: (res) => {},
-    })
-    this.setData({
-      loading: false
-    })
-    if (res.code != 0) {
-      wx.showToast({
-        title: res.msg,
-        icon: 'none'
-      })
-      return
-    }
-    wx.showToast({
-      title: '认证通过',
-    })
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 1000);
   },
+
+  onChooseType(e) {
+    const key = e.currentTarget.dataset.key
+    if (!key) return
+    wx.navigateTo({
+      url: `/pages/idCheck/${key}/index`
+    })
+  }
 })

@@ -3,7 +3,7 @@
     <view class="profile-item profile-item--avatar" bindtap="onChooseAvatar">
       <view class="profile-item__label">头像</view>
       <view class="profile-avatar-wrap">
-        <image class="profile-avatar" src="{{avatarUrl || '/images/default.png'}}" mode="aspectFill"></image>
+        <image class="profile-avatar" src="{{avatarUrl || '/images/default.webp'}}" mode="aspectFill"></image>
         <view class="profile-item__arrow"></view>
       </view>
     </view>

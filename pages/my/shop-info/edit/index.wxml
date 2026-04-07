@@ -1,0 +1,93 @@
+<view class="page">
+  <block wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </block>
+
+  <block wx:else>
+    <scroll-view scroll-y class="scroll">
+      <view class="card">
+        <view class="section-title">店铺背景图</view>
+        <view class="cover-upload" bindtap="chooseCover">
+          <image class="cover-upload__img" src="{{cover}}" mode="aspectFill" />
+          <view class="cover-upload__mask">点击更换背景图</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="form-row">
+          <view class="form-label">店铺名称</view>
+          <input class="form-input" value="{{form.nickname}}" data-key="nickname" bindinput="onInput" placeholder="请输入店铺名称" />
+        </view>
+        <view class="form-row">
+          <view class="form-label">商家类型</view>
+          <picker mode="selector" range="{{teamOptions}}" value="{{form.team - 1}}" bindchange="onTeamChange">
+            <view class="picker-value">{{teamOptions[form.team - 1] || '请选择'}}</view>
+          </picker>
+        </view>
+        <view class="form-row">
+          <view class="form-label">店铺状态</view>
+          <picker mode="selector" range="{{statusOptions}}" value="{{form.onlinestatus - 1}}" bindchange="onStatusChange">
+            <view class="picker-value">{{statusOptions[form.onlinestatus - 1] || '请选择'}}</view>
+          </picker>
+        </view>
+        <view class="form-row">
+          <view class="form-label">职业类别</view>
+          <picker mode="selector" range="{{categoryOptions}}" range-key="proname" bindchange="onOccupationChange">
+            <view class="picker-value">{{form.occupationText || '请选择职业类别'}}</view>
+          </picker>
+        </view>
+        <view class="form-row">
+        <view class="form-label">服务区域</view>
+        <view class="region-group">
+          <picker mode="selector" range="{{provinces}}" range-key="name" value="{{provinceIndex}}" bindchange="onProvinceChange">
+              <view class="region-picker">{{provinceText}}</view>
+          </picker>
+          <picker mode="selector" range="{{cities}}" range-key="name" value="{{cityIndex}}" bindchange="onCityChange">
+              <view class="region-picker">{{cityText}}</view>
+          </picker>
+          <picker mode="selector" range="{{areas}}" range-key="name" value="{{areaIndex}}" bindchange="onAreaChange">
+              <view class="region-picker">{{areaTextDisplay}}</view>
+          </picker>
+        </view>
+      </view>
+        <view class="form-row">
+          <view class="form-label">详细地址</view>
+          <input class="form-input" value="{{form.site}}" data-key="site" bindinput="onInput" placeholder="请输入详细地址" />
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">店铺介绍</view>
+        <textarea
+          class="textarea"
+          value="{{form.content}}"
+          data-key="content"
+          bindinput="onInput"
+          maxlength="1000"
+          placeholder="请输入店铺介绍"
+        />
+      </view>
+
+      <view class="card">
+        <view class="section-head">
+          <view class="section-title">店铺图片</view>
+          <view class="section-action" bindtap="choosePhotos">添加图片</view>
+        </view>
+        <view wx:if="{{photos.length}}" class="photo-grid">
+          <view wx:for="{{photos}}" wx:key="index" class="photo-wrap">
+            <image class="photo-item" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="previewPhoto" />
+            <view class="photo-remove" data-index="{{index}}" bindtap="removePhoto">删除</view>
+          </view>
+        </view>
+        <van-empty wx:else image="/images/empty/nodata.webp" description="暂无店铺图片" />
+      </view>
+
+      <view class="tips">地区按省、市、区依次选择，保存时会同步更新店铺资料。</view>
+      <view class="safe-area"></view>
+    </scroll-view>
+
+    <view class="actions">
+      <view class="action-btn {{saving ? 'action-btn--disabled' : ''}}" bindtap="onSave">{{saving ? '保存中...' : '保存'}}</view>
+    </view>
+  </block>
+</view>

@@ -12,7 +12,7 @@
     </view>
   </view>
 
-  <van-empty wx:if="{{loaded && list.length === 0}}" image="/images/zw.png" description="暂无明细" />
+  <van-empty wx:if="{{loaded && list.length === 0}}" image="/images/zw.webp" description="暂无明细" />
   <view wx:if="{{loading && !loaded}}" class="balance-detail-status">加载中...</view>
   <view wx:if="{{loading && loaded && list.length > 0}}" class="balance-detail-status">加载中...</view>
   <view wx:if="{{noMore && list.length > 0}}" class="balance-detail-status">没有更多了</view>

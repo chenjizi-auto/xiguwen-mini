@@ -10,12 +10,38 @@ const ROUTE_MAP = {
   logs: '/pages/settings/logs/index'
 }
 
+function safeText(value, fallback = '') {
+  if (value == null) return fallback
+  return String(value)
+}
+
+function maskMobile(mobile) {
+  const text = safeText(mobile)
+  return /^1\d{10}$/.test(text) ? `${text.slice(0, 3)}****${text.slice(7)}` : ''
+}
+
 Page({
   data: {
-    showLogs: true
+    showLogs: true,
+    userCard: {
+      head: '',
+      nickname: '未登录',
+      mobileText: '未绑定手机号',
+      statusText: ''
+    },
+    menuMeta: {
+      address: '管理常用收货地址',
+      profile: '头像、昵称与基础资料',
+      account: '手机号、微信绑定与注销',
+      security: '登录密码与支付密码',
+      logs: '查看本地操作记录'
+    }
   },
 
   onLoad() {
+    wx.setNavigationBarTitle({
+      title: '设置'
+    })
     if (!xgwAuth.isLogined()) {
       this.promptXgwLogin()
     }
@@ -24,7 +50,9 @@ Page({
   onShow() {
     if (!xgwAuth.isLogined()) {
       this.promptXgwLogin()
+      return
     }
+    this.refreshUserCard()
   },
 
   promptXgwLogin() {
@@ -52,6 +80,30 @@ Page({
       fail: () => {
         this._loginPromptShown = false
       }
+    })
+  },
+
+  refreshUserCard() {
+    const mineHome = xgwAuth.getMineHome() || {}
+    const userInfo = xgwAuth.getUserInfo() || {}
+    const mobileText = maskMobile(userInfo.mobile) || '未绑定手机号'
+    this.setData({
+      userCard: {
+        head: safeText(mineHome.head || userInfo.head),
+        nickname: safeText(mineHome.nickname || userInfo.nickname, '喜顾问用户'),
+        mobileText,
+        statusText: xgwAuth.isLogined() ? '已登录' : '未登录'
+      }
+    })
+  },
+
+  onProfileCardTap() {
+    if (!xgwAuth.isLogined()) {
+      this.promptXgwLogin()
+      return
+    }
+    wx.navigateTo({
+      url: ROUTE_MAP.profile
     })
   },
 

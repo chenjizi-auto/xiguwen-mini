@@ -1,0 +1,121 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.hero {
+  padding: 28rpx 24rpx 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.hero-kicker {
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #e64340;
+}
+
+.hero-title {
+  margin-top: 8rpx;
+  font-size: 42rpx;
+  line-height: 56rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.hero-add {
+  padding: 0 24rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}
+
+.content {
+  padding: 20rpx 24rpx 32rpx;
+}
+
+.state-error {
+  margin-bottom: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: #fff1f0;
+  color: #d4380d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+
+.quote-card {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.quote-cover {
+  width: 208rpx;
+  height: 156rpx;
+  border-radius: 20rpx;
+  background: #f3f4f6;
+}
+
+.quote-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.quote-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.quote-title {
+  flex: 1;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.quote-status {
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  color: #e64340;
+  background: rgba(230, 67, 64, 0.08);
+}
+
+.quote-price {
+  margin-top: 14rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 700;
+  color: #e64340;
+}
+
+.quote-deductible {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  line-height: 32rpx;
+  color: #8c8f96;
+}
+
+.loading-text {
+  padding: 18rpx 0 26rpx;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}

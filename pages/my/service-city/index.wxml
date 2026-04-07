@@ -1,0 +1,52 @@
+<view class="page">
+  <view class="hero">
+    <view>
+      <view class="hero-kicker">服务配置</view>
+      <view class="hero-title">服务城市</view>
+    </view>
+    <view class="hero-add" bindtap="openAddPopup">添加城市</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <view class="city-card" wx:for="{{list}}" wx:key="id">
+      <view class="city-main">
+        <view class="city-name">{{item.cityText}}</view>
+        <view class="city-area">{{item.areaText}}</view>
+      </view>
+      <view class="city-side">
+        <view class="city-weight">{{item.weightText}}</view>
+        <view class="city-delete" data-id="{{item.id}}" bindtap="onDeleteTap">删除</view>
+      </view>
+    </view>
+
+    <van-empty wx:if="{{!loading && !list.length && !errorText}}" image="/images/empty/nodata.webp" description="暂无服务城市" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <van-popup show="{{showAddPopup}}" position="bottom" round bind:close="closeAddPopup">
+    <view class="popup">
+      <view class="popup-title">添加服务城市</view>
+      <view class="popup-desc">按 Android 流程补齐接口，先支持直接录入省份和城市名称。</view>
+      <van-field
+        value="{{form.province}}"
+        label="省份"
+        placeholder="请输入省份名称"
+        border="{{false}}"
+        bind:change="onProvinceInput"
+      />
+      <van-field
+        value="{{form.city}}"
+        label="城市"
+        placeholder="请输入城市名称"
+        border="{{false}}"
+        bind:change="onCityInput"
+      />
+      <view class="popup-actions">
+        <view class="popup-btn popup-btn--ghost" bindtap="closeAddPopup">取消</view>
+        <view class="popup-btn" bindtap="submitAdd">{{submitLoading ? '提交中...' : '保存'}}</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

@@ -7,7 +7,7 @@
       src="{{ avatarUrl }}"
     /> -->
     <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/default.webp' }}" mode="aspectFill"></image>
     </button>
   </van-cell>  
   <van-field

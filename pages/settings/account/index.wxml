@@ -1,4 +1,10 @@
 <view class="account-page">
+  <view class="account-hero">
+    <view class="account-hero__label">Account Security</view>
+    <view class="account-hero__title">账号与安全</view>
+    <view class="account-hero__desc">管理手机号、微信绑定与账号注销，当前安全等级：{{securityLevelText}}</view>
+  </view>
+
   <view class="account-card">
     <view class="account-item" bindtap="onPhoneTap">
       <view class="account-item__title">手机绑定</view>
@@ -19,7 +25,7 @@
 
   <view class="account-card">
     <view class="account-item" bindtap="onCancelTap">
-      <view class="account-item__title">注销账号</view>
+      <view class="account-item__title account-item__title--danger">注销账号</view>
       <view class="account-item__right">
         <view class="account-item__arrow"></view>
       </view>

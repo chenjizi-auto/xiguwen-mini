@@ -1,0 +1,32 @@
+<view class="invitation-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Invitation</view>
+    <view class="hero-title">电子请柬</view>
+    <view class="hero-desc">创建并管理婚礼请柬，支持预览、微信分享和删除。</view>
+  </view>
+
+  <view class="toolbar-card">
+    <view class="toolbar-title">我的请柬</view>
+    <van-button type="primary" size="small" bind:click="onCreateTap">新建请柬</van-button>
+  </view>
+
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <view class="card-list" wx:if="{{list.length}}">
+    <view class="invite-card" wx:for="{{list}}" wx:key="id" wx:for-item="item">
+      <image class="invite-cover" src="{{item.cover || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <view class="invite-main">
+        <view class="invite-title">{{item.title}}</view>
+        <view class="invite-sub">{{item.shareTime || '可进入详情后分享给微信好友'}}</view>
+        <view class="invite-actions">
+          <van-button plain size="mini" custom-class="invite-btn" bind:click="onPreviewTap" data-item="{{item}}">预览/分享</van-button>
+          <van-button plain size="mini" custom-class="invite-btn" bind:click="onEditTap" data-item="{{item}}">编辑信息</van-button>
+          <van-button plain type="danger" size="mini" custom-class="invite-btn" bind:click="onDeleteTap" data-id="{{item.id}}">删除</van-button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{!loading && !errorText && list.length === 0}}" image="search" description="还没有电子请柬" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

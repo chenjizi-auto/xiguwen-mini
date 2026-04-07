@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="card hero">
+    <view class="hero-kicker">渠道邀请</view>
+    <view class="hero-title">邀请婚嫁商家</view>
+    <view class="hero-sub">分享二维码或链接，邀请婚嫁商家加入喜顾问平台。</view>
+  </view>
+
+  <view class="card" wx:if="{{shareInfo}}">
+    <view class="section-title">邀请二维码</view>
+    <image class="qrcode" src="{{shareInfo.qrcode}}" mode="aspectFit" bindtap="previewCode" />
+    <view class="link-box">{{shareInfo.url}}</view>
+    <view class="action-row">
+      <view class="action-btn action-btn--ghost" bindtap="copyLink">复制链接</view>
+      <button class="action-btn share-btn" open-type="share">立即分享</button>
+    </view>
+  </view>
+</view>

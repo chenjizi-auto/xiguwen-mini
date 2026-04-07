@@ -1,0 +1,74 @@
+.schedule-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background:
+    radial-gradient(circle at top right, rgba(55, 109, 168, 0.14), transparent 30%),
+    linear-gradient(180deg, #f7fbff 0%, #f6f7fb 220rpx, #f6f7fb 100%);
+  box-sizing: border-box;
+}
+
+.page-head {
+  padding: 30rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.page-title {
+  color: #1f2530;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.page-desc {
+  margin-top: 12rpx;
+  color: #8a909d;
+  font-size: 24rpx;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 40rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.member-card {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.member-avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: #f2f2f2;
+  flex-shrink: 0;
+}
+
+.member-copy {
+  margin-left: 20rpx;
+}
+
+.member-name {
+  color: #1f2530;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.member-meta,
+.member-price {
+  margin-top: 8rpx;
+  color: #8a909d;
+  font-size: 24rpx;
+}
+
+.member-price {
+  color: #bf6a30;
+}

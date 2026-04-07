@@ -1,6 +1,6 @@
 <scroll-view scroll-y class="mine-page">
   <view class="mine-top">
-    <image class="mine-top-bg" src="/images/mine/icon_main_bg.png" mode="aspectFill" />
+    <image class="mine-top-bg" src="/images/mine/icon_main_bg.webp" mode="aspectFill" />
     <view class="mine-top-arc"></view>
 
     <view class="mine-top-bar" style="height:{{navHeight}}px;padding-top:{{navTop}}px;">

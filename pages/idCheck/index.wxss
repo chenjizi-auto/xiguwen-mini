@@ -1,4 +1,54 @@
-.btn {
-  width: 700rpx;
-  margin: 64rpx auto;
+.id-check-page {
+  min-height: 100vh;
+  padding: 28rpx 24rpx 40rpx;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+
+.id-check-tip {
+  padding: 8rpx 8rpx 24rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+
+.type-card {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 28rpx;
+  margin-bottom: 20rpx;
+  border-radius: 24rpx;
+  background: #fff;
+}
+
+.type-card__icon {
+  width: 56rpx;
+  height: 56rpx;
+  flex: 0 0 56rpx;
+}
+
+.type-card__content {
+  flex: 1;
+  min-width: 0;
+  padding: 0 24rpx;
+}
+
+.type-card__title {
+  color: #333;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.type-card__desc {
+  margin-top: 10rpx;
+  color: #999;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.type-card__arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #c7c7c7;
+  border-right: 4rpx solid #c7c7c7;
+  transform: rotate(45deg);
 }

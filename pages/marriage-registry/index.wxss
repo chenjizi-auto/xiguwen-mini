@@ -1,0 +1,152 @@
+.registry-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.12), transparent 32%),
+    linear-gradient(180deg, #fff7f6 0%, #f6f7fb 280rpx, #f6f7fb 100%);
+}
+
+.hero-card,
+.search-card,
+.registry-card {
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-card {
+  padding: 32rpx;
+}
+
+.hero-kicker {
+  color: #d4574c;
+  font-size: 22rpx;
+  letter-spacing: 6rpx;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin-top: 10rpx;
+  color: #231f20;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-desc {
+  margin-top: 14rpx;
+  color: #8d8486;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.search-card {
+  margin-top: 20rpx;
+  padding: 28rpx;
+}
+
+.current-city {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 20rpx;
+  background: #fff3f1;
+}
+
+.current-city__label {
+  color: #a35d59;
+  font-size: 24rpx;
+}
+
+.current-city__value {
+  color: #d4574c;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.field-group + .field-group {
+  margin-top: 20rpx;
+}
+
+.field-label {
+  color: #3b3436;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.field-input {
+  height: 84rpx;
+  margin-top: 12rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+  color: #222;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.search-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 40rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.registry-card {
+  margin-top: 24rpx;
+  padding: 28rpx;
+}
+
+.registry-title {
+  color: #222;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.registry-row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 18rpx;
+}
+
+.registry-label {
+  width: 88rpx;
+  color: #8c8f96;
+  font-size: 24rpx;
+  flex-shrink: 0;
+}
+
+.registry-value {
+  color: #4e4b52;
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+.registry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.picker-wrap {
+  padding: 20rpx 0 0;
+}
+
+.picker-title {
+  padding: 0 32rpx 20rpx;
+  color: #231f20;
+  font-size: 30rpx;
+  font-weight: 700;
+}

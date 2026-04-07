@@ -1,0 +1,117 @@
+<view class="page">
+  <view class="header">
+    <view class="search-row">
+      <view class="search-box">
+        <image class="search-icon" src="/images/icon/search.svg" mode="aspectFit" />
+        <input
+          class="search-input"
+          value="{{keyword}}"
+          placeholder="搜索案例关键词"
+          confirm-type="search"
+          bindinput="onKeywordInput"
+          bindconfirm="onSearchConfirm"
+        />
+      </view>
+      <view class="search-btn" bindtap="onSearchTap">搜索</view>
+    </view>
+    <view class="filter-row">
+      <view class="filter-chip" bindtap="openPopup" data-mode="type">
+        <text class="filter-chip__text">{{selectedTypeName}}</text>
+        <text class="filter-chip__arrow">▾</text>
+      </view>
+      <view class="filter-chip" bindtap="openPopup" data-mode="environment">
+        <text class="filter-chip__text">{{selectedEnvironmentName}}</text>
+        <text class="filter-chip__arrow">▾</text>
+      </view>
+      <view class="filter-chip" bindtap="openPopup" data-mode="sort">
+        <text class="filter-chip__text">{{selectedSortName}}</text>
+        <text class="filter-chip__arrow">▾</text>
+      </view>
+      <view class="filter-chip" bindtap="openPopup" data-mode="filter">
+        <text class="filter-chip__text">{{filterSummary}}</text>
+        <text class="filter-chip__arrow">▾</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="loading-box" wx:if="{{loading && !list.length}}">
+      <van-loading size="24px" vertical>加载中...</van-loading>
+    </view>
+    <van-empty wx:elif="{{loaded && !list.length}}" image="search" description="暂无相关案例" />
+    <view wx:else class="case-list">
+      <view class="case-card" wx:for="{{list}}" wx:key="id" bindtap="onCaseTap" data-id="{{item.id}}">
+        <view class="case-cover-wrap">
+          <image class="case-cover" src="{{item.cover}}" mode="aspectFill" />
+        </view>
+        <view class="case-body">
+          <view class="case-author">
+            <view class="case-author__main">
+              <image class="case-author__avatar" src="{{item.head}}" mode="aspectFill" binderror="onAvatarError" data-index="{{index}}" />
+              <text class="case-author__name">{{item.nickname}}</text>
+            </view>
+            <view
+              class="case-follow {{item.followed ? 'case-follow--active' : ''}}"
+              wx:if="{{item.id}}"
+              catchtap="onFollowTap"
+              data-index="{{index}}"
+              data-id="{{item.id}}"
+            >
+              {{item.followed ? '取消关注' : '关注'}}
+            </view>
+          </view>
+          <view class="case-title">{{item.title}}</view>
+          <view class="case-desc van-multi-ellipsis--l2">{{item.desc}}</view>
+          <view class="case-footer">
+            <text class="case-price">{{item.price}}</text>
+            <text class="case-meta">浏览 {{item.viewCount}} · 评分 {{item.score}} · 评论 {{item.commentCount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="footer-text" wx:if="{{loading && list.length}}">加载更多中...</view>
+    <view class="footer-text" wx:if="{{loaded && !hasMore && list.length}}">没有更多了</view>
+  </view>
+
+  <van-popup show="{{popupShow}}" position="bottom" round bind:close="closePopup">
+    <view class="popup-sheet">
+      <view class="popup-title" wx:if="{{popupMode === 'type'}}">选择类型</view>
+      <view class="popup-title" wx:elif="{{popupMode === 'environment'}}">选择环境</view>
+      <view class="popup-title" wx:elif="{{popupMode === 'sort'}}">选择排序</view>
+      <view class="popup-title" wx:elif="{{popupMode === 'filter'}}">筛选条件</view>
+
+      <scroll-view scroll-y class="popup-list" wx:if="{{popupMode === 'type'}}">
+        <view class="popup-item {{selectedTypeId === item.id ? 'popup-item--active' : ''}}" wx:for="{{typeOptions}}" wx:key="id" bindtap="onTypeSelect" data-id="{{item.id}}" data-name="{{item.name}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <scroll-view scroll-y class="popup-list" wx:elif="{{popupMode === 'environment'}}">
+        <view class="popup-item {{selectedEnvironmentId === item.id ? 'popup-item--active' : ''}}" wx:for="{{environmentOptions}}" wx:key="id" bindtap="onEnvironmentSelect" data-id="{{item.id}}" data-name="{{item.name}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <view class="popup-list" wx:elif="{{popupMode === 'sort'}}">
+        <view class="popup-item {{selectedSortKey === item.key ? 'popup-item--active' : ''}}" wx:for="{{sortOptions}}" wx:key="key" bindtap="onSortSelect" data-key="{{item.key}}" data-name="{{item.label}}">
+          {{item.label}}
+        </view>
+      </view>
+
+      <view class="filter-form" wx:elif="{{popupMode === 'filter'}}">
+        <view class="filter-field">
+          <text class="filter-label">最低价格</text>
+          <input class="filter-input" type="digit" value="{{filterForm.floorprice}}" data-key="floorprice" placeholder="请输入最低价格" bindinput="onFilterInput" />
+        </view>
+        <view class="filter-field">
+          <text class="filter-label">最高价格</text>
+          <input class="filter-input" type="digit" value="{{filterForm.ceilingprice}}" data-key="ceilingprice" placeholder="请输入最高价格" bindinput="onFilterInput" />
+        </view>
+        <view class="filter-actions">
+          <view class="filter-btn filter-btn--ghost" bindtap="onFilterReset">重置</view>
+          <view class="filter-btn filter-btn--primary" bindtap="onFilterApply">确认</view>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+</view>

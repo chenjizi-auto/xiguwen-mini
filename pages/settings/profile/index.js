@@ -271,6 +271,11 @@ Page({
         title: '保存成功',
         icon: 'success'
       })
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 1
+        })
+      }, 250)
     } catch (err) {
       wx.hideLoading()
       wx.showToast({

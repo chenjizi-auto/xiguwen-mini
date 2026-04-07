@@ -1,0 +1,96 @@
+.manage-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+
+.search-card {
+  padding: 12rpx;
+  border-radius: 24rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.state-error,
+.loading-text {
+  margin-top: 40rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.member-card {
+  margin-top: 24rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.member-main {
+  display: flex;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: #f2f2f2;
+  flex-shrink: 0;
+}
+
+.member-copy {
+  margin-left: 20rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.member-name {
+  color: #1f2530;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.member-role {
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+}
+
+.member-role--1 {
+  color: #9c5313;
+  background: #fef1dc;
+}
+
+.member-role--2 {
+  color: #2f5a9d;
+  background: #e8f1ff;
+}
+
+.member-role--3 {
+  color: #667085;
+  background: #f2f4f7;
+}
+
+.member-meta {
+  margin-top: 8rpx;
+  color: #8a909d;
+  font-size: 24rpx;
+}
+
+.member-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}

@@ -1,0 +1,29 @@
+<view class="price-detail-page">
+  <view class="hero" wx:if="{{!loading && totalPrice}}">
+    <view class="hero-label">婚礼总价</view>
+    <view class="hero-price">{{totalPrice}}</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">
+      <view>{{errorText}}</view>
+      <view class="retry" bindtap="onRetryTap">点击重试</view>
+    </view>
+
+    <block wx:if="{{groups.length}}">
+      <view class="group-card" wx:for="{{groups}}" wx:key="title">
+        <view class="group-head">
+          <view class="group-title">{{item.title}}</view>
+          <view class="group-subtotal">小计 {{item.subtotal}}</view>
+        </view>
+        <view class="detail-row" wx:for="{{item.rows}}" wx:key="name">
+          <view class="detail-name">{{item.name}}</view>
+          <view class="detail-price">{{item.price}}</view>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty" wx:if="{{!loading && !errorText && !groups.length}}">暂无明细</view>
+    <view class="loading" wx:if="{{loading}}">加载中...</view>
+  </view>
+</view>

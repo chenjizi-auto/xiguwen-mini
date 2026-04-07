@@ -1,0 +1,44 @@
+<view class="page">
+  <van-sticky>
+    <view class="hero">
+      <view class="hero-kicker">店铺认证</view>
+      <view class="hero-title">{{tabs[tabIndex].label}}</view>
+      <view class="hero-desc">查看店铺认证进度，部分认证支持资料提交或退保证金。</view>
+    </view>
+    <van-tabs active="{{tabIndex}}" bind:change="onTabChange" color="#e64340" line-width="40rpx">
+      <van-tab wx:for="{{tabs}}" wx:key="key" title="{{item.label}}" />
+    </van-tabs>
+  </van-sticky>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:for="{{tabIndex === 0 ? platformList : (tabIndex === 1 ? integrityList : academyList)}}" wx:key="id">
+      <view class="auth-card">
+        <view class="auth-head">
+          <view class="auth-title-wrap">
+            <view class="auth-title">{{item.title}}</view>
+            <view class="auth-subtitle" wx:if="{{item.subtitle}}">{{item.subtitle}}</view>
+          </view>
+          <view class="auth-badge">{{item.badge}}</view>
+        </view>
+
+        <view class="auth-stars" wx:if="{{item.star}}">
+          <text class="auth-star" wx:for="{{[1,2,3,4,5,6,7]}}" wx:key="*this">{{index < item.star ? '★' : '☆'}}</text>
+        </view>
+
+        <view class="auth-footer" wx:if="{{item.actionText}}">
+          <view class="auth-action" bindtap="onActionTap" data-index="{{index}}">{{item.actionText}}</view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty
+      wx:if="{{!loading && !(tabIndex === 0 ? platformList.length : (tabIndex === 1 ? integrityList.length : academyList.length)) && !errorText}}"
+      image="/images/empty/nodata.webp"
+      description="{{tabs[tabIndex].label}}暂无数据"
+    />
+
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+</view>

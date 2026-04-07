@@ -1,0 +1,59 @@
+<view class="atlas-detail-page">
+  <block wx:if="{{loading && !detail}}">
+    <view class="atlas-detail-loading">加载中...</view>
+  </block>
+
+  <block wx:elif="{{detail}}">
+    <scroll-view scroll-y class="atlas-detail-scroll">
+      <view class="atlas-detail-card">
+        <image class="atlas-detail-cover" src="{{detail.cover || defaultCover}}" mode="aspectFill" bindtap="previewCover" />
+
+        <view class="atlas-detail-head">
+          <view class="atlas-detail-title">{{detail.title}}</view>
+          <view class="atlas-detail-status">{{detail.statusLabel}}</view>
+        </view>
+
+        <view class="atlas-detail-meta">
+          <view class="atlas-detail-meta-item">
+            <text class="atlas-detail-meta-label">排序</text>
+            <text class="atlas-detail-meta-value">{{detail.weight || '--'}}</text>
+          </view>
+          <view class="atlas-detail-meta-item">
+            <text class="atlas-detail-meta-label">创建时间</text>
+            <text class="atlas-detail-meta-value">{{detail.createTime || '--'}}</text>
+          </view>
+        </view>
+
+        <view class="atlas-detail-section">
+          <view class="atlas-detail-section-title">视频内容</view>
+          <video
+            wx:if="{{detail.videoUrl}}"
+            class="video-player"
+            src="{{detail.videoUrl}}"
+            poster="{{detail.cover || defaultCover}}"
+            controls
+            show-center-play-btn
+            enable-play-gesture
+            object-fit="cover"
+          />
+          <view wx:else class="atlas-detail-empty">暂无视频地址</view>
+        </view>
+
+        <view class="atlas-detail-section">
+          <view class="atlas-detail-section-title">视频地址</view>
+          <view class="atlas-detail-section-text">{{detail.videoUrl || '暂无视频地址'}}</view>
+          <view wx:if="{{detail.videoUrl}}" class="copy-link-btn" bindtap="copyVideoUrl">复制链接</view>
+        </view>
+      </view>
+      <view class="atlas-detail-safe"></view>
+    </scroll-view>
+
+    <view class="atlas-detail-actions">
+      <view wx:if="{{actionConfig.canEdit}}" class="atlas-detail-action atlas-detail-action--ghost" bindtap="goEdit">编辑</view>
+      <view wx:if="{{actionConfig.canDelete}}" class="atlas-detail-action atlas-detail-action--ghost" bindtap="onDelete">删除</view>
+      <view wx:if="{{actionConfig.primaryText}}" class="atlas-detail-action atlas-detail-action--primary" bindtap="onPrimaryAction">
+        {{actionConfig.primaryText}}
+      </view>
+    </view>
+  </block>
+</view>

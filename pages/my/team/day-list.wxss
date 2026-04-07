@@ -1,0 +1,70 @@
+.day-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+
+.toolbar-card,
+.record-card {
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.toolbar-card {
+  padding: 28rpx;
+}
+
+.toolbar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.toolbar-title {
+  color: #1f2530;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.toolbar-date {
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  background: #f2f4f7;
+  color: #46505f;
+  font-size: 24rpx;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 40rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.record-card {
+  margin-top: 24rpx;
+  padding: 28rpx;
+}
+
+.record-name {
+  color: #1f2530;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.record-meta,
+.record-time {
+  margin-top: 10rpx;
+  color: #8a909d;
+  font-size: 24rpx;
+}

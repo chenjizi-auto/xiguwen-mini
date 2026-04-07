@@ -1,0 +1,98 @@
+.page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.hero {
+  margin-bottom: 24rpx;
+  padding: 32rpx 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.hero-kicker {
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #e64340;
+}
+
+.hero-title {
+  margin-top: 8rpx;
+  font-size: 42rpx;
+  line-height: 56rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.hero-sub {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #666;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.option-item {
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  border: 2rpx solid transparent;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.option-item--active {
+  border-color: #f06b62;
+  background: #fff7f6;
+}
+
+.option-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.option-title {
+  font-size: 32rpx;
+  line-height: 44rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.option-dot {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  background: #f3f4f6;
+}
+
+.option-item--active .option-dot {
+  background: #e64340;
+  box-shadow: inset 0 0 0 8rpx rgba(255, 255, 255, 0.86);
+}
+
+.option-desc {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #666;
+}
+
+.submit-btn {
+  margin-top: 32rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  border-radius: 24rpx;
+  font-size: 30rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}

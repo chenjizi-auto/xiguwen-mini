@@ -1,6 +1,29 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
+
+const originalPage = Page
+
+Page = function(pageOptions) {
+  const options = pageOptions || {}
+
+  if (!options.__xgwRouteLogWrapped) {
+    const originalOnShow = options.onShow
+    options.onShow = function(...args) {
+      const currentPages = getCurrentPages()
+      const currentPage = currentPages[currentPages.length - 1]
+      const route = this.route || this.__route__ || (currentPage && (currentPage.route || currentPage.__route__)) || 'unknown'
+      console.log('[route] enter:', `/${route}`)
+      if (typeof originalOnShow === 'function') {
+        return originalOnShow.apply(this, args)
+      }
+    }
+    options.__xgwRouteLogWrapped = true
+  }
+
+  return originalPage(options)
+}
+
 App({
   onLaunch: function() {
     const subDomain = wx.getExtConfigSync().subDomain
@@ -121,16 +144,16 @@ App({
         })
       }
     }
-    // 自动登录
-    AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          AUTH.bindSeller()
-        })
-      } else {
-        AUTH.bindSeller()
-      }
-    })
+    // 不在应用启动阶段做静默授权，避免首页首屏因 openid 获取失败而中断。
+    AUTH.checkHasLogined()
+      .then(isLogined => {
+        if (isLogined) {
+          return AUTH.bindSeller()
+        }
+      })
+      .catch(err => {
+        console.warn('skip silent auth on app show', err)
+      })
   },
   globalData: {
     isConnected: true,

@@ -1,0 +1,79 @@
+<view class="history-page">
+  <view class="history-filter-card">
+    <picker mode="date" value="{{selectedDate || defaultPickerDate}}" bindchange="onDateChange">
+      <view class="history-date-box {{selectedDate ? 'history-date-box--active' : ''}}">
+        <view class="history-date-label">婚礼时间</view>
+        <view class="history-date-value">{{selectedDate || '请选择婚礼时间'}}</view>
+      </view>
+    </picker>
+    <view class="history-clear" wx:if="{{selectedDate}}" bindtap="onClearDate">重置</view>
+  </view>
+
+  <view class="history-slot-row">
+    <view
+      wx:for="{{timeSlots}}"
+      wx:key="value"
+      class="history-slot {{!selectedDate ? 'history-slot--disabled' : ''}} {{item.value === selectedTimeslot ? 'history-slot--active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="onTimeslotTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="history-meta">
+    <text>当前城市 {{cityName}}</text>
+    <text wx:if="{{selectedDate && selectedTimeslot}}">已筛选 {{selectedDate}}</text>
+    <text wx:elif="{{selectedDate}}">请选择时间段</text>
+  </view>
+
+  <view class="history-tabs-sticky">
+    <scroll-view class="history-tabs" scroll-x="true" scroll-with-animation="true" scroll-into-view="{{tabIntoView}}">
+      <view class="history-tabs__inner">
+        <view
+          wx:for="{{categories}}"
+          wx:key="id"
+          id="history-tab-{{item.id}}"
+          class="history-tab {{item.id === activeCategoryId ? 'history-tab--active' : ''}}"
+          data-id="{{item.id}}"
+          data-name="{{item.name}}"
+          bindtap="onCategoryTap"
+        >
+          <text>{{item.name}}</text>
+          <view class="history-tab__line" wx:if="{{item.id === activeCategoryId}}"></view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="history-content-swipe" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
+    <view class="history-state-error" wx:if="{{loadError && !list.length}}">{{loadError}}</view>
+
+    <view class="history-list" wx:if="{{list.length}}">
+      <view class="history-card" wx:for="{{list}}" wx:key="id" data-userid="{{item.id}}" bindtap="onMerchantTap">
+        <image class="history-card__avatar" src="{{item.head}}" mode="aspectFill" />
+        <view class="history-card__main">
+          <view class="history-card__top">
+            <view class="history-card__name">{{item.nickname}}</view>
+            <view class="history-card__price">{{item.price}}</view>
+          </view>
+          <view class="history-card__role">{{item.occupation}}</view>
+          <view class="history-card__tags">
+            <view class="history-tag history-tag--vip" wx:if="{{item.isVip}}">VIP</view>
+            <view class="history-tag" wx:if="{{item.realname}}">实名</view>
+            <view class="history-tag" wx:if="{{item.platform}}">平台认证</view>
+            <view class="history-tag" wx:if="{{item.sincerity}}">诚信</view>
+            <view class="history-tag" wx:if="{{item.team}}">团队</view>
+            <view class="history-tag history-tag--college" wx:if="{{item.collegeName}}">{{item.collegeName}}</view>
+          </view>
+          <view class="history-card__stats">好评率 {{item.goodRate}}% · 评论 {{item.commentCount}} · 粉丝 {{item.fans}}</view>
+        </view>
+      </view>
+    </view>
+
+    <van-empty wx:if="{{loaded && !list.length && !loading && !loadError}}" image="search" description="暂无查档结果" />
+    <view class="history-footer" wx:if="{{loading && !list.length}}">加载中...</view>
+    <view class="history-footer" wx:if="{{footerLoading}}">加载更多中...</view>
+    <view class="history-footer" wx:if="{{footerNoMore}}">没有更多了</view>
+  </view>
+</view>

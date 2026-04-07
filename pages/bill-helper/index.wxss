@@ -1,0 +1,176 @@
+.bill-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(82, 148, 108, 0.14), transparent 30%),
+    linear-gradient(180deg, #f7fff8 0%, #f6f7fb 280rpx, #f6f7fb 100%);
+}
+
+.hero-card,
+.summary-card,
+.group-card {
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-card,
+.summary-card,
+.group-card {
+  padding: 28rpx;
+}
+
+.hero-kicker {
+  color: #3f8b58;
+  font-size: 22rpx;
+  letter-spacing: 6rpx;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #1f2d23;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-desc {
+  margin-top: 14rpx;
+  color: #7d8d83;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.summary-card,
+.group-card {
+  margin-top: 20rpx;
+}
+
+.summary-top,
+.summary-stats,
+.group-head,
+.bill-row,
+.bill-item {
+  display: flex;
+}
+
+.summary-top,
+.group-head,
+.bill-row,
+.bill-item {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-month,
+.group-date {
+  color: #1f2d23;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.summary-picker {
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  background: #eef6f0;
+  color: #3f8b58;
+  font-size: 24rpx;
+}
+
+.summary-stats {
+  gap: 20rpx;
+  margin: 24rpx 0;
+}
+
+.summary-item {
+  flex: 1;
+  padding: 22rpx;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+}
+
+.summary-item__label {
+  color: #8b9098;
+  font-size: 24rpx;
+}
+
+.summary-item__value {
+  margin-top: 12rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.summary-item__value--expense,
+.bill-amount--expense {
+  color: #d9554b;
+}
+
+.summary-item__value--income,
+.bill-amount--income {
+  color: #2f9a57;
+}
+
+.state-error,
+.loading-text {
+  margin-top: 32rpx;
+  color: #8b5c42;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.group-total,
+.bill-time {
+  color: #8c8f96;
+  font-size: 24rpx;
+}
+
+.bill-item {
+  gap: 16rpx;
+  padding: 22rpx 0;
+  border-top: 1rpx solid #f0f2f5;
+}
+
+.bill-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.bill-action-btn {
+  min-width: 112rpx !important;
+}
+
+.bill-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.bill-type {
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+}
+
+.bill-type--expense {
+  color: #d9554b;
+  background: #fff0ee;
+}
+
+.bill-type--income {
+  color: #2f9a57;
+  background: #edf9f1;
+}
+
+.bill-amount {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.bill-remark {
+  margin-top: 12rpx;
+  color: #2f3135;
+  font-size: 26rpx;
+  line-height: 1.7;
+}

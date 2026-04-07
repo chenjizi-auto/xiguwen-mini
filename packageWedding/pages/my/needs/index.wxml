@@ -1,0 +1,53 @@
+<view class="page">
+  <van-sticky>
+    <van-tabs
+      active="{{tabIndex}}"
+      bind:change="onTabChange"
+      swipeable="{{false}}"
+      animated="{{false}}"
+      color="#e64340"
+      line-width="40rpx"
+      scrollable="{{false}}"
+    >
+      <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item.label}}" />
+    </van-tabs>
+  </van-sticky>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{list.length}}">
+      <view class="need-card" wx:for="{{list}}" wx:key="id" bindtap="onItemTap" data-id="{{item.id}}">
+        <view class="need-card__hd">
+          <view class="need-title van-multi-ellipsis--l2">{{item.title}}</view>
+          <view class="need-status {{item.isActive ? 'need-status--active' : 'need-status--end'}}">
+            {{item.isActive ? '进行中' : '已结束'}}
+          </view>
+        </view>
+
+        <view class="need-price">{{item.priceText}}</view>
+
+        <view class="need-meta">
+          <view class="need-meta__item">发布时间：{{item.createTime}}</view>
+          <view class="need-meta__item">{{item.browseText}}</view>
+          <view class="need-meta__item">{{item.joinText}}</view>
+        </view>
+
+        <view class="need-actions">
+          <view class="action-btn action-btn--light" wx:if="{{item.isActive}}" catchtap="onEditTap" data-id="{{item.id}}" data-index="{{index}}">编辑</view>
+          <view class="action-btn action-btn--danger" wx:if="{{item.isActive}}" catchtap="onCloseTap" data-id="{{item.id}}">关闭</view>
+          <view class="action-btn action-btn--danger" wx:if="{{item.isEnded}}" catchtap="onDeleteTap" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty
+      wx:if="{{!loading && !list.length && !errorText}}"
+      image="search"
+      description="{{currentLabel}}暂无需求"
+    />
+
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+    <view class="loading-text" wx:if="{{!loading && finished && list.length}}">没有更多了</view>
+  </view>
+</view>

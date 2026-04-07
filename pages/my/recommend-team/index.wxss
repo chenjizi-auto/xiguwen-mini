@@ -1,0 +1,152 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.hero {
+  padding: 28rpx 24rpx 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-kicker {
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #e64340;
+}
+
+.hero-title {
+  margin-top: 8rpx;
+  font-size: 42rpx;
+  line-height: 56rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.hero-add {
+  padding: 0 24rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}
+
+.content {
+  padding: 0 24rpx 32rpx;
+}
+
+.state-error {
+  margin-bottom: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: #fff1f0;
+  color: #d4380d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+
+.team-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.team-head,
+.team-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.team-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.team-weight,
+.team-time,
+.team-meta {
+  font-size: 22rpx;
+  line-height: 32rpx;
+  color: #8c8f96;
+}
+
+.team-meta {
+  margin-top: 14rpx;
+}
+
+.team-foot {
+  margin-top: 20rpx;
+}
+
+.team-delete {
+  min-width: 108rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  border-radius: 999rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #e64340;
+  background: #fff1f0;
+}
+
+.loading-text {
+  padding: 18rpx 0 26rpx;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}
+
+.popup {
+  padding: 32rpx 24rpx calc(32rpx + env(safe-area-inset-bottom));
+}
+
+.popup-title {
+  font-size: 34rpx;
+  line-height: 48rpx;
+  font-weight: 700;
+  color: #222;
+}
+
+.popup-desc {
+  margin-top: 10rpx;
+  margin-bottom: 16rpx;
+  font-size: 22rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 28rpx;
+}
+
+.popup-btn {
+  flex: 1;
+  height: 84rpx;
+  line-height: 84rpx;
+  border-radius: 22rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}
+
+.popup-btn--ghost {
+  color: #666;
+  background: #f3f4f6;
+}

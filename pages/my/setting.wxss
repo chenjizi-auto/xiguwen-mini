@@ -4,17 +4,59 @@ page {
 
 .setting-page {
   min-height: 100vh;
-  padding: 32rpx 0 calc(48rpx + env(safe-area-inset-bottom));
+  padding: 32rpx 24rpx calc(48rpx + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 
+.setting-profile {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 28rpx;
+  border-radius: 32rpx;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 28%),
+    linear-gradient(135deg, #db4f45 0%, #f18b62 100%);
+  box-shadow: 0 18rpx 36rpx rgba(219, 79, 69, 0.18);
+}
+
+.setting-profile__avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+}
+
+.setting-profile__main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 24rpx;
+}
+
+.setting-profile__name {
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.setting-profile__meta,
+.setting-profile__status {
+  margin-top: 8rpx;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
 .setting-card {
+  border-radius: 28rpx;
   margin-top: 32rpx;
   background: #ffffff;
+  overflow: hidden;
 }
 
 .setting-card--single {
-  margin-top: 0;
+  margin-top: 24rpx;
 }
 
 .setting-card--logout {
@@ -30,10 +72,25 @@ page {
   box-sizing: border-box;
 }
 
+.setting-item__main {
+  flex: 1;
+  min-width: 0;
+  padding: 24rpx 0;
+}
+
 .setting-item__title {
+  display: block;
   font-size: 32rpx;
   color: #222222;
   line-height: 44rpx;
+}
+
+.setting-item__desc {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #8f8f95;
+  line-height: 34rpx;
 }
 
 .setting-item__title--danger {
@@ -49,6 +106,7 @@ page {
   border-right: 3rpx solid #c7c7cc;
   transform: rotate(45deg);
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .setting-item--logout {

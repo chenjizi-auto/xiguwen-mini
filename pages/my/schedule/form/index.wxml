@@ -1,0 +1,33 @@
+<view class="page">
+  <view class="card">
+    <view class="form-row">
+      <view class="form-label">档期日期</view>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="picker-value">{{date}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">时间段</view>
+      <picker mode="selector" range="{{timeslotOptions}}" range-key="label" value="{{timeslotIndex}}" bindchange="onTimeslotChange">
+        <view class="picker-value">{{timeslotOptions[timeslotIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">联系人</view>
+      <input class="form-input" value="{{contacts}}" data-key="contacts" bindinput="onInput" placeholder="选填" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">联系电话</view>
+      <input class="form-input" value="{{contactnumber}}" data-key="contactnumber" bindinput="onInput" placeholder="选填" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">备注</view>
+    <textarea class="textarea" value="{{remarks}}" data-key="remarks" bindinput="onInput" maxlength="300" placeholder="请输入备注信息" />
+  </view>
+
+  <view class="actions">
+    <view class="action-btn {{saving ? 'action-btn--disabled' : ''}}" bindtap="onSubmit">{{saving ? '保存中...' : '保存'}}</view>
+  </view>
+</view>

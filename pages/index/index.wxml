@@ -1,10 +1,19 @@
 <van-sticky>
   <view class="search-container">
-    <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
-      <view class="search-title" src="../../images/default.png" style="height:{{navHeight-navTop-5}}px;line-height:{{navHeight-navTop-5}}px;width:{{132/52*(navHeight-navTop-5)}}px;">
-        <text bindtap="goCitySelect">{{city}}</text>
+    <view class="search search-android" style="height:{{navHeight}}px;">
+      <view class="search-main" style="max-width:{{menuButtonObject.left - 12}}px;height:{{menuButtonObject.height || 32}}px;margin-top:{{menuButtonObject.top || navTop}}px;">
+        <view class="search-city" bindtap="goCitySelect">
+          <text class="search-city-text">{{city}}</text>
+          <image class="search-city-arrow" src="/images/icon/next.svg" mode="aspectFit" />
+        </view>
+        <view class="search-entry-shell" animation="{{searchEntryAnimation}}">
+          <view class="search-entry" bindtap="goSearch">
+            <image class="search-entry-icon" src="/images/icon/search.svg" mode="aspectFit" />
+            <text class="search-entry-placeholder">请输入关键字</text>
+          </view>
+        </view>
+        <view class="search-archive" bindtap="goHistoryPage">查档</view>
       </view>
-      <input placeholder-class="search-placeholder" style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="请输入搜索内容" disabled value="{{name}}" bindinput="bindinput" bindtap="goSearch"></input>
     </view>
   </view>
 </van-sticky>
@@ -22,7 +31,7 @@
   </swiper>
   <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="goodsDynamic">
     <swiper class="swiper2" autoplay circular vertical>
-      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
+      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="/pages/goods-details/index?id={{item.goodsId || item.id}}" bindtap="onGoodsDynamicTap" data-id="{{item.goodsId || item.id}}">
         <swiper-item>
           <view class="goodsDynamic-item">
             <image mode="aspectFill" src="{{item.avatarUrl}}"></image>
@@ -39,8 +48,8 @@
     <swiper-item>
       <view class="category-container2">
         <view class="category-box2">
-          <view class="category-list2" wx:for="{{categories_p1}}" wx:key="id">
-            <view class="category-column2" bindtap="tabClick" data-id="{{item.occupationid}}">
+          <view class="category-list2" wx:for="{{categories_p1}}" wx:key="occupationid">
+            <view class="category-column2" bindtap="onHomeCategoryTap" data-id="{{item.occupationid}}" data-name="{{item.proname}}">
               <image mode="aspectFill" class="category-imgbox2" src="{{item.wapimg}}"></image>
               <view class="category-title">{{item.proname}}</view>
             </view>
@@ -51,8 +60,8 @@
     <swiper-item>
       <view class="category-container">
         <view class="category-box2">
-          <view class="category-list2" wx:for="{{categories_p2}}" wx:key="id">
-            <view class="category-column2" bindtap="tabClick" data-id="{{item.occupationid}}">
+          <view class="category-list2" wx:for="{{categories_p2}}" wx:key="occupationid">
+            <view class="category-column2" bindtap="onHomeCategoryTap" data-id="{{item.occupationid}}" data-name="{{item.proname}}">
               <image mode="aspectFill" class="category-imgbox2" src="{{item.wapimg}}"></image>
               <view class="category-title">{{item.proname}}</view>
             </view>
@@ -66,10 +75,10 @@
 <view class="hunli-anli-container2">
   <van-grid column-num='2'>
     <van-grid-item use-slot>
-      <image style="width: 100%; height: 110px;" src="../../images/wedding/getcase_img.png" />
+      <image style="width: 100%; height: 110px;" src="/images/wedding/getcase_img.png" mode="aspectFill" bindtap="onWeddingPromoTap" data-action="case" />
     </van-grid-item>
     <van-grid-item use-slot>
-      <image style="width: 100%; height: 110px;" src="../../images/wedding/iwantwedding.png" />
+      <image style="width: 100%; height: 110px;" src="/images/wedding/iwantwedding.png" mode="aspectFill" bindtap="onWeddingPromoTap" data-action="plan" />
     </van-grid-item>
   </van-grid>
 </view>
@@ -78,11 +87,36 @@
   <van-sidebar-item title="常用工具" custom-class='sidebar-common' />
 </van-sidebar>
 <van-grid column-num='5'>
-  <van-grid-item icon="/images/wedding/icon_xuqiu.png" text="发布需求" />
-  <van-grid-item icon="/images/wedding/wodedangqi_icon.png" text="发布档期" />
-  <van-grid-item icon="/images/wedding/icon_qingjian.png" text="电子请柬" />
-  <van-grid-item icon="/images/wedding/look_dangan.png" text="查看档期" />
-  <van-grid-item icon="/images/wedding/chakanxuqiu_icon.png" text="查看需求" />
+  <van-grid-item use-slot>
+    <view class="wedding-tool-item" bindtap="onWeddingToolTap" data-action="publishNeed">
+      <image class="wedding-tool-icon" src="/images/wedding/icon_xuqiu.png" mode="aspectFit" />
+      <text class="wedding-tool-text">发布需求</text>
+    </view>
+  </van-grid-item>
+  <van-grid-item use-slot>
+    <view class="wedding-tool-item" bindtap="onWeddingToolTap" data-action="publishSchedule">
+      <image class="wedding-tool-icon" src="/images/wedding/wodedangqi_icon.png" mode="aspectFit" />
+      <text class="wedding-tool-text">发布档期</text>
+    </view>
+  </van-grid-item>
+  <van-grid-item use-slot>
+    <view class="wedding-tool-item" bindtap="onWeddingToolTap" data-action="invitation">
+      <image class="wedding-tool-icon" src="/images/wedding/icon_qingjian.png" mode="aspectFit" />
+      <text class="wedding-tool-text">电子请柬</text>
+    </view>
+  </van-grid-item>
+  <van-grid-item use-slot>
+    <view class="wedding-tool-item" bindtap="onWeddingToolTap" data-action="scheduleList">
+      <image class="wedding-tool-icon" src="/images/wedding/look_dangan.png" mode="aspectFit" />
+      <text class="wedding-tool-text">查看档期</text>
+    </view>
+  </van-grid-item>
+  <van-grid-item use-slot>
+    <view class="wedding-tool-item" bindtap="onWeddingToolTap" data-action="needList">
+      <image class="wedding-tool-icon" src="/images/wedding/chakanxuqiu_icon.png" mode="aspectFit" />
+      <text class="wedding-tool-text">查看需求</text>
+    </view>
+  </van-grid-item>
 </van-grid>
 <van-sidebar>
   <van-sidebar-item title="热门活动" custom-class='sidebar-common' />
@@ -112,26 +146,26 @@
   </scroll-view>
 </block>
 
-<block wx:if="{{remenhuodong}}">
+<block wx:if="{{remenhuodong && remenhuodong.rmhd1}}">
   <van-divider custom-class="table-text" contentPosition="center">热门活动</van-divider>
   <view class="hunli-anli-container2">
     <van-grid column-num='2'>
       <van-grid-item use-slot>
-        <image style="width: 100%; height: 200rpx;" mode="aspectFill" src="{{remenhuodong.rmhd1.wapimg}}" />
+        <image style="width: 100%; height: 200rpx;" mode="aspectFill" src="{{remenhuodong.rmhd1.wapimg || load_img}}" />
       </van-grid-item>
       <van-grid-item use-slot>
-        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd2.wapimg}}" />
+        <image style="width: 100%; height: 110px;" src="{{(remenhuodong.rmhd2 && remenhuodong.rmhd2.wapimg) || load_img}}" />
       </van-grid-item>
     </van-grid>
     <van-grid column-num='3'>
       <van-grid-item use-slot>
-        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd3.wapimg}}" />
+        <image style="width: 100%; height: 110px;" src="{{(remenhuodong.rmhd3 && remenhuodong.rmhd3.wapimg) || load_img}}" />
       </van-grid-item>
       <van-grid-item use-slot>
-        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd4.wapimg}} " />
+        <image style="width: 100%; height: 110px;" src="{{(remenhuodong.rmhd4 && remenhuodong.rmhd4.wapimg) || load_img}}" />
       </van-grid-item>
       <van-grid-item use-slot>
-        <image style="width: 100%; height: 110px;" src="{{remenhuodong.rmhd5.wapimg}} " />
+        <image style="width: 100%; height: 110px;" src="{{(remenhuodong.rmhd5 && remenhuodong.rmhd5.wapimg) || load_img}}" />
       </van-grid-item>
     </van-grid>
   </view>
@@ -142,29 +176,31 @@
   <view class="shop-short-container2">
     <view class="bbbbbb">
       <view class="shop_item_container">
-        <view class="shop-item-list" wx:for="{{youlike}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typpe="{{item.typpe}}" data-shopid="{{item.shopid}}">
+        <view class="shop-item-list" wx:for="{{youlike}}" wx:for-index="idx" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-typee="{{item.typee}}" data-shopid="{{item.shopid}}" data-videourl="{{item.video_url}}">
           <view class="shop-host-item" wx:if="{{item.typee === '4'}}">
             <view class="shop_item_head">
-              <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
-                <image
-                  slot="loading"
-                  src="{{load_img}}"
-                  mode="aspectFill"
-                  style="width: 100%; height: 100%;"
-                />
-                <image
-                  slot="error"
-                  src="{{load_imag_error}}"
-                  mode="aspectFill"
-                  style="width: 100%; height: 100%;"
-                />
-              </van-image>
-              <view class="shop_label_container">
+              <view catchtap="onMerchantTap" data-userid="{{item.userid}}" data-name="{{item.nickname}}" data-head="{{item.head}}" data-occupation="{{item.occupationid}}" data-followed="{{item.follow}}">
+                <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
+                  <image
+                    slot="loading"
+                    src="{{load_img}}"
+                    mode="aspectFill"
+                    style="width: 100%; height: 100%;"
+                  />
+                  <image
+                    slot="error"
+                    src="{{load_imag_error}}"
+                    mode="aspectFill"
+                    style="width: 100%; height: 100%;"
+                  />
+                </van-image>
+              </view>
+              <view class="shop_label_container" catchtap="onMerchantTap" data-userid="{{item.userid}}" data-name="{{item.nickname}}" data-head="{{item.head}}" data-occupation="{{item.occupationid}}" data-followed="{{item.follow}}">
                 <view class="shop_name">{{item.nickname}}</view>
                 <view class="shop_type">{{item.occupationid}}</view>
               </view>
-              <view class="shop_focus_btn">
-                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              <view class="shop_focus_btn" catchtap="onMerchantFollowTap" data-idx="{{idx}}" data-userid="{{item.userid}}">
+                <van-button plain hairline type="primary" size="mini">{{item.follow == 1 ? '已关注' : '关注'}}</van-button>
               </view>
             </view>
             <image src="{{item.shopimg || load_img}}" class="shop_cover" mode="aspectFill" lazy-load="true" binderror="onShopImageError" data-idx="{{idx}}" data-field="shopimg" />
@@ -174,26 +210,28 @@
           </view>
           <view class="shop-host-item" wx:if="{{item.typee === '3'}}">
             <view class="shop_item_head">
-              <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
-                <image
-                  slot="loading"
-                  src="{{load_img}}"
-                  mode="aspectFill"
-                  style="width: 100%; height: 100%;"
-                />
-                <image
-                  slot="error"
-                  src="{{load_imag_error}}"
-                  mode="aspectFill"
-                  style="width: 100%; height: 100%;"
-                />
-              </van-image>
-              <view class="shop_label_container">
+              <view catchtap="onMerchantTap" data-userid="{{item.userid}}" data-name="{{item.nickname}}" data-head="{{item.head}}" data-occupation="{{item.occupationid}}" data-followed="{{item.follow}}">
+                <van-image round width="3rem" height="3rem" fit="cover" src="{{item.head || load_img}}" useLoadingSlot useErrorSlot bind:error="onShopAvatarError" data-idx="{{idx}}">
+                  <image
+                    slot="loading"
+                    src="{{load_img}}"
+                    mode="aspectFill"
+                    style="width: 100%; height: 100%;"
+                  />
+                  <image
+                    slot="error"
+                    src="{{load_imag_error}}"
+                    mode="aspectFill"
+                    style="width: 100%; height: 100%;"
+                  />
+                </van-image>
+              </view>
+              <view class="shop_label_container" catchtap="onMerchantTap" data-userid="{{item.userid}}" data-name="{{item.nickname}}" data-head="{{item.head}}" data-occupation="{{item.occupationid}}" data-followed="{{item.follow}}">
                 <view class="shop_name">{{item.nickname}}</view>
                 <view class="shop_type">{{item.occupationid}}</view>
               </view>
-              <view class="shop_focus_btn">
-                <van-button plain hairline type="primary" size="mini">关注</van-button>
+              <view class="shop_focus_btn" catchtap="onMerchantFollowTap" data-idx="{{idx}}" data-userid="{{item.userid}}">
+                <van-button plain hairline type="primary" size="mini">{{item.follow == 1 ? '已关注' : '关注'}}</van-button>
               </view>
             </view>
             <view class="shop-video-container">
@@ -234,7 +272,7 @@
     </view>
 
     <view class="club-list">
-      <view class="club-item" wx:for="{{clubList}}" wx:key="id">
+      <view class="club-item" wx:for="{{clubList}}" wx:key="id" bindtap="onClubItemTap" data-id="{{item.id}}">
         <image class="club-item-img" src="{{item.logourl}}" mode="aspectFill" lazy-load="true" />
         <view class="club-item-body">
           <view class="club-item-title van-ellipsis">{{item.name}}</view>
@@ -250,7 +288,7 @@
         </view>
       </view>
 
-      <van-empty wx:if="{{!clubLoading && (!clubList || clubList.length === 0)}}" image="../../images/zw.png" description="暂无社团"></van-empty>
+      <van-empty wx:if="{{!clubLoading && (!clubList || clubList.length === 0)}}" image="../../images/zw.webp" description="暂无社团"></van-empty>
 
       <view wx:if="{{clubLoading}}" class="club-loading">加载中...</view>
       <view wx:if="{{clubNoMore && clubList && clubList.length > 0}}" class="club-nomore">没有更多了</view>
@@ -320,7 +358,7 @@
     <view class="case-list">
       <view class="case-card" wx:for="{{caseList}}" wx:key="id" bindtap="onCaseItemTap" data-id="{{item.id}}">
         <view class="case-card-head">
-          <image class="case-avatar" src="{{item.head}}" mode="aspectFill" lazy-load="true" />
+          <image class="case-avatar" src="{{item.head}}" mode="aspectFill" lazy-load="true" binderror="onCaseAvatarError" data-idx="{{index}}" />
           <text class="case-name van-ellipsis">{{item.nickname}}</text>
           <view class="case-care">
             <van-icon name="{{item.afollow === 1 ? 'like' : 'like-o'}}" size="18" color="{{item.afollow === 1 ? '#ff5384' : '#999'}}" />
@@ -349,7 +387,7 @@
         </view>
       </view>
 
-      <van-empty wx:if="{{!caseLoading && (!caseList || caseList.length === 0)}}" image="../../images/zw.png" description="暂无案例"></van-empty>
+      <van-empty wx:if="{{!caseLoading && (!caseList || caseList.length === 0)}}" image="../../images/zw.webp" description="暂无案例"></van-empty>
       <view wx:if="{{caseLoading}}" class="case-loading">加载中...</view>
       <view wx:if="{{caseNoMore && caseList && caseList.length > 0}}" class="case-nomore">没有更多了</view>
     </view>

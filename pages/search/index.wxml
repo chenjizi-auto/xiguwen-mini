@@ -1,21 +1,45 @@
-<van-search placeholder="请输入搜索关键词" focus bind:search="search" use-right-icon-slot>
-  <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
-</van-search>
-<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无历史搜索" />
-<van-cell-group wx:if="{{ list && list.length > 0 }}" title="历史搜索">
-  <van-cell wx:for="{{list}}" wx:key="*this">
-    <view slot="title">
-      <view data-idx="{{ index }}" bindtap="go">{{ item }}</view>
-    </view>
-    <van-tag
-      closeable
-      size="medium"
-      type="primary"
-      id="primary"
-      data-idx="{{ index }}"
-      bind:close="onClose"
+<view class="page">
+  <view class="search-bar">
+    <van-search
+      value="{{inputVal}}"
+      placeholder="请输入搜索内容"
+      focus
+      use-right-icon-slot
+      bind:change="onSearchChange"
+      bind:search="search"
     >
-      删除
-    </van-tag>
-  </van-cell>
-</van-cell-group>
+      <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
+    </van-search>
+    <text class="search-cancel" bindtap="onCancel">取消</text>
+  </view>
+
+  <view class="search-card">
+    <view class="section-title">热门搜索</view>
+    <view class="tags-wrap" wx:if="{{hotList && hotList.length > 0}}">
+      <view
+        wx:for="{{hotList}}"
+        wx:key="*this"
+        class="search-tag"
+        data-keyword="{{item}}"
+        bindtap="tapHotKeyword"
+      >
+        {{item}}
+      </view>
+    </view>
+    <van-empty wx:elif="{{!loadingHot}}" image="search" description="暂无热门搜索" />
+  </view>
+
+  <view class="search-card">
+    <view class="section-header">
+      <text class="section-title">历史搜索</text>
+      <text wx:if="{{list && list.length > 0}}" class="section-action" bindtap="clearHistory">清空</text>
+    </view>
+    <view class="tags-wrap" wx:if="{{list && list.length > 0}}">
+      <view class="history-chip" wx:for="{{list}}" wx:key="*this">
+        <view class="history-chip-text" data-idx="{{ index }}" bindtap="go">{{ item }}</view>
+        <van-icon name="cross" size="12" color="#999" data-idx="{{ index }}" bind:click="onClose" />
+      </view>
+    </view>
+    <van-empty wx:else image="search" description="暂无历史搜索" />
+  </view>
+</view>

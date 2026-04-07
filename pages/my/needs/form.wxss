@@ -1,0 +1,113 @@
+.form-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.hero-card,
+.form-card,
+.switch-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.hero-kicker {
+  font-size: 22rpx;
+  line-height: 32rpx;
+  color: #e26b63;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+}
+
+.hero-title {
+  margin-top: 8rpx;
+  font-size: 40rpx;
+  line-height: 52rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.hero-desc {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #7b7f87;
+}
+
+.form-row,
+.switch-row {
+  display: flex;
+  align-items: center;
+  min-height: 96rpx;
+}
+
+.form-row--top {
+  align-items: flex-start;
+  padding-top: 8rpx;
+}
+
+.form-label {
+  width: 160rpx;
+  flex-shrink: 0;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #222;
+}
+
+.form-input,
+.form-value {
+  flex: 1;
+  min-width: 0;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #222;
+  text-align: right;
+}
+
+.form-value--placeholder {
+  color: #b0b3b8;
+}
+
+.form-textarea {
+  flex: 1;
+  min-width: 0;
+  height: 180rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #222;
+  text-align: left;
+}
+
+.form-divider {
+  height: 1rpx;
+  background: #f3f4f6;
+}
+
+.switch-copy {
+  flex: 1;
+  min-width: 0;
+  padding-right: 24rpx;
+}
+
+.switch-title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #222;
+}
+
+.switch-desc {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}
+
+.submit-bar {
+  margin-top: 40rpx;
+}

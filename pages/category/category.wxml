@@ -19,20 +19,43 @@
   </view>
 
   <view class="find-filter">
-    <view wx:if="{{circleActive === 0}}" class="find-job" bindtap="openJobPopup">
-      <text class="find-job-text">{{jobTypeName}}</text>
-      <van-icon name="arrow-down" size="14" color="#666" />
+    <view wx:if="{{circleActive === 0}}" class="find-filter-row">
+      <view class="find-filter-item find-filter-item--category" bindtap="openFilterPopup" data-mode="category">
+        <text class="find-filter-text">{{jobTypeName}}</text>
+        <van-icon name="arrow-down" size="12" color="#666" />
+      </view>
+      <view class="find-filter-item {{orderActive !== null ? 'find-filter-item--active' : ''}}" bindtap="openFilterPopup" data-mode="sort">
+        <text class="find-filter-text">{{sortLabel}}</text>
+        <van-icon name="arrow-down" size="12" color="#666" />
+      </view>
+      <view class="find-filter-item {{areaName !== '全区域' ? 'find-filter-item--active' : ''}}" bindtap="openFilterPopup" data-mode="area">
+        <text class="find-filter-text">{{areaName}}</text>
+        <van-icon name="arrow-down" size="12" color="#666" />
+      </view>
+      <view class="find-filter-item {{jobTypeName !== '全部' ? 'find-filter-item--active' : ''}}" bindtap="openFilterPopup" data-mode="filter">
+        <text class="find-filter-text">{{filterSummary}}</text>
+        <van-icon name="filter-o" size="12" color="#666" />
+      </view>
     </view>
 
-    <view class="find-order">
-      <view class="find-order-item {{orderActive === 0 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="0">最新</view>
-      <view class="find-order-item {{orderActive === 1 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="1">热门</view>
-      <view class="find-order-item {{orderActive === 2 ? 'find-order-item--active' : ''}}" bindtap="onOrderTap" data-idx="2">关注</view>
+    <view wx:else class="find-filter-row">
+      <view class="find-filter-item {{orderActive !== null ? 'find-filter-item--active' : ''}}" bindtap="openFilterPopup" data-mode="sort">
+        <text class="find-filter-text">{{sortLabel}}</text>
+        <van-icon name="arrow-down" size="12" color="#666" />
+      </view>
+      <view class="find-filter-item {{areaName !== '全区域' ? 'find-filter-item--active' : ''}}" bindtap="openFilterPopup" data-mode="area">
+        <text class="find-filter-text">{{areaName}}</text>
+        <van-icon name="arrow-down" size="12" color="#666" />
+      </view>
+      <view class="find-filter-item" bindtap="openFilterPopup" data-mode="filter">
+        <text class="find-filter-text">{{filterSummary}}</text>
+        <van-icon name="filter-o" size="12" color="#666" />
+      </view>
     </view>
   </view>
 
   <view class="discover-list">
-    <view class="discover-card" wx:for="{{discoverList}}" wx:for-index="idx" wx:key="id">
+    <view class="discover-card" wx:for="{{discoverList}}" wx:for-index="idx" wx:key="id" bindtap="onDiscoverTap" data-id="{{item.id}}">
       <view class="discover-head">
         <image class="discover-avatar" src="{{item.head || load_img}}" mode="aspectFill" lazy-load="true" binderror="onAvatarError" data-idx="{{idx}}" />
         <view class="discover-user">
@@ -86,7 +109,7 @@
       </view>
     </view>
 
-    <van-empty wx:if="{{loaded && (!discoverList || discoverList.length === 0)}}" image="../../images/zw.png" description="暂无内容"></van-empty>
+    <van-empty wx:if="{{loaded && (!discoverList || discoverList.length === 0)}}" image="../../images/zw.webp" description="暂无内容"></van-empty>
     <view wx:if="{{loading}}" class="discover-loading">加载中...</view>
     <view wx:if="{{noMore && discoverList && discoverList.length > 0}}" class="discover-nomore">没有更多了</view>
   </view>
@@ -105,6 +128,35 @@
           data-name="{{item.proname}}"
         />
       </van-cell-group>
+    </view>
+  </van-popup>
+
+  <van-popup show="{{filterPopupShow}}" position="bottom" round bind:close="closeFilterPopup">
+    <view class="job-popup">
+      <view class="job-popup-title">
+        <text wx:if="{{popupMode === 'sort'}}">综合排序</text>
+        <text wx:elif="{{popupMode === 'area'}}">区域</text>
+        <text wx:else>筛选</text>
+      </view>
+
+      <van-cell-group wx:if="{{popupMode === 'sort'}}">
+        <van-cell
+          wx:for="{{sortOptions}}"
+          wx:key="key"
+          title="{{item.label}}"
+          clickable
+          bind:click="selectSortOption"
+          data-key="{{item.key}}"
+        />
+      </van-cell-group>
+
+      <view wx:else class="find-filter-panel">
+        <view class="find-filter-panel__text">当前发现页后台只接了分类和排序。区域已接入完整城市选择，更多高级筛选先保留安卓样式入口。</view>
+        <view class="find-filter-panel__actions">
+          <view class="find-filter-panel__btn find-filter-panel__btn--ghost" bindtap="closeFilterPopup">关闭</view>
+          <view class="find-filter-panel__btn" bindtap="resetDiscoverFilter">重置分类</view>
+        </view>
+      </view>
     </view>
   </van-popup>
 </view>

@@ -1,0 +1,71 @@
+<view class="page">
+  <view class="hero" wx:if="{{refund}}">
+    <view class="hero-title">{{statusText}}</view>
+    <view class="hero-subtitle">{{statusDesc}}</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{refund && order}}">
+      <view class="card">
+        <view class="card-hd">
+          <view class="card-title">{{contactTitle}}</view>
+          <view class="card-subtitle">{{contactName || '未提供'}}</view>
+        </view>
+        <view class="product">
+          <image class="product-cover" src="{{order.baojia_image || '/images/default.webp'}}" mode="aspectFill" />
+          <view class="product-meta">
+            <view class="product-title van-multi-ellipsis--l2">{{order.baojia_name || '未命名服务'}}</view>
+            <view class="product-spec">{{order.specification || '暂无规格'}}</view>
+            <view class="product-price">¥ {{refund.tui_amount || order.order_amount || '0.00'}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">退款信息</view>
+        <view class="row" wx:for="{{infoRows}}" wx:key="label">
+          <view class="row-label">{{item.label}}</view>
+          <view class="row-value row-value--plain">{{item.value}}</view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !refund && !errorText}}" image="/images/empty/nodata.webp" description="暂无退款详情" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+
+  <view class="footer" wx:if="{{refund}}">
+    <view
+      wx:for="{{actionButtons}}"
+      wx:key="key"
+      class="footer-btn footer-btn--{{item.style === 'ghost' ? 'ghost' : 'primary'}}"
+      bindtap="onActionTap"
+      data-key="{{item.key}}"
+    >
+      {{item.text}}
+    </view>
+    <view class="footer-btn footer-btn--primary" bindtap="onActionTap" data-key="call">拨打电话</view>
+  </view>
+
+  <van-popup show="{{showReasonPopup}}" position="bottom" round bind:close="onCloseReasonPopup">
+    <view class="reason-popup">
+      <view class="reason-title">拒绝退款</view>
+      <view class="reason-field">
+        <view class="reason-label">原因说明</view>
+        <textarea
+          class="reason-textarea"
+          value="{{reasonText}}"
+          bindinput="onReasonInput"
+          maxlength="200"
+          placeholder="请输入拒绝原因"
+        />
+      </view>
+      <view class="reason-actions">
+        <view class="reason-btn reason-btn--ghost" bindtap="onCloseReasonPopup">取消</view>
+        <view class="reason-btn reason-btn--primary" bindtap="onSubmitReasonPopup">提交</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

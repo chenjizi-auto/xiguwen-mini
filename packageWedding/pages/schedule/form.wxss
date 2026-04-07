@@ -1,0 +1,55 @@
+.schedule-form-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background: #f6f7fb;
+}
+
+.form-card {
+  padding: 30rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.field-grid {
+  display: flex;
+  gap: 20rpx;
+}
+
+.field-group + .field-group,
+.field-grid {
+  margin-top: 24rpx;
+}
+
+.field-group--half {
+  flex: 1;
+  min-width: 0;
+}
+
+.field-label {
+  color: #231f20;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.picker-input,
+.field-textarea {
+  width: 100%;
+  margin-top: 12rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+  color: #222;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.picker-input {
+  min-height: 88rpx;
+  line-height: 44rpx;
+}
+
+.field-textarea {
+  min-height: 260rpx;
+}

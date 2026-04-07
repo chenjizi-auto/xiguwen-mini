@@ -1,0 +1,47 @@
+<view class="invitation-form-page">
+  <view class="form-card">
+    <view class="template-brief" wx:if="{{template}}">
+      <image class="template-thumb" src="{{template.cover}}" mode="aspectFill" />
+      <view class="template-meta">
+        <view class="template-name">{{template.title}}</view>
+        <view class="template-tip">已选择模板</view>
+      </view>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">婚礼日期</view>
+      <picker mode="date" value="{{time.split(' ')[0]}}" bindchange="onDateTimeChange">
+        <view class="picker-input">{{time.split(' ')[0]}}</view>
+      </picker>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">婚礼时间</view>
+      <picker mode="time" value="{{time.split(' ')[1]}}" bindchange="onTimeChange">
+        <view class="picker-input">{{time.split(' ')[1]}}</view>
+      </picker>
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">新郎姓名</view>
+      <input class="field-input" value="{{bridegroom}}" data-key="bridegroom" bindinput="onInput" placeholder="请输入新郎姓名" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">新娘姓名</view>
+      <input class="field-input" value="{{bride}}" data-key="bride" bindinput="onInput" placeholder="请输入新娘姓名" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">酒店名称</view>
+      <input class="field-input" value="{{hotel}}" data-key="hotel" bindinput="onInput" placeholder="请输入酒店名称" />
+    </view>
+
+    <view class="field-group">
+      <view class="field-label">婚礼地址</view>
+      <textarea class="field-textarea" value="{{address}}" data-key="address" bindinput="onInput" placeholder="请输入婚礼地址" maxlength="200" />
+    </view>
+
+    <van-button type="primary" block custom-style="margin-top: 28rpx;" loading="{{saving}}" bind:click="onSaveTap">{{id ? '保存修改' : '生成请柬'}}</van-button>
+  </view>
+</view>

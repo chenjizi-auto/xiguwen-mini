@@ -40,7 +40,7 @@
 
   <block wx:elif="{{activeTab === 1}}">
     <view class="cares-list cares-list--flat" wx:if="{{exampleList.length}}">
-      <view class="example-card" wx:for="{{exampleList}}" wx:key="id" wx:for-index="index" bindtap="onExampleTap">
+      <view class="example-card" wx:for="{{exampleList}}" wx:key="id" wx:for-index="index" bindtap="onExampleTap" data-id="{{item.id}}">
         <image
           class="example-card__cover"
           src="{{item.cover || load_img_erro}}"
@@ -88,7 +88,7 @@
 
   <van-empty
     wx:if="{{activeLoaded && activeListLength === 0}}"
-    image="/images/zw.png"
+    image="/images/zw.webp"
     description="暂无关注内容"
   />
 

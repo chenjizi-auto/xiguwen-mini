@@ -1,30 +1,55 @@
 <view class="setting-page">
+  <view class="setting-profile" bindtap="onProfileCardTap">
+    <image class="setting-profile__avatar" src="{{userCard.head || '/images/default.webp'}}" mode="aspectFill" />
+    <view class="setting-profile__main">
+      <view class="setting-profile__name">{{userCard.nickname}}</view>
+      <view class="setting-profile__meta">{{userCard.mobileText}}</view>
+      <view class="setting-profile__status">{{userCard.statusText}}</view>
+    </view>
+    <view class="setting-item__arrow"></view>
+  </view>
+
   <view class="setting-card setting-card--single">
     <view class="setting-item" data-action="address" bindtap="handleMenuTap">
-      <text class="setting-item__title">收货地址</text>
+      <view class="setting-item__main">
+        <text class="setting-item__title">收货地址</text>
+        <text class="setting-item__desc">{{menuMeta.address}}</text>
+      </view>
       <view class="setting-item__arrow"></view>
     </view>
   </view>
 
   <view class="setting-card">
     <view class="setting-item" data-action="profile" bindtap="handleMenuTap">
-      <text class="setting-item__title">个人资料</text>
+      <view class="setting-item__main">
+        <text class="setting-item__title">个人资料</text>
+        <text class="setting-item__desc">{{menuMeta.profile}}</text>
+      </view>
       <view class="setting-item__arrow"></view>
     </view>
     <view class="setting-divider"></view>
     <view class="setting-item" data-action="account" bindtap="handleMenuTap">
-      <text class="setting-item__title">账号与安全</text>
+      <view class="setting-item__main">
+        <text class="setting-item__title">账号与安全</text>
+        <text class="setting-item__desc">{{menuMeta.account}}</text>
+      </view>
       <view class="setting-item__arrow"></view>
     </view>
     <view class="setting-divider"></view>
     <view class="setting-item" data-action="security" bindtap="handleMenuTap">
-      <text class="setting-item__title">安全设置</text>
+      <view class="setting-item__main">
+        <text class="setting-item__title">安全设置</text>
+        <text class="setting-item__desc">{{menuMeta.security}}</text>
+      </view>
       <view class="setting-item__arrow"></view>
     </view>
     <block wx:if="{{showLogs}}">
       <view class="setting-divider"></view>
       <view class="setting-item" data-action="logs" bindtap="handleMenuTap">
-        <text class="setting-item__title">日志中心</text>
+        <view class="setting-item__main">
+          <text class="setting-item__title">日志中心</text>
+          <text class="setting-item__desc">{{menuMeta.logs}}</text>
+        </view>
         <view class="setting-item__arrow"></view>
       </view>
     </block>

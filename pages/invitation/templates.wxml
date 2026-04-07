@@ -1,0 +1,27 @@
+<view class="template-page">
+  <scroll-view class="type-scroll" scroll-x enable-flex>
+    <view class="type-row">
+      <view
+        class="type-chip {{item.id === activeTypeId ? 'type-chip--active' : ''}}"
+        wx:for="{{types}}"
+        wx:key="id"
+        bindtap="onTypeTap"
+        data-id="{{item.id}}"
+      >{{item.title}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+  <view class="template-list" wx:if="{{list.length}}">
+    <view class="template-card" wx:for="{{list}}" wx:key="id" wx:for-item="item" bindtap="onSelectTap" data-item="{{item}}">
+      <image class="template-cover" src="{{item.cover}}" mode="aspectFill" />
+      <view class="template-title">{{item.title}}</view>
+      <view class="template-sub">{{item.isVip ? 'VIP 模板' : '普通模板'}}</view>
+      <van-button type="primary" size="small" custom-class="template-btn">使用此模板</van-button>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{!loading && !errorText && list.length === 0}}" image="search" description="暂无可用模板" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

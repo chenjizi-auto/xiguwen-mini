@@ -24,8 +24,8 @@ function normalizeFanItem(item = {}) {
 
 Page({
   data: {
-    defaultAvatar: '/images/default.png',
-    load_img_erro: '/images/load_img_erro.png',
+    defaultAvatar: '/images/default.webp',
+    load_img_erro: '/images/load_img_erro.webp',
     fans: [],
     totalText: '全部粉丝(0)',
     loaded: false,

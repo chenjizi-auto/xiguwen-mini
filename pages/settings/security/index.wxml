@@ -1,15 +1,23 @@
 <view class="security-page">
+  <view class="security-hero">
+    <view class="security-hero__label">Security</view>
+    <view class="security-hero__title">安全设置</view>
+    <view class="security-hero__desc">当前校验手机号：{{mobileText}}，{{tipText}}</view>
+  </view>
+
   <view class="security-card">
     <view class="security-item" bindtap="onLoginPasswordTap">
       <view class="security-item__title">登录密码</view>
+      <view class="security-item__desc">修改后需重新登录</view>
       <view class="security-item__arrow"></view>
     </view>
     <view class="security-divider"></view>
     <view class="security-item" bindtap="onPayPasswordTap">
       <view class="security-item__title">支付密码</view>
+      <view class="security-item__desc">用于支付与资金安全</view>
       <view class="security-item__arrow"></view>
     </view>
   </view>
 
-  <view class="security-tip">当前安全校验手机号：{{mobile || '未获取'}}。修改密码后，登录密码会要求重新登录。</view>
+  <view class="security-tip">若手机号已更换，请先前往“账号与安全”完成改绑后再进行密码操作。</view>
 </view>

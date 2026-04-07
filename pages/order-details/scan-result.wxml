@@ -40,7 +40,7 @@
       </view>
       <view class="address-sec">
         <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-address.png"></image>
+          <image class="icon" src="/images/order-details/icon-address.webp"></image>
         </view>
         <view class="right-box">
           <view class="name-tel">{{orderDetail.logistics.linkMan}} {{orderDetail.logistics.mobile}}</view>

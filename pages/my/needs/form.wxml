@@ -1,0 +1,58 @@
+<view class="form-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Need Form</view>
+    <view class="hero-title">{{pageTitle}}</view>
+    <view class="hero-desc">按需求填写标题、价格和地区，提交后会出现在“我的需求”里。</view>
+  </view>
+
+  <view class="form-card">
+    <view class="form-row">
+      <view class="form-label">需求类型</view>
+      <view class="form-value">{{typeText}}</view>
+    </view>
+    <view class="form-divider"></view>
+    <view class="form-row">
+      <view class="form-label">标题</view>
+      <input class="form-input" value="{{title}}" maxlength="30" placeholder="请输入标题" bindinput="onTitleInput" />
+    </view>
+    <view class="form-divider"></view>
+    <view class="form-row">
+      <view class="form-label">意向价格</view>
+      <input class="form-input" type="digit" value="{{price}}" maxlength="10" placeholder="请输入意向价格" bindinput="onPriceInput" />
+    </view>
+    <view class="form-divider"></view>
+    <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+      <view class="form-row">
+        <view class="form-label">地区</view>
+        <view class="form-value {{regionText ? '' : 'form-value--placeholder'}}">{{regionText || '请选择地区'}}</view>
+      </view>
+    </picker>
+    <view class="form-divider"></view>
+    <view class="form-row form-row--top">
+      <view class="form-label">其他说明</view>
+      <textarea class="form-textarea" value="{{details}}" maxlength="300" placeholder="还可以输入其他说明哦~" bindinput="onDetailsInput"></textarea>
+    </view>
+  </view>
+
+  <view class="switch-card">
+    <view class="switch-row">
+      <view class="switch-copy">
+        <view class="switch-title">公开电话号码</view>
+        <view class="switch-desc">电话隐私将不受保护</view>
+      </view>
+      <van-switch size="24" active-color="#e64340" checked="{{openPhone}}" bind:change="onPhoneSwitch" />
+    </view>
+    <view class="form-divider"></view>
+    <view class="switch-row">
+      <view class="switch-copy">
+        <view class="switch-title">公开即时通讯</view>
+        <view class="switch-desc">允许其他用户直接发起沟通</view>
+      </view>
+      <van-switch size="24" active-color="#e64340" checked="{{openMessage}}" bind:change="onMessageSwitch" />
+    </view>
+  </view>
+
+  <view class="submit-bar">
+    <van-button type="primary" block loading="{{submitting}}" bind:click="submit">{{isEdit ? '保存修改' : '立即发布'}}</van-button>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<view class="speech-detail-page">
+  <view class="detail-card">
+    <view class="detail-title">{{title}}</view>
+    <view class="detail-content">{{content}}</view>
+  </view>
+</view>

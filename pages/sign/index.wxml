@@ -7,6 +7,6 @@
   formatter="{{ formatter }}"
 />
 <view class="zwqd-box">
-   <image src="/images/zw.png" bindtap="sign"></image>
+   <image src="/images/zw.webp" bindtap="sign"></image>
    <view>点击签到</view>
 </view>

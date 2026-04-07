@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <view class="date-card">
+      <view class="date-nav" bindtap="onPrevDay">上一天</view>
+      <picker mode="date" value="{{dateValue}}" bindchange="onDateChange">
+        <view class="date-center">{{dateText}}</view>
+      </picker>
+      <view class="date-nav" bindtap="onNextDay">下一天</view>
+    </view>
+
+    <view class="list-card" wx:if="{{list.length}}">
+      <view class="list-title">邀请列表</view>
+      <view class="invite-row" wx:for="{{list}}" wx:key="id">
+        <view class="invite-main">
+          <view class="invite-mobile">{{item.mobile}}</view>
+          <view class="invite-index">第{{item.index}}位</view>
+        </view>
+        <view class="invite-time">{{item.created_at}}</view>
+      </view>
+    </view>
+
+    <van-empty wx:if="{{!loading && !list.length && !errorText}}" image="/images/empty/nodata.webp" description="当日暂无邀请明细" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+</view>

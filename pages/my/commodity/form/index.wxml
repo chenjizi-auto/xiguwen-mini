@@ -1,0 +1,84 @@
+<scroll-view scroll-y class="atlas-edit-page">
+  <view class="atlas-edit-card">
+    <view class="atlas-edit-title">{{pageTitle}}</view>
+    <view class="atlas-edit-sub">先接入核心商品资料，SKU 暂按单规格空数组提交</view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品类目</view>
+      <view class="picker-field {{form.parentTypeText ? '' : 'picker-field--placeholder'}}" bindtap="chooseParentType">{{form.parentTypeText || '请选择商品类目'}}</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品子类</view>
+      <view class="picker-field {{form.childTypeText ? '' : 'picker-field--placeholder'}}" bindtap="chooseChildType">{{form.childTypeText || '请选择商品子类'}}</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品名称</view>
+      <input class="atlas-edit-input" value="{{form.name}}" maxlength="60" placeholder="请输入商品名称" data-key="name" bindinput="onInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品价格</view>
+      <input class="atlas-edit-input" value="{{form.price}}" type="digit" maxlength="10" placeholder="请输入商品价格" data-key="price" bindinput="onInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品单位</view>
+      <input class="atlas-edit-input" value="{{form.unit}}" maxlength="20" placeholder="请输入商品单位" data-key="unit" bindinput="onInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">现金抵扣券</view>
+      <input class="atlas-edit-input" value="{{form.couponPrice}}" type="digit" maxlength="10" placeholder="请输入抵扣金额" data-key="couponPrice" bindinput="onInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">商品排序</view>
+      <input class="atlas-edit-input" value="{{form.weight}}" type="digit" maxlength="6" placeholder="请输入排序值" data-key="weight" bindinput="onInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">运费模板</view>
+      <view class="picker-field {{form.freightText ? '' : 'picker-field--placeholder'}}" bindtap="chooseFreight">{{form.freightText || '请选择运费模板'}}</view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">商品地区</view>
+        <view class="atlas-edit-tip">{{form.areaText || '请选择地区'}}</view>
+      </view>
+      <picker mode="selector" range="{{provinces}}" range-key="name" value="{{provinceIndex}}" bindchange="onProvinceChange">
+        <view class="picker-field {{provinces.length ? '' : 'picker-field--placeholder'}}">{{provinceText}}</view>
+      </picker>
+      <picker mode="selector" range="{{cities}}" range-key="name" value="{{cityIndex}}" bindchange="onCityChange">
+        <view class="picker-field picker-field--mt {{cities.length ? '' : 'picker-field--placeholder'}}">{{cityText}}</view>
+      </picker>
+      <picker mode="selector" range="{{areas}}" range-key="name" value="{{areaIndex}}" bindchange="onAreaChange">
+        <view class="picker-field picker-field--mt {{areas.length ? '' : 'picker-field--placeholder'}}">{{areaTextDisplay}}</view>
+      </picker>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">商品图片</view>
+        <view class="atlas-edit-tip">{{photoList.length}}/{{maxPhotoCount}}</view>
+      </view>
+      <view class="atlas-edit-grid">
+        <view wx:for="{{photoList}}" wx:key="*this" class="atlas-edit-grid-item atlas-edit-grid-item--image">
+          <image class="atlas-edit-grid-image" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" />
+          <view class="atlas-edit-grid-remove" bindtap="removePhoto" data-index="{{index}}">×</view>
+        </view>
+        <view wx:if="{{photoList.length < maxPhotoCount}}" class="atlas-edit-grid-item atlas-edit-grid-item--picker" bindtap="choosePhotos">
+          <text class="atlas-edit-picker-plus">+</text>
+          <text class="atlas-edit-grid-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="atlas-edit-safe"></view>
+  <view class="atlas-edit-actions">
+    <view class="atlas-edit-submit" bindtap="onSave">{{saving ? '保存中...' : '保存商品'}}</view>
+  </view>
+</scroll-view>

@@ -1,0 +1,92 @@
+.speech-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top left, rgba(160, 114, 76, 0.14), transparent 32%),
+    linear-gradient(180deg, #fff9f6 0%, #f6f7fb 300rpx, #f6f7fb 100%);
+}
+
+.hero-card,
+.toolbar-card,
+.speech-card {
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-kicker {
+  color: #a0724c;
+  font-size: 22rpx;
+  letter-spacing: 6rpx;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #2b211b;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-desc {
+  margin-top: 14rpx;
+  color: #8b7b71;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.toolbar-card,
+.speech-card,
+.speech-actions {
+  display: flex;
+}
+
+.toolbar-card,
+.speech-card {
+  margin-top: 20rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbar-title,
+.speech-title {
+  color: #2b211b;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.speech-list {
+  margin-top: 20rpx;
+}
+
+.speech-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.speech-content,
+.loading-text,
+.state-error {
+  margin-top: 12rpx;
+  color: #8b7b71;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.speech-actions {
+  flex-direction: column;
+  gap: 12rpx;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+}
+
+.speech-btn {
+  min-width: 132rpx !important;
+}
+
+.loading-text,
+.state-error {
+  text-align: center;
+}

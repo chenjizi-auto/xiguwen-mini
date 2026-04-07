@@ -22,7 +22,9 @@ Page({
     submitting: false,
     canPublish: false,
     placeholder: '分享这一刻的想法…',
-    maxImageCount: MAX_IMAGE_COUNT
+    maxImageCount: MAX_IMAGE_COUNT,
+    remainingCount: MAX_IMAGE_COUNT,
+    showAddCell: true
   },
 
   onLoad() {
@@ -92,7 +94,9 @@ Page({
 
   syncPublishState() {
     this.setData({
-      canPublish: !!(this.data.content || '').trim()
+      canPublish: !!(this.data.content || '').trim(),
+      remainingCount: Math.max(MAX_IMAGE_COUNT - this.data.images.length, 0),
+      showAddCell: this.data.images.length < MAX_IMAGE_COUNT
     })
   },
 
@@ -144,6 +148,7 @@ Page({
         this.setData({
           images: this.data.images.concat(tempFilePaths).slice(0, MAX_IMAGE_COUNT)
         })
+        this.syncPublishState()
         this.saveDraft()
       }
     })
@@ -164,6 +169,7 @@ Page({
     const images = this.data.images.slice()
     images.splice(index, 1)
     this.setData({ images })
+    this.syncPublishState()
     this.saveDraft()
   },
 

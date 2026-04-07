@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-kicker">会员中心</view>
+    <view class="hero-title">{{title}}</view>
+    <view class="hero-sub">{{type === 'shop' ? '开通后可获得更高展示优先级与商家会员标识。' : '开通后可获得用户会员专属权益。'}}</view>
+  </view>
+
+  <view class="card" wx:if="{{vipInfo}}">
+    <view class="status-row">
+      <view class="status-badge {{vipInfo.opened ? 'status-badge--on' : ''}}">{{vipInfo.opened ? '已开通' : '未开通'}}</view>
+      <view class="status-text" wx:if="{{type === 'shop' && vipInfo.opened}}">有效期：{{vipInfo.startDate}} 至 {{vipInfo.endDate}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{benefits.length}}">
+    <view class="section-title">会员权益</view>
+    <view class="benefit-list">
+      <view class="benefit-item" wx:for="{{benefits}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{plans.length}}">
+    <view class="section-title">选择套餐</view>
+    <view class="plan-list">
+      <view wx:for="{{plans}}" wx:key="label" class="plan-item {{selectedIndex === index ? 'plan-item--active' : ''}}" data-index="{{index}}" bindtap="onPlanTap">
+        <view class="plan-name">{{item.label}}</view>
+        <view class="plan-price">¥ {{item.price}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-wrap">
+    <view class="submit-btn {{vipInfo && vipInfo.opened ? 'submit-btn--disabled' : ''}}" bindtap="onOpenVip">
+      {{vipInfo && vipInfo.opened ? '已开通会员' : (paying ? '支付中...' : '微信支付开通')}}
+    </view>
+  </view>
+</view>

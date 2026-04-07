@@ -1,0 +1,132 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+  padding-bottom: 140rpx;
+}
+
+.content {
+  padding: 20rpx 24rpx 0;
+}
+
+.state-error {
+  margin-bottom: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: #fff1f0;
+  color: #d4380d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+
+.card {
+  margin-bottom: 20rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+  overflow: hidden;
+}
+
+.product {
+  display: flex;
+  padding: 24rpx 28rpx 28rpx;
+}
+
+.product-cover {
+  width: 144rpx;
+  height: 144rpx;
+  border-radius: 20rpx;
+  background: #f3f4f6;
+  flex-shrink: 0;
+}
+
+.product-meta {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20rpx;
+}
+
+.product-title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.product-spec {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #7b7f87;
+}
+
+.product-price {
+  margin-top: 18rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 600;
+  color: #e64340;
+}
+
+.section-title {
+  padding: 26rpx 28rpx 8rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.field {
+  padding: 18rpx 28rpx 26rpx;
+  border-top: 1rpx solid #f3f4f6;
+}
+
+.field-label {
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}
+
+.field-input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+  background: #f7f8fa;
+  padding: 22rpx 24rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #222;
+}
+
+.loading-text {
+  padding: 18rpx 0 26rpx;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #8c8f96;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20rpx 24rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 -8rpx 28rpx rgba(19, 27, 42, 0.06);
+}
+
+.footer-btn {
+  height: 84rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #f06b62 0%, #e64340 100%);
+}

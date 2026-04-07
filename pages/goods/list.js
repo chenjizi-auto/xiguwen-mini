@@ -10,7 +10,17 @@ Page({
     listType: 1, // 1为1个商品一行，2为2个商品一行    
     name: '', // 搜索关键词
     orderBy: '', // 排序规则
-    page: 1 // 读取第几页
+    page: 1, // 读取第几页
+    goods: [],
+    loading: false,
+    hasMore: true,
+    resultCountText: '',
+    sortOptions: [
+      { label: '综合', value: '' },
+      { label: '新品', value: 'addedDown' },
+      { label: '销量', value: 'ordersDown' },
+      { label: '价格', value: 'priceUp' }
+    ]
   },
 
   /**
@@ -44,9 +54,7 @@ Page({
     })
   },
   async search(){
-    wx.showLoading({
-      title: '加载中',
-    })
+    this.setData({ loading: true })
     const _data = {
       orderBy: this.data.orderBy,
       page: this.data.page,
@@ -59,23 +67,34 @@ Page({
       _data.categoryId = this.data.categoryId
     }
     const res = await WXAPI.goodsv2(_data)
-    wx.hideLoading()
+    this.setData({ loading: false })
     if (res.code == 0) {
+      const result = (res.data && res.data.result) || []
+      const nextGoods = this.data.page == 1 ? result : this.data.goods.concat(result)
       if (this.data.page == 1) {
         this.setData({
-          goods: res.data.result,
+          goods: nextGoods,
         })
       } else {
         this.setData({
-          goods: this.data.goods.concat(res.data.result),
+          goods: nextGoods,
         })
       }
+      this.setData({
+        hasMore: result.length >= 20,
+        resultCountText: nextGoods.length ? `找到 ${nextGoods.length} 条相关商品` : ''
+      })
     } else {
       if (this.data.page == 1) {
         this.setData({
-          goods: null,
+          goods: [],
+          hasMore: false,
+          resultCountText: ''
         })
       } else {
+        this.setData({
+          hasMore: false
+        })
         wx.showToast({
           title: '没有更多了',
           icon: 'none'
@@ -84,6 +103,9 @@ Page({
     }
   },
   onReachBottom() {
+    if (this.data.loading || !this.data.hasMore) {
+      return
+    }
     this.setData({
       page: this.data.page + 1
     });
@@ -111,6 +133,21 @@ Page({
       name: e.detail.value
     })
     this.search()
+  },
+  onSearchTap() {
+    this.setData({
+      page: 1
+    })
+    this.search()
+  },
+  onCancel() {
+    wx.navigateBack({
+      fail: () => {
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }
+    })
   },
   filter(e){
     this.setData({

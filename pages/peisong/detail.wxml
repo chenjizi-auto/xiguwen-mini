@@ -12,7 +12,7 @@
       </view>
       <view class="address-sec" bindtap="goMap">
         <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-address.png"></image>
+          <image class="icon" src="/images/order-details/icon-address.webp"></image>
         </view>
         <view class="right-box">
           <view class="text">

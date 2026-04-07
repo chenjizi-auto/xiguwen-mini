@@ -1,0 +1,24 @@
+<view class="page">
+  <view class="card hero">
+    <view class="hero-kicker">账户服务</view>
+    <view class="hero-title">充值</view>
+    <view class="hero-sub">使用微信支付为婚庆账户充值，支付成功后余额会自动刷新。</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">快捷金额</view>
+    <view class="preset-grid">
+      <view class="preset-item {{selectedPreset === item ? 'preset-item--active' : ''}}" wx:for="{{presetAmounts}}" wx:key="*this" data-amount="{{item}}" bindtap="onPresetTap">¥ {{item}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">充值信息</view>
+    <input class="input" value="{{amount}}" type="digit" placeholder="请输入充值金额" bindinput="onAmountInput" />
+    <textarea class="textarea" value="{{remark}}" maxlength="50" placeholder="请输入充值备注" bindinput="onRemarkInput" />
+  </view>
+
+  <view class="submit-wrap">
+    <view class="submit-btn" bindtap="onSubmit">{{paying ? '支付中...' : '微信支付充值'}}</view>
+  </view>
+</view>

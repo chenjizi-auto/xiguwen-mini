@@ -1,0 +1,5 @@
+@import "/pages/my/case/form/index.wxss";
+
+.picker-field--mt {
+  margin-top: 16rpx;
+}

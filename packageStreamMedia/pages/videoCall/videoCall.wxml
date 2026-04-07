@@ -1,7 +1,7 @@
 <view class="container">
   <TRTCCalling wx:if="{{ config }}" id="TRTCCalling-component" class="trtc-calling {{callingFlag ? '' : 'hidden'}}" config="{{config}}" pusherAvatar="{{pusherAvatar}}" remoteAvatar="{{inviter.avatar}}"></TRTCCalling>
   <view wx:if="{{incomingCallFlag}}" class="incoming-call">
-    <image src="/images/trtc/avatar1_100.png" />
+    <image src="/images/trtc/avatar1_100.webp" />
     <view class="tips">{{invitation.inviter}}</view>
     <view class="tips" >{{'邀请你' + (invitation.type === 1 ? '语音' : '视频') + '通话'}}</view>
     <view class="btn-operate">
@@ -14,7 +14,7 @@
     </view>
   </view>
   <view wx:if="{{inviteCallFlag}}" class="invite-call">
-    <image src="/images/trtc/avatar1_100.png" />
+    <image src="/images/trtc/avatar1_100.webp" />
     <view class="tips" >{{'等待' + uid + '接受邀请'}}</view>
     <view class="btn-operate">
       <view class="call-operate" style="background-color: red" bindtap="handleOnCancel">

@@ -1,0 +1,19 @@
+<view class="team-page">
+  <view class="action-card">
+    <view class="action-item" bindtap="onCreateTap">
+      <view class="action-copy">
+        <view class="action-title">创建社团</view>
+        <view class="action-desc">发起自己的社团并邀请成员加入</view>
+      </view>
+      <view class="action-arrow"></view>
+    </view>
+    <view class="action-divider"></view>
+    <view class="action-item" bindtap="onJoinTap">
+      <view class="action-copy">
+        <view class="action-title">加入社团</view>
+        <view class="action-desc">浏览可加入的社团列表并提交申请</view>
+      </view>
+      <view class="action-arrow"></view>
+    </view>
+  </view>
+</view>

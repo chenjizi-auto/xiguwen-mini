@@ -1,7 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
-const network = require('../../api/network.js')
+const network = require('../../api/network-main.js')
 const xgwAuth = require('../../utils/xgw-auth.js')
 const APP = getApp()
 
@@ -121,9 +121,9 @@ function buildShopManageByUserType(userType) {
 
 Page({
   data: {
-    load_img: '/images/load_img.png',
-    load_img_erro: '/images/load_img_erro.png',
-    defaultAvatar: '/images/default.png',
+    load_img: '/images/load_img.webp',
+    load_img_erro: '/images/load_img_erro.webp',
+    defaultAvatar: '/images/default.webp',
     navHeight: 0,
     navTop: 0,
     navBarHeight: 44,
@@ -260,7 +260,7 @@ Page({
     if (!this.ensureXgwLogin()) {
       return
     }
-    wx.navigateTo({ url: '/pages/my/info-menu' })
+    wx.navigateTo({ url: '/pages/my/setting' })
   },
 
   onStatTap(e) {
@@ -397,11 +397,18 @@ Page({
     this.setData({ mallOrderItems })
   },
 
-  onWeddingOrderTap() {
+  openWeddingOrderPage(intentType, index) {
+    wx.navigateTo({
+      url: `/pages/wedding-order/index?intentType=${intentType}&index=${index}`
+    })
+  },
+
+  onWeddingOrderTap(e) {
     if (!this.ensureXgwLogin()) {
       return
     }
-    wx.showToast({ title: '婚庆订单开发中', icon: 'none' })
+    const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, 0) : 0
+    this.openWeddingOrderPage(0, id)
   },
 
   onMallOrderTap(e) {
@@ -420,11 +427,12 @@ Page({
     wx.navigateTo({ url: `/pages/order-list/index?type=${type}` })
   },
 
-  onWeddingJiedanTap() {
+  onWeddingJiedanTap(e) {
     if (!this.ensureXgwLogin()) {
       return
     }
-    wx.showToast({ title: '婚庆接单开发中', icon: 'none' })
+    const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, 0) : 0
+    this.openWeddingOrderPage(2, id)
   },
 
   onMallJiedanTap() {
@@ -443,6 +451,26 @@ Page({
       wx.navigateTo({ url: '/pages/idCheck/index' })
       return
     }
+    if (id === 1) {
+      wx.navigateTo({ url: '/packageWedding/pages/my/needs/index' })
+      return
+    }
+    if (id === 2) {
+      wx.navigateTo({ url: '/pages/my/team/index' })
+      return
+    }
+    if (id === 3) {
+      wx.navigateTo({ url: '/pages/my/invites/index' })
+      return
+    }
+    if (id === 6) {
+      wx.navigateTo({ url: '/pages/my/news/index' })
+      return
+    }
+    if (id === 8) {
+      wx.navigateTo({ url: '/pages/my/activity-vote/index' })
+      return
+    }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
@@ -451,33 +479,128 @@ Page({
       return
     }
     const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, -1) : -1
+    if (id === 0) {
+      wx.navigateTo({ url: '/pages/my/shop-info/index' })
+      return
+    }
+    if (id === 1) {
+      wx.navigateTo({ url: '/pages/my/shop-auth/index' })
+      return
+    }
+    if (id === 2) {
+      wx.navigateTo({ url: '/pages/my/schedule/index' })
+      return
+    }
+    if (id === 3) {
+      wx.navigateTo({ url: '/pages/my/quote/index' })
+      return
+    }
+    if (id === 4) {
+      wx.navigateTo({ url: '/pages/my/commodity/index' })
+      return
+    }
     if (id === 5) {
       wx.navigateTo({ url: '/pages/my/mine-atlas/index' })
+      return
+    }
+    if (id === 6) {
+      wx.navigateTo({ url: '/pages/my/video/index' })
+      return
+    }
+    if (id === 7) {
+      wx.navigateTo({ url: '/pages/my/case/index' })
+      return
+    }
+    if (id === 8) {
+      wx.navigateTo({ url: '/pages/my/service-city/index' })
+      return
+    }
+    if (id === 9) {
+      wx.navigateTo({ url: '/pages/my/recommend-team/index' })
+      return
+    }
+    if (id === 10) {
+      wx.navigateTo({ url: '/packageWedding/pages/need/index' })
+      return
+    }
+    if (id === 12) {
+      wx.navigateTo({ url: '/pages/my/shop-home/index' })
       return
     }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
-  onUserToolTap() {
+  onUserToolTap(e) {
     if (!this.ensureXgwLogin()) {
+      return
+    }
+    const id = e && e.currentTarget ? asNumber(e.currentTarget.dataset.id, -1) : -1
+    if (id === 0) {
+      wx.navigateTo({ url: '/packageWedding/pages/my/needs/form' })
+      return
+    }
+    if (id === 1) {
+      wx.navigateTo({ url: '/pages/good-day/index' })
+      return
+    }
+    if (id === 2) {
+      wx.navigateTo({ url: '/pages/invitation/index' })
+      return
+    }
+    if (id === 3) {
+      wx.navigateTo({ url: '/packageWedding/pages/schedule/index' })
+      return
+    }
+    if (id === 4) {
+      wx.navigateTo({ url: '/pages/speech/index' })
+      return
+    }
+    if (id === 5) {
+      wx.navigateTo({ url: '/pages/wedding-flow/index' })
+      return
+    }
+    if (id === 6) {
+      wx.navigateTo({ url: '/pages/bill-helper/index' })
+      return
+    }
+    if (id === 7) {
+      wx.navigateTo({ url: '/pages/marriage-registry/index' })
       return
     }
     wx.showToast({ title: '功能开发中', icon: 'none' })
   },
 
   onActionTap(e) {
-    if (!this.ensureXgwLogin()) {
-      return
-    }
     const action = e && e.currentTarget ? safeStr(e.currentTarget.dataset.action) : ''
     if (!action) return
 
-    if (action === 'charge') {
-      wx.showToast({ title: '充值功能开发中', icon: 'none' })
+    if (action === 'about') {
+      wx.navigateTo({ url: '/pages/about/index?key=aboutus' })
       return
     }
-    if (action === 'about') {
-      wx.navigateTo({ url: '/pages/about/index' })
+
+    if (!this.ensureXgwLogin()) {
+      return
+    }
+
+    if (action === 'charge') {
+      wx.navigateTo({ url: '/pages/my/charge/index' })
+      return
+    }
+    if (action === 'mallVip') {
+      wx.navigateTo({ url: '/pages/my/vip/index?type=shop' })
+      return
+    }
+    if (action === 'userVip') {
+      wx.navigateTo({ url: '/pages/my/vip/index?type=user' })
+      return
+    }
+    if (action === 'inviteShop') {
+      wx.navigateTo({ url: '/pages/my/invite-shop/index' })
+      return
+    }
+    if (action === 'postShop') {
+      wx.navigateTo({ url: '/pages/my/apply-shop/index' })
       return
     }
     wx.showToast({ title: '功能开发中', icon: 'none' })

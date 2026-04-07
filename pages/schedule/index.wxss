@@ -1,0 +1,138 @@
+.schedule-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top left, rgba(217, 85, 75, 0.12), transparent 32%),
+    linear-gradient(180deg, #fff8f6 0%, #f6f7fb 320rpx, #f6f7fb 100%);
+}
+
+.hero-card,
+.toolbar-card,
+.section-card {
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(18, 31, 53, 0.06);
+}
+
+.hero-kicker {
+  color: #c75c4b;
+  font-size: 22rpx;
+  letter-spacing: 6rpx;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #2e2221;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-desc {
+  margin-top: 14rpx;
+  color: #8f7a76;
+  font-size: 24rpx;
+  line-height: 1.8;
+}
+
+.toolbar-card,
+.section-card {
+  margin-top: 20rpx;
+}
+
+.toolbar-card,
+.section-head,
+.task-item,
+.task-actions {
+  display: flex;
+}
+
+.toolbar-card,
+.section-head,
+.task-item {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-date,
+.section-title {
+  color: #2e2221;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.toolbar-week,
+.section-count,
+.task-time,
+.loading-text,
+.state-error {
+  color: #8f7a76;
+  font-size: 24rpx;
+}
+
+.toolbar-week {
+  margin-top: 8rpx;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16rpx;
+}
+
+.toolbar-picker {
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  background: #fff0ee;
+  color: #c75c4b;
+  font-size: 24rpx;
+}
+
+.task-item + .task-item {
+  border-top: 1rpx solid #f0f2f5;
+}
+
+.task-item {
+  gap: 16rpx;
+  padding: 24rpx 0;
+}
+
+.task-item--finished .task-title {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.task-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-title {
+  color: #2f3135;
+  font-size: 28rpx;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.task-time {
+  margin-top: 12rpx;
+}
+
+.task-actions {
+  flex-direction: column;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.task-btn {
+  min-width: 132rpx !important;
+}
+
+.loading-text,
+.state-error {
+  margin-top: 32rpx;
+  text-align: center;
+}

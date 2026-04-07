@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="hero">
+    <view>
+      <view class="hero-kicker">发布档期</view>
+      <view class="hero-title">我的档期</view>
+    </view>
+    <view class="hero-add" bindtap="goAdd">添加档期</view>
+  </view>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:for="{{sections}}" wx:key="month">
+      <view class="month-card">
+        <view class="month-head">
+          <view class="month-title">{{item.month}}</view>
+          <view class="month-count">{{item.count}}单</view>
+        </view>
+        <view
+          class="schedule-item"
+          wx:for="{{item.list}}"
+          wx:key="id"
+          data-section-index="{{index}}"
+          data-item-index="{{index1}}"
+          bindtap="onCardTap"
+        >
+          <view class="schedule-main">
+            <view class="schedule-date">{{item.date}}</view>
+            <view class="schedule-time">{{item.timeslot}}</view>
+          </view>
+          <view class="schedule-meta">
+            <view class="schedule-name">{{item.contacts || '未填写联系人'}}</view>
+            <view class="schedule-remark van-ellipsis">{{item.remarks || '暂无备注'}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !sections.length && !errorText}}" image="/images/empty/nodata.webp" description="暂无档期" />
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+  </view>
+</view>

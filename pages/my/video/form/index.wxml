@@ -1,0 +1,71 @@
+<scroll-view scroll-y class="atlas-edit-page">
+  <view class="atlas-edit-card">
+    <view class="atlas-edit-title">{{pageTitle}}</view>
+    <view class="atlas-edit-sub">支持视频外链，也支持选择本地视频上传</view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">视频名称</view>
+      <input class="atlas-edit-input" value="{{title}}" maxlength="30" placeholder="请输入视频名称" bindinput="onTitleInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-label">排序</view>
+      <input class="atlas-edit-input" value="{{weight}}" type="digit" maxlength="6" placeholder="请输入排序值" bindinput="onWeightInput" />
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">视频类型</view>
+        <view class="atlas-edit-tip">{{mode === 'link' ? '外链' : '上传视频'}}</view>
+      </view>
+      <view class="mode-tabs">
+        <view class="mode-tab {{mode === 'link' ? 'mode-tab--active' : ''}}" bindtap="onModeChange" data-mode="link">外链</view>
+        <view class="mode-tab {{mode === 'video' ? 'mode-tab--active' : ''}}" bindtap="onModeChange" data-mode="video">上传视频</view>
+      </view>
+    </view>
+
+    <view wx:if="{{mode === 'link'}}" class="atlas-edit-section">
+      <view class="atlas-edit-label">视频链接</view>
+      <input class="atlas-edit-input" value="{{videoUrl}}" placeholder="请输入 http/https 视频链接" bindinput="onVideoUrlInput" />
+    </view>
+
+    <view wx:else class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">视频文件</view>
+        <view class="atlas-edit-tip">建议 60 秒内</view>
+      </view>
+      <view wx:if="{{localVideoPath}}" class="video-file-card">
+        <view class="video-file-name">{{localVideoName || '已选择视频'}}</view>
+        <view class="video-file-action" bindtap="removeVideo">删除</view>
+      </view>
+      <view wx:else class="atlas-edit-picker" bindtap="chooseVideo">
+        <text class="atlas-edit-picker-plus">+</text>
+        <text class="atlas-edit-picker-text">选择视频</text>
+      </view>
+    </view>
+
+    <view class="atlas-edit-section">
+      <view class="atlas-edit-row">
+        <view class="atlas-edit-label">视频封面</view>
+        <view class="atlas-edit-tip">{{mode === 'video' ? '必填' : '可选'}}</view>
+      </view>
+
+      <block wx:if="{{cover}}">
+        <view class="atlas-edit-cover-wrap">
+          <image class="atlas-edit-cover" src="{{cover || defaultCover}}" mode="aspectFill" bindtap="previewCover" />
+          <view class="atlas-edit-remove" bindtap="removeCover">删除</view>
+        </view>
+      </block>
+      <view wx:else class="atlas-edit-picker" bindtap="chooseCover">
+        <text class="atlas-edit-picker-plus">+</text>
+        <text class="atlas-edit-picker-text">选择封面</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="atlas-edit-safe"></view>
+
+  <view class="atlas-edit-actions">
+    <view class="atlas-edit-submit" bindtap="onSave">{{saving ? '保存中...' : '保存视频'}}</view>
+  </view>
+</scroll-view>

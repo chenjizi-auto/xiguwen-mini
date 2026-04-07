@@ -1,0 +1,73 @@
+<view class="registry-page">
+  <view class="hero-card">
+    <view class="hero-kicker">Registry</view>
+    <view class="hero-title">婚姻登记处</view>
+    <view class="hero-desc">查询所在城市可办理结婚登记的民政局婚姻登记处。</view>
+  </view>
+
+  <view class="search-card">
+    <view class="current-city" wx:if="{{selectedCityName}}">
+      <text class="current-city__label">当前城市</text>
+      <text class="current-city__value">{{selectedCityName}}</text>
+    </view>
+    <view class="field-group">
+      <view class="field-label">省份</view>
+      <input
+        class="field-input"
+        placeholder="例如：四川省"
+        value="{{province}}"
+        bindinput="onProvinceInput"
+      />
+    </view>
+    <view class="field-group">
+      <view class="field-label">城市</view>
+      <input
+        class="field-input"
+        placeholder="例如：成都市"
+        value="{{city}}"
+        bindinput="onCityInput"
+      />
+    </view>
+    <view class="search-actions">
+      <van-button plain type="primary" size="small" bind:click="onChooseCityTap">省市联动选择</van-button>
+      <van-button plain type="default" size="small" bind:click="onClearTap">清空结果</van-button>
+      <van-button type="primary" size="small" bind:click="onSearchTap" loading="{{loading}}">查询</van-button>
+    </view>
+  </view>
+
+  <view class="state-error" wx:if="{{loadError}}">{{loadError}}</view>
+
+  <block wx:if="{{list.length}}">
+    <view class="registry-card" wx:for="{{list}}" wx:key="id">
+      <view class="registry-title">{{item.title}}</view>
+      <view class="registry-row">
+        <text class="registry-label">地址</text>
+        <text class="registry-value">{{item.address}}</text>
+      </view>
+      <view class="registry-row">
+        <text class="registry-label">电话</text>
+        <text class="registry-value">{{item.phone || '暂无联系电话'}}</text>
+      </view>
+      <view class="registry-actions">
+        <van-button plain type="primary" size="small" bind:click="onCopyAddressTap" data-title="{{item.title}}" data-address="{{item.address}}">复制地址</van-button>
+        <van-button plain type="warning" size="small" bind:click="onNavigateTap" data-title="{{item.title}}" data-address="{{item.address}}" data-phone="{{item.phone}}">导航/定位</van-button>
+        <van-button type="primary" size="small" bind:click="onCallTap" data-phone="{{item.phone}}">电话咨询</van-button>
+      </view>
+    </view>
+  </block>
+
+  <van-empty wx:if="{{!loading && !loadError && list.length === 0}}" image="search" description="暂无登记处数据，换个城市试试" />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+
+  <van-popup show="{{regionPickerShow}}" position="bottom" round bind:close="onRegionPickerClose">
+    <view class="picker-wrap">
+      <view class="picker-title">选择省市</view>
+      <van-picker
+        columns="{{regionColumns}}"
+        bind:change="onRegionPickerChange"
+        bind:confirm="onRegionPickerConfirm"
+        bind:cancel="onRegionPickerClose"
+      />
+    </view>
+  </van-popup>
+</view>

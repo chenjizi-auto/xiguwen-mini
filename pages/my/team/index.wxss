@@ -1,0 +1,55 @@
+.team-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top right, rgba(230, 67, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, #fff7f6 0%, #f7f8fa 220rpx, #f7f8fa 100%);
+}
+
+.action-card {
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(19, 27, 42, 0.05);
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.action-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.action-desc {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #7b7f87;
+}
+
+.action-divider {
+  height: 1rpx;
+  margin: 24rpx 0;
+  background: #f3f4f6;
+}
+
+.action-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #c7c7c7;
+  border-right: 4rpx solid #c7c7c7;
+  transform: rotate(45deg);
+}

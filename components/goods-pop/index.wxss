@@ -15,7 +15,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-.sku-container .sku .items text {
+.sku-item-text {
   padding: 8rpx 16rpx;
   border: 1rpx solid #eee;
   color: #666;
@@ -23,7 +23,7 @@
   font-size: 26rpx;
   border-radius: 8rpx;
 }
-.sku-container .sku .items text.active {
+.sku-item-text--active {
   border: 1rpx solid #e64340;
   color: #e64340;
 }

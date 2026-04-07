@@ -1,0 +1,10 @@
+<web-view wx:if="{{url}}" src="{{url}}"></web-view>
+<view class="page" wx:else>
+  <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+  <van-empty
+    wx:if="{{!loading}}"
+    image="/images/empty/nodata.webp"
+    description="暂时无法打开活动投票"
+  />
+  <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+</view>

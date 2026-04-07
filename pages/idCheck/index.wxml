@@ -1,18 +1,14 @@
-<van-field
-  label="姓名"
-  size="large"
-  model:value="{{ name }}"
-  placeholder="请输入姓名"
-  required
-/>
-<van-field
-  label="身份证号码"
-  type="idcard"
-  size="large"
-  model:value="{{ idcard }}"
-  placeholder="请输入身份证号码"
-  required
-/>
-<view class="btn">
-  <van-button type="primary" block loading="{{loading}}" bind:click="submit">立即认证</van-button>
+<view class="id-check-page">
+  <view class="id-check-tip">请选择认证类型</view>
+
+  <block wx:for="{{typeList}}" wx:key="key">
+    <view class="type-card" data-key="{{item.key}}" bindtap="onChooseType">
+      <image class="type-card__icon" src="{{item.icon}}" mode="aspectFit"></image>
+      <view class="type-card__content">
+        <view class="type-card__title">{{item.title}}</view>
+        <view class="type-card__desc">{{item.desc}}</view>
+      </view>
+      <view class="type-card__arrow"></view>
+    </view>
+  </block>
 </view>

@@ -1,0 +1,67 @@
+<view class="page">
+  <van-sticky>
+    <view class="filter-bar">
+      <view class="filter-chip {{tabIndex === 0 ? 'filter-chip--active' : ''}}" bindtap="onCityTap">
+        <text class="filter-chip__text">{{tabIndex === 1 ? '全国' : (cityName || '选择城市')}}</text>
+        <text class="filter-chip__arrow">▾</text>
+      </view>
+      <view
+        class="filter-chip {{sortKey === item.key ? 'filter-chip--active' : ''}}"
+        wx:for="{{sortOptions}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onSortTap"
+      >
+        <text class="filter-chip__text">{{item.label}}</text>
+        <text class="filter-chip__sort" wx:if="{{sortKey === item.key}}">{{sortOrder === 'desc' ? '↓' : '↑'}}</text>
+      </view>
+    </view>
+  </van-sticky>
+
+  <view class="content">
+    <view class="state-error" wx:if="{{errorText}}">{{errorText}}</view>
+
+    <block wx:if="{{list.length}}">
+      <view class="need-card" wx:for="{{list}}" wx:key="id" bindtap="onItemTap" data-id="{{item.id}}">
+        <view class="need-card__hd">
+          <view class="need-title van-multi-ellipsis--l2">{{item.title}}</view>
+          <view class="need-status {{item.isActive ? 'need-status--active' : 'need-status--end'}}">
+            {{item.isActive ? '进行中' : '已结束'}}
+          </view>
+        </view>
+
+        <view class="need-price">{{item.priceText}}</view>
+        <view class="need-address">{{item.address}}</view>
+
+        <view class="need-meta">
+          <view class="need-meta__item">发布时间：{{item.createTime}}</view>
+          <view class="need-meta__item">{{item.browseText}}</view>
+          <view class="need-meta__item">{{item.joinText}}</view>
+        </view>
+
+      </view>
+    </block>
+
+    <van-empty wx:if="{{!loading && !list.length && !errorText}}" image="search" description="暂无需求" />
+
+    <view class="loading-text" wx:if="{{loading}}">加载中...</view>
+    <view class="loading-text" wx:if="{{!loading && finished && list.length}}">没有更多了</view>
+  </view>
+
+  <van-popup show="{{regionPickerShow}}" position="bottom" round bind:close="onRegionPickerClose">
+    <view class="region-sheet">
+      <view class="region-sheet__nationwide" bindtap="onNationwideTap">全国</view>
+      <van-picker
+        id="need-region-picker"
+        show-toolbar
+        title="选择地区"
+        cancel-button-text="取消"
+        confirm-button-text="确认"
+        columns="{{regionColumns}}"
+        bind:change="onRegionPickerChange"
+        bind:confirm="onRegionPickerConfirm"
+        bind:cancel="onRegionPickerClose"
+      />
+    </view>
+  </van-popup>
+</view>

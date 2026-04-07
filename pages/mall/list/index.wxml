@@ -1,0 +1,117 @@
+<view class="mall-page">
+  <view class="mall-header">
+    <view class="mall-search-row">
+      <view class="mall-city" bindtap="onCityTap">{{cityName}}</view>
+      <view class="mall-search-box">
+        <input
+          class="mall-search-input"
+          value="{{keyword}}"
+          placeholder="搜索商家、服务"
+          confirm-type="search"
+          bindinput="onKeywordInput"
+          bindconfirm="onSearchConfirm"
+        />
+      </view>
+      <view class="mall-search-btn" bindtap="onSearchTap">搜索</view>
+    </view>
+
+    <view class="mall-filter-row">
+      <view class="mall-filter-item {{categoryDropdownShow ? 'mall-filter-item--active' : ''}}" bindtap="openPopup" data-mode="category">
+        <text class="mall-filter-text">{{categoryName}}</text>
+        <text class="mall-filter-arrow">{{categoryDropdownShow ? '▲' : '▼'}}</text>
+      </view>
+      <view class="mall-filter-item" bindtap="openPopup" data-mode="sort">
+        <text class="mall-filter-text">{{currentSortKey === 'comprehensive' ? '综合排序' : '默认排序'}}</text>
+      </view>
+      <view class="mall-filter-item" bindtap="openPopup" data-mode="area">
+        <text class="mall-filter-text">{{cityName}}</text>
+      </view>
+      <view class="mall-filter-item" bindtap="openPopup" data-mode="filter">
+        <text class="mall-filter-text">筛选</text>
+      </view>
+    </view>
+
+    <view class="category-dropdown" wx:if="{{categoryDropdownShow}}">
+      <view
+        class="category-dropdown-item {{(item.occupationid || '') === (categoryId || '') ? 'category-dropdown-item--active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="occupationid"
+        data-id="{{item.occupationid}}"
+        data-name="{{item.proname}}"
+        bindtap="onSelectCategory"
+      >
+        <text class="category-dropdown-name">{{item.proname}}</text>
+        <text wx:if="{{(item.occupationid || '') === (categoryId || '')}}" class="category-dropdown-check">✓</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="dropdown-mask" wx:if="{{categoryDropdownShow}}" bindtap="closePopup"></view>
+
+  <view class="merchant-list" wx:if="{{list.length}}">
+    <view class="merchant-card" wx:for="{{list}}" wx:key="id" data-userid="{{item.id}}" bindtap="onMerchantTap">
+      <image class="merchant-avatar" src="{{item.head}}" mode="aspectFill" />
+      <view class="merchant-main">
+        <view class="merchant-top">
+          <view class="merchant-name">{{item.nickname}}</view>
+          <view class="merchant-price">{{item.price}}</view>
+        </view>
+        <view class="merchant-role">{{item.occupation}}</view>
+        <view class="merchant-tags">
+          <view class="merchant-tag" wx:if="{{item.isVip}}">VIP</view>
+          <view class="merchant-tag" wx:if="{{item.realname}}">实名</view>
+          <view class="merchant-tag" wx:if="{{item.platform}}">平台认证</view>
+          <view class="merchant-tag" wx:if="{{item.sincerity}}">诚信</view>
+        </view>
+        <view class="merchant-stats">好评率 {{item.goodRate}} · 评论 {{item.commentCount}} · 粉丝 {{item.fans}}</view>
+      </view>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{loaded && !list.length && !loading}}" image="search" description="暂无商家" />
+  <view class="list-footer" wx:if="{{loading && !list.length}}">加载中...</view>
+  <view class="list-footer" wx:if="{{footerLoading}}">加载更多中...</view>
+  <view class="list-footer" wx:if="{{footerNoMore}}">没有更多了</view>
+
+  <van-popup show="{{popupShow}}" position="bottom" round bind:close="closePopup" bind:closed="onPopupClosed">
+    <view class="popup-panel">
+      <view class="popup-title">
+        <text>{{popupMode === 'sort' ? '排序' : '筛选'}}</text>
+      </view>
+
+      <van-cell-group wx:if="{{popupMode === 'sort'}}">
+        <van-cell
+          wx:for="{{sortOptions}}"
+          wx:key="key"
+          title="{{item.label}}"
+          clickable
+          bind:click="onSelectSort"
+          data-key="{{item.key}}"
+        />
+      </van-cell-group>
+
+      <view wx:else class="filter-panel">
+        <view class="filter-title">价格区间</view>
+        <view class="filter-price-row">
+          <input class="filter-input" type="number" placeholder="最低价" value="{{filterForm.minPrice}}" data-key="minPrice" bindinput="onFilterInput" />
+          <text class="filter-sep">-</text>
+          <input class="filter-input" type="number" placeholder="最高价" value="{{filterForm.maxPrice}}" data-key="maxPrice" bindinput="onFilterInput" />
+        </view>
+
+        <view class="filter-title">资质筛选</view>
+        <view class="filter-chip-row">
+          <view class="filter-chip {{filterForm.college ? 'filter-chip--active' : ''}}" data-key="college" bindtap="onFilterToggle">学院认证</view>
+          <view class="filter-chip {{filterForm.isVip ? 'filter-chip--active' : ''}}" data-key="isVip" bindtap="onFilterToggle">VIP</view>
+          <view class="filter-chip {{filterForm.platform ? 'filter-chip--active' : ''}}" data-key="platform" bindtap="onFilterToggle">平台认证</view>
+          <view class="filter-chip {{filterForm.sincerity ? 'filter-chip--active' : ''}}" data-key="sincerity" bindtap="onFilterToggle">诚信</view>
+          <view class="filter-chip {{filterForm.team ? 'filter-chip--active' : ''}}" data-key="team" bindtap="onFilterToggle">团队</view>
+        </view>
+
+        <view class="filter-actions">
+          <view class="filter-btn filter-btn--ghost" bindtap="onFilterReset">重置</view>
+          <view class="filter-btn" bindtap="onFilterConfirm">确定</view>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+</view>

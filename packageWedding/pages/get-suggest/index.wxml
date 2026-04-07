@@ -1,0 +1,59 @@
+<view class="suggest-page">
+  <view class="suggest-banner">
+    <view class="suggest-banner__count">已有 <text class="suggest-banner__num">{{countText}}</text></view>
+    <view class="suggest-banner__desc">新人免费获得定制方案及报价</view>
+  </view>
+
+  <view class="suggest-card">
+    <picker mode="date" value="{{dateValue}}" start="{{minDate}}" bindchange="onDateChange" disabled="{{undetermined}}">
+      <view class="suggest-field">
+        <view class="suggest-field__value {{dateText ? '' : 'suggest-field__value--placeholder'}}">
+          {{dateText || '请选择婚礼时间'}}
+        </view>
+        <view class="suggest-field__arrow">></view>
+      </view>
+    </picker>
+
+    <view class="suggest-check" bindtap="onToggleUndetermined">
+      <view class="suggest-check__box {{undetermined ? 'suggest-check__box--active' : ''}}"></view>
+      <view class="suggest-check__label">尚未确定婚期</view>
+    </view>
+
+    <input class="suggest-input" type="digit" maxlength="10" value="{{price}}" placeholder="请输入婚礼预算" bindinput="onPriceInput" />
+
+    <view class="suggest-field" bindtap="openRegionPopup">
+      <view class="suggest-field__value {{regionText ? '' : 'suggest-field__value--placeholder'}}">
+        {{regionText || '请选择婚礼地区'}}
+      </view>
+      <view class="suggest-field__arrow">></view>
+    </view>
+
+    <input class="suggest-input" type="number" maxlength="11" value="{{mobile}}" placeholder="请输入联系电话" bindinput="onMobileInput" />
+
+    <textarea class="suggest-textarea" maxlength="300" value="{{remark}}" placeholder="还可以输入其他说明哦~" bindinput="onRemarkInput"></textarea>
+
+    <button class="suggest-submit" loading="{{submitting}}" bindtap="submit">提交</button>
+  </view>
+
+  <view class="region-popup {{regionPopupVisible ? 'region-popup--show' : ''}}" wx:if="{{regionPopupVisible}}">
+    <view class="region-popup__mask" bindtap="closeRegionPopup"></view>
+    <view class="region-popup__panel">
+      <view class="region-popup__toolbar">
+        <view class="region-popup__action" bindtap="closeRegionPopup">取消</view>
+        <view class="region-popup__title">选择地区</view>
+        <view class="region-popup__action region-popup__action--primary" bindtap="confirmRegion">确定</view>
+      </view>
+      <picker-view class="region-popup__picker" indicator-style="height: 88rpx;" value="{{pickerValue}}" bindchange="onRegionPickerChange">
+        <picker-view-column>
+          <view class="region-popup__item" wx:for="{{provinces}}" wx:key="id">{{item.name}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="region-popup__item" wx:for="{{cities}}" wx:key="id">{{item.name}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="region-popup__item" wx:for="{{counties}}" wx:key="id">{{item.name}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>

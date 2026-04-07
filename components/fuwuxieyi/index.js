@@ -70,8 +70,8 @@ Component({
     },
     //回主页
     toIndex: function () {
-      wx.navigateTo({
-        url: '/pages/admin/home/index/index'
+      wx.switchTab({
+        url: '/pages/index/index'
       })
     },
   }

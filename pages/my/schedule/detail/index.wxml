@@ -1,0 +1,26 @@
+<view class="page" wx:if="{{detail}}">
+  <view class="card">
+    <view class="detail-row">
+      <view class="detail-label">档期时间</view>
+      <view class="detail-value">{{detail.date}} {{detail.timeslot}}</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">联系人</view>
+      <view class="detail-value">{{detail.contacts || '--'}}</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">联系电话</view>
+      <view class="detail-value">{{detail.contactnumber || '--'}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">备注</view>
+    <view class="section-text">{{detail.remarks || '暂无备注'}}</view>
+  </view>
+
+  <view class="actions" wx:if="{{detail.xitong !== 1}}">
+    <view class="ghost-btn" bindtap="goEdit">编辑</view>
+    <view class="danger-btn" bindtap="onDelete">删除档期</view>
+  </view>
+</view>
